@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="HistoryCreateDlg" widgetVar="HistoryCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateHistoryTitle}">
+            <h:form id="HistoryCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{historyController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateHistoryLabel_id}" for="id" />
+                        <p:inputText id="id" value="#{historyController.selected.id}" title="#{bundle.CreateHistoryTitle_id}" required="true" requiredMessage="#{bundle.CreateHistoryRequiredMessage_id}"/>
+                        <p:outputLabel value="#{bundle.CreateHistoryLabel_phrase}" for="phrase" />
+                        <p:inputText id="phrase" value="#{historyController.selected.phrase}" title="#{bundle.CreateHistoryTitle_phrase}" />
+                        <p:outputLabel value="#{bundle.CreateHistoryLabel_resultscount}" for="resultscount" />
+                        <p:inputText id="resultscount" value="#{historyController.selected.resultscount}" title="#{bundle.CreateHistoryTitle_resultscount}" />
+                        <p:outputLabel value="#{bundle.CreateHistoryLabel_searchdate}" for="searchdate" />
+                        <p:calendar id="searchdate" pattern="MM/dd/yyyy HH:mm:ss" value="#{historyController.selected.searchdate}" title="#{bundle.EditHistoryTitle_searchdate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateHistoryLabel_person}" for="person" />
+                        <p:selectOneMenu id="person" value="#{historyController.selected.person}" >
+                            <f:selectItems value="#{personController.itemsAvailableSelectOne}"
+                                           var="personItem"
+                                           itemValue="#{personItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{historyController.create}" value="#{bundle.Save}" update="display,:HistoryListForm:datalist,:growl" oncomplete="handleSubmit(args,'HistoryCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="HistoryCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="NewsViewDlg" widgetVar="NewsViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewNewsTitle}">
+            <h:form id="NewsViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{newsController.selected != null}">
+                        <h:outputText value="#{bundle.ViewNewsLabel_id}"/>
+                        <h:outputText value="#{newsController.selected.id}" title="#{bundle.ViewNewsTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewNewsLabel_author}"/>
+                        <h:outputText value="#{newsController.selected.author}" title="#{bundle.ViewNewsTitle_author}"/>
+                        <h:outputText value="#{bundle.ViewNewsLabel_content}"/>
+                        <h:outputText value="#{newsController.selected.content}" title="#{bundle.ViewNewsTitle_content}"/>
+                        <h:outputText value="#{bundle.ViewNewsLabel_publishdate}"/>
+                        <h:outputText value="#{newsController.selected.publishdate}" title="#{bundle.ViewNewsTitle_publishdate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewNewsLabel_subject}"/>
+                        <h:outputText value="#{newsController.selected.subject}" title="#{bundle.ViewNewsTitle_subject}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="NewsViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,177 @@
+package jpa.entity;
+
+import java.io.Serializable;
+import java.util.List;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+/**
+ *
+ * @author Damian Terlecki
+ */
+@Entity
+@Table(name = "PERSON")
+@NamedQueries({
+    @NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p")})
+public class Person implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "LOGIN")
+    private String login;
+    @Column(name = "ACTIVATED")
+    private Short activated;
+    @Column(name = "BANNED")
+    private Short banned;
+    @Size(max = 255)
+    @Column(name = "FIRSTNAME")
+    private String firstname;
+    @Size(max = 255)
+    @Column(name = "LASTNAME")
+    private String lastname;
+    @Size(max = 255)
+    @Column(name = "PASSWORD")
+    private String password;
+    @Column(name = "PENALTY")
+    private Long penalty;
+    @Size(max = 255)
+    @Column(name = "PERMISSIONS")
+    private String permissions;
+    @OneToMany(mappedBy = "person")
+    private List<Reservation> reservationList;
+    @OneToMany(mappedBy = "person")
+    private List<Borrow> borrowList;
+    @OneToMany(mappedBy = "person")
+    private List<History> historyList;
+
+    public Person() {
+    }
+
+    public Person(String login) {
+        this.login = login;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public Short getActivated() {
+        return activated;
+    }
+
+    public void setActivated(Short activated) {
+        this.activated = activated;
+    }
+
+    public Short getBanned() {
+        return banned;
+    }
+
+    public void setBanned(Short banned) {
+        this.banned = banned;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Long getPenalty() {
+        return penalty;
+    }
+
+    public void setPenalty(Long penalty) {
+        this.penalty = penalty;
+    }
+
+    public String getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(String permissions) {
+        this.permissions = permissions;
+    }
+
+    public List<Reservation> getReservationList() {
+        return reservationList;
+    }
+
+    public void setReservationList(List<Reservation> reservationList) {
+        this.reservationList = reservationList;
+    }
+
+    public List<Borrow> getBorrowList() {
+        return borrowList;
+    }
+
+    public void setBorrowList(List<Borrow> borrowList) {
+        this.borrowList = borrowList;
+    }
+
+    public List<History> getHistoryList() {
+        return historyList;
+    }
+
+    public void setHistoryList(List<History> historyList) {
+        this.historyList = historyList;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (login != null ? login.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Person)) {
+            return false;
+        }
+        Person other = (Person) object;
+        if ((this.login == null && other.login != null) || (this.login != null && !this.login.equals(other.login))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "jpa.entity.Person[ login=" + login + " ]";
+    }
+
+}

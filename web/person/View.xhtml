@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PersonViewDlg" widgetVar="PersonViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPersonTitle}">
+            <h:form id="PersonViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{personController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPersonLabel_login}"/>
+                        <h:outputText value="#{personController.selected.login}" title="#{bundle.ViewPersonTitle_login}"/>
+                        <h:outputText value="#{bundle.ViewPersonLabel_activated}"/>
+                        <h:outputText value="#{personController.selected.activated}" title="#{bundle.ViewPersonTitle_activated}"/>
+                        <h:outputText value="#{bundle.ViewPersonLabel_banned}"/>
+                        <h:outputText value="#{personController.selected.banned}" title="#{bundle.ViewPersonTitle_banned}"/>
+                        <h:outputText value="#{bundle.ViewPersonLabel_firstname}"/>
+                        <h:outputText value="#{personController.selected.firstname}" title="#{bundle.ViewPersonTitle_firstname}"/>
+                        <h:outputText value="#{bundle.ViewPersonLabel_lastname}"/>
+                        <h:outputText value="#{personController.selected.lastname}" title="#{bundle.ViewPersonTitle_lastname}"/>
+                        <h:outputText value="#{bundle.ViewPersonLabel_password}"/>
+                        <h:outputText value="#{personController.selected.password}" title="#{bundle.ViewPersonTitle_password}"/>
+                        <h:outputText value="#{bundle.ViewPersonLabel_penalty}"/>
+                        <h:outputText value="#{personController.selected.penalty}" title="#{bundle.ViewPersonTitle_penalty}"/>
+                        <h:outputText value="#{bundle.ViewPersonLabel_permissions}"/>
+                        <h:outputText value="#{personController.selected.permissions}" title="#{bundle.ViewPersonTitle_permissions}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PersonViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

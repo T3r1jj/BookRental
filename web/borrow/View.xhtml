@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="BorrowViewDlg" widgetVar="BorrowViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewBorrowTitle}">
+            <h:form id="BorrowViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{borrowController.selected != null}">
+                        <h:outputText value="#{bundle.ViewBorrowLabel_id}"/>
+                        <h:outputText value="#{borrowController.selected.id}" title="#{bundle.ViewBorrowTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewBorrowLabel_borrowdate}"/>
+                        <h:outputText value="#{borrowController.selected.borrowdate}" title="#{bundle.ViewBorrowTitle_borrowdate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewBorrowLabel_returndate}"/>
+                        <h:outputText value="#{borrowController.selected.returndate}" title="#{bundle.ViewBorrowTitle_returndate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewBorrowLabel_returneddate}"/>
+                        <h:outputText value="#{borrowController.selected.returneddate}" title="#{bundle.ViewBorrowTitle_returneddate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewBorrowLabel_book}"/>
+                        <h:outputText value="#{borrowController.selected.book}" title="#{bundle.ViewBorrowTitle_book}"/>
+                        <h:outputText value="#{bundle.ViewBorrowLabel_person}"/>
+                        <h:outputText value="#{borrowController.selected.person}" title="#{bundle.ViewBorrowTitle_person}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="BorrowViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

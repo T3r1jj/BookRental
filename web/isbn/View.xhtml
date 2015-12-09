@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="IsbnViewDlg" widgetVar="IsbnViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewIsbnTitle}">
+            <h:form id="IsbnViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{isbnController.selected != null}">
+                        <h:outputText value="#{bundle.ViewIsbnLabel_isbn}"/>
+                        <h:outputText value="#{isbnController.selected.isbn}" title="#{bundle.ViewIsbnTitle_isbn}"/>
+                        <h:outputText value="#{bundle.ViewIsbnLabel_adddate}"/>
+                        <h:outputText value="#{isbnController.selected.adddate}" title="#{bundle.ViewIsbnTitle_adddate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewIsbnLabel_author}"/>
+                        <h:outputText value="#{isbnController.selected.author}" title="#{bundle.ViewIsbnTitle_author}"/>
+                        <h:outputText value="#{bundle.ViewIsbnLabel_description}"/>
+                        <h:outputText value="#{isbnController.selected.description}" title="#{bundle.ViewIsbnTitle_description}"/>
+                        <h:outputText value="#{bundle.ViewIsbnLabel_publishinghouse}"/>
+                        <h:outputText value="#{isbnController.selected.publishinghouse}" title="#{bundle.ViewIsbnTitle_publishinghouse}"/>
+                        <h:outputText value="#{bundle.ViewIsbnLabel_release}"/>
+                        <h:outputText value="#{isbnController.selected.release}" title="#{bundle.ViewIsbnTitle_release}"/>
+                        <h:outputText value="#{bundle.ViewIsbnLabel_title}"/>
+                        <h:outputText value="#{isbnController.selected.title}" title="#{bundle.ViewIsbnTitle_title}"/>
+                        <h:outputText value="#{bundle.ViewIsbnLabel_category}"/>
+                        <h:outputText value="#{isbnController.selected.category}" title="#{bundle.ViewIsbnTitle_category}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="IsbnViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
