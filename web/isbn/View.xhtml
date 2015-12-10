@@ -14,16 +14,16 @@
                     <p:panelGrid columns="2" rendered="#{isbnController.selected != null}">
                         <h:outputText value="#{bundle.ViewIsbnLabel_isbn}"/>
                         <h:outputText value="#{isbnController.selected.isbn}" title="#{bundle.ViewIsbnTitle_isbn}"/>
-                        <h:outputText value="#{bundle.ViewIsbnLabel_adddate}"/>
-                        <h:outputText value="#{isbnController.selected.adddate}" title="#{bundle.ViewIsbnTitle_adddate}">
+                        <h:outputText value="#{bundle.ViewIsbnLabel_addDate}"/>
+                        <h:outputText value="#{isbnController.selected.addDate}" title="#{bundle.ViewIsbnTitle_addDate}">
                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewIsbnLabel_author}"/>
                         <h:outputText value="#{isbnController.selected.author}" title="#{bundle.ViewIsbnTitle_author}"/>
                         <h:outputText value="#{bundle.ViewIsbnLabel_description}"/>
                         <h:outputText value="#{isbnController.selected.description}" title="#{bundle.ViewIsbnTitle_description}"/>
-                        <h:outputText value="#{bundle.ViewIsbnLabel_publishinghouse}"/>
-                        <h:outputText value="#{isbnController.selected.publishinghouse}" title="#{bundle.ViewIsbnTitle_publishinghouse}"/>
+                        <h:outputText value="#{bundle.ViewIsbnLabel_publishingHouse}"/>
+                        <h:outputText value="#{isbnController.selected.publishingHouse}" title="#{bundle.ViewIsbnTitle_publishingHouse}"/>
                         <h:outputText value="#{bundle.ViewIsbnLabel_release}"/>
                         <h:outputText value="#{isbnController.selected.release}" title="#{bundle.ViewIsbnTitle_release}"/>
                         <h:outputText value="#{bundle.ViewIsbnLabel_title}"/>

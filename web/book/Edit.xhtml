@@ -14,12 +14,12 @@
                     <p:panelGrid columns="2" rendered="#{bookController.selected != null}">
                         <p:outputLabel value="#{bundle.EditBookLabel_id}" for="id" />
                         <p:inputText id="id" value="#{bookController.selected.id}" title="#{bundle.EditBookTitle_id}" required="true" requiredMessage="#{bundle.EditBookRequiredMessage_id}"/>
-                        <p:outputLabel value="#{bundle.EditBookLabel_isborrowed}" for="isborrowed" />
-                        <p:inputText id="isborrowed" value="#{bookController.selected.isborrowed}" title="#{bundle.EditBookTitle_isborrowed}" />
-                        <p:outputLabel value="#{bundle.EditBookLabel_isonshelf}" for="isonshelf" />
-                        <p:inputText id="isonshelf" value="#{bookController.selected.isonshelf}" title="#{bundle.EditBookTitle_isonshelf}" />
-                        <p:outputLabel value="#{bundle.EditBookLabel_isreserved}" for="isreserved" />
-                        <p:inputText id="isreserved" value="#{bookController.selected.isreserved}" title="#{bundle.EditBookTitle_isreserved}" />
+                        <p:outputLabel value="#{bundle.EditBookLabel_isBorrowed}" for="isBorrowed" />
+                        <p:inputText id="isBorrowed" value="#{bookController.selected.isBorrowed}" title="#{bundle.EditBookTitle_isBorrowed}" />
+                        <p:outputLabel value="#{bundle.EditBookLabel_isOnShelf}" for="isOnShelf" />
+                        <p:inputText id="isOnShelf" value="#{bookController.selected.isOnShelf}" title="#{bundle.EditBookTitle_isOnShelf}" />
+                        <p:outputLabel value="#{bundle.EditBookLabel_isReserved}" for="isReserved" />
+                        <p:inputText id="isReserved" value="#{bookController.selected.isReserved}" title="#{bundle.EditBookTitle_isReserved}" />
                         <p:outputLabel value="#{bundle.EditBookLabel_isbn}" for="isbn" />
                         <p:selectOneMenu id="isbn" value="#{bookController.selected.isbn}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>

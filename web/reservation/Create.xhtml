@@ -14,10 +14,10 @@
                     <p:panelGrid columns="2" rendered="#{reservationController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateReservationLabel_id}" for="id" />
                         <p:inputText id="id" value="#{reservationController.selected.id}" title="#{bundle.CreateReservationTitle_id}" required="true" requiredMessage="#{bundle.CreateReservationRequiredMessage_id}"/>
-                        <p:outputLabel value="#{bundle.CreateReservationLabel_expirationdate}" for="expirationdate" />
-                        <p:calendar id="expirationdate" pattern="MM/dd/yyyy HH:mm:ss" value="#{reservationController.selected.expirationdate}" title="#{bundle.EditReservationTitle_expirationdate}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.CreateReservationLabel_reservationdate}" for="reservationdate" />
-                        <p:calendar id="reservationdate" pattern="MM/dd/yyyy HH:mm:ss" value="#{reservationController.selected.reservationdate}" title="#{bundle.EditReservationTitle_reservationdate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateReservationLabel_expirationDate}" for="expirationDate" />
+                        <p:calendar id="expirationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{reservationController.selected.expirationDate}" title="#{bundle.EditReservationTitle_expirationDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateReservationLabel_reservationDate}" for="reservationDate" />
+                        <p:calendar id="reservationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{reservationController.selected.reservationDate}" title="#{bundle.EditReservationTitle_reservationDate}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateReservationLabel_book}" for="book" />
                         <p:selectOneMenu id="book" value="#{reservationController.selected.book}" >
                             <f:selectItems value="#{bookController.itemsAvailableSelectOne}"

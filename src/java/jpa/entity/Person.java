@@ -35,12 +35,15 @@ public class Person implements Serializable {
     private Short banned;
     @Size(max = 255)
     @Column(name = "FIRSTNAME")
-    private String firstname;
+    @Basic(optional = false)
+    private String firstName;
     @Size(max = 255)
     @Column(name = "LASTNAME")
-    private String lastname;
+    @Basic(optional = false)
+    private String lastName;
     @Size(max = 255)
     @Column(name = "PASSWORD")
+    @Basic(optional = false)
     private String password;
     @Column(name = "PENALTY")
     private Long penalty;
@@ -85,20 +88,20 @@ public class Person implements Serializable {
         this.banned = banned;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPassword() {

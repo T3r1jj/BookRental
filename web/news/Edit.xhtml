@@ -15,13 +15,13 @@
                         <p:outputLabel value="#{bundle.EditNewsLabel_id}" for="id" />
                         <p:inputText id="id" value="#{newsController.selected.id}" title="#{bundle.EditNewsTitle_id}" required="true" requiredMessage="#{bundle.EditNewsRequiredMessage_id}"/>
                         <p:outputLabel value="#{bundle.EditNewsLabel_author}" for="author" />
-                        <p:inputText id="author" value="#{newsController.selected.author}" title="#{bundle.EditNewsTitle_author}" />
+                        <p:inputText id="author" value="#{newsController.selected.author}" title="#{bundle.EditNewsTitle_author}" required="true" requiredMessage="#{bundle.EditNewsRequiredMessage_author}"/>
                         <p:outputLabel value="#{bundle.EditNewsLabel_content}" for="content" />
-                        <p:inputText id="content" value="#{newsController.selected.content}" title="#{bundle.EditNewsTitle_content}" />
-                        <p:outputLabel value="#{bundle.EditNewsLabel_publishdate}" for="publishdate" />
-                        <p:calendar id="publishdate" pattern="MM/dd/yyyy HH:mm:ss" value="#{newsController.selected.publishdate}" title="#{bundle.EditNewsTitle_publishdate}"  showOn="button"/>
+                        <p:inputText id="content" value="#{newsController.selected.content}" title="#{bundle.EditNewsTitle_content}" required="true" requiredMessage="#{bundle.EditNewsRequiredMessage_content}"/>
+                        <p:outputLabel value="#{bundle.EditNewsLabel_publishDate}" for="publishDate" />
+                        <p:calendar id="publishDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{newsController.selected.publishDate}" title="#{bundle.EditNewsTitle_publishDate}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditNewsLabel_subject}" for="subject" />
-                        <p:inputText id="subject" value="#{newsController.selected.subject}" title="#{bundle.EditNewsTitle_subject}" />
+                        <p:inputText id="subject" value="#{newsController.selected.subject}" title="#{bundle.EditNewsTitle_subject}" required="true" requiredMessage="#{bundle.EditNewsRequiredMessage_subject}"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{newsController.update}" value="#{bundle.Save}" update="display,:NewsListForm:datalist,:growl" oncomplete="handleSubmit(args, 'NewsEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="NewsEditDialog.hide()"/>

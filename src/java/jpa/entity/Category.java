@@ -33,7 +33,8 @@ public class Category implements Serializable {
     private Integer id;
     @Size(max = 255)
     @Column(name = "CATEGORYNAME")
-    private String categoryname;
+    @Basic(optional = false)
+    private String categoryName;
     @OneToMany(mappedBy = "category")
     private List<Isbn> isbnList;
     @OneToMany(mappedBy = "category")
@@ -57,12 +58,12 @@ public class Category implements Serializable {
         this.id = id;
     }
 
-    public String getCategoryname() {
-        return categoryname;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setCategoryname(String categoryname) {
-        this.categoryname = categoryname;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public List<Isbn> getIsbnList() {

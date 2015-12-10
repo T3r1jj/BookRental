@@ -36,10 +36,10 @@ public class History implements Serializable {
     @Column(name = "PHRASE")
     private String phrase;
     @Column(name = "RESULTSCOUNT")
-    private Integer resultscount;
+    private Integer resultsCount;
     @Column(name = "SEARCHDATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date searchdate;
+    private Date searchDate;
     @JoinColumn(name = "LOGIN", referencedColumnName = "LOGIN")
     @ManyToOne
     private Person person;
@@ -67,20 +67,20 @@ public class History implements Serializable {
         this.phrase = phrase;
     }
 
-    public Integer getResultscount() {
-        return resultscount;
+    public Integer getResultsCount() {
+        return resultsCount;
     }
 
-    public void setResultscount(Integer resultscount) {
-        this.resultscount = resultscount;
+    public void setResultsCount(Integer resultsCount) {
+        this.resultsCount = resultsCount;
     }
 
-    public Date getSearchdate() {
-        return searchdate;
+    public Date getSearchDate() {
+        return searchDate;
     }
 
-    public void setSearchdate(Date searchdate) {
-        this.searchdate = searchdate;
+    public void setSearchDate(Date searchDate) {
+        this.searchDate = searchDate;
     }
 
     public Person getPerson() {

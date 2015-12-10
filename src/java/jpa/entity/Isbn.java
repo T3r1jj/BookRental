@@ -36,21 +36,23 @@ public class Isbn implements Serializable {
     private String isbn;
     @Column(name = "ADDDATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date adddate;
+    private Date addDate;
     @Size(max = 255)
     @Column(name = "AUTHOR")
+    @Basic(optional = false)
     private String author;
     @Size(max = 255)
     @Column(name = "DESCRIPTION")
     private String description;
     @Size(max = 255)
     @Column(name = "PUBLISHINGHOUSE")
-    private String publishinghouse;
+    private String publishingHouse;
     @Size(max = 255)
     @Column(name = "RELEASE")
     private String release;
     @Size(max = 255)
     @Column(name = "TITLE")
+    @Basic(optional = false)
     private String title;
     @JoinColumn(name = "CATEGORYID", referencedColumnName = "ID")
     @ManyToOne
@@ -79,12 +81,12 @@ public class Isbn implements Serializable {
         this.isbn = isbn;
     }
 
-    public Date getAdddate() {
-        return adddate;
+    public Date getAddDate() {
+        return addDate;
     }
 
-    public void setAdddate(Date adddate) {
-        this.adddate = adddate;
+    public void setAddDate(Date adddate) {
+        this.addDate = adddate;
     }
 
     public String getAuthor() {
@@ -103,12 +105,12 @@ public class Isbn implements Serializable {
         this.description = description;
     }
 
-    public String getPublishinghouse() {
-        return publishinghouse;
+    public String getPublishingHouse() {
+        return publishingHouse;
     }
 
-    public void setPublishinghouse(String publishinghouse) {
-        this.publishinghouse = publishinghouse;
+    public void setPublishingHouse(String publishingHouse) {
+        this.publishingHouse = publishingHouse;
     }
 
     public String getRelease() {

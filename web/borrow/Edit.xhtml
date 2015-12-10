@@ -14,12 +14,12 @@
                     <p:panelGrid columns="2" rendered="#{borrowController.selected != null}">
                         <p:outputLabel value="#{bundle.EditBorrowLabel_id}" for="id" />
                         <p:inputText id="id" value="#{borrowController.selected.id}" title="#{bundle.EditBorrowTitle_id}" required="true" requiredMessage="#{bundle.EditBorrowRequiredMessage_id}"/>
-                        <p:outputLabel value="#{bundle.EditBorrowLabel_borrowdate}" for="borrowdate" />
-                        <p:calendar id="borrowdate" pattern="MM/dd/yyyy HH:mm:ss" value="#{borrowController.selected.borrowdate}" title="#{bundle.EditBorrowTitle_borrowdate}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.EditBorrowLabel_returndate}" for="returndate" />
-                        <p:calendar id="returndate" pattern="MM/dd/yyyy HH:mm:ss" value="#{borrowController.selected.returndate}" title="#{bundle.EditBorrowTitle_returndate}"  showOn="button"/>
-                        <p:outputLabel value="#{bundle.EditBorrowLabel_returneddate}" for="returneddate" />
-                        <p:calendar id="returneddate" pattern="MM/dd/yyyy HH:mm:ss" value="#{borrowController.selected.returneddate}" title="#{bundle.EditBorrowTitle_returneddate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditBorrowLabel_borrowDate}" for="borrowDate" />
+                        <p:calendar id="borrowDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{borrowController.selected.borrowDate}" title="#{bundle.EditBorrowTitle_borrowDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditBorrowLabel_returnDate}" for="returnDate" />
+                        <p:calendar id="returnDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{borrowController.selected.returnDate}" title="#{bundle.EditBorrowTitle_returnDate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditBorrowLabel_returnedDate}" for="returnedDate" />
+                        <p:calendar id="returnedDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{borrowController.selected.returnedDate}" title="#{bundle.EditBorrowTitle_returnedDate}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditBorrowLabel_book}" for="book" />
                         <p:selectOneMenu id="book" value="#{borrowController.selected.book}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>

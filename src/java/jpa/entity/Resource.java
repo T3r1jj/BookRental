@@ -31,13 +31,16 @@ public class Resource implements Serializable {
     private Integer id;
     @Size(max = 255)
     @Column(name = "DESCRIPTION")
+    @Basic(optional = false)
     private String description;
     @Size(max = 255)
     @Column(name = "FILEPATH")
-    private String filepath;
+    @Basic(optional = false)
+    private String filePath;
     @Size(max = 255)
     @Column(name = "RESOURCENAME")
-    private String resourcename;
+    @Basic(optional = false)
+    private String resourceName;
     @JoinColumn(name = "ISBN", referencedColumnName = "ISBN")
     @ManyToOne
     private Isbn isbn;
@@ -65,20 +68,20 @@ public class Resource implements Serializable {
         this.description = description;
     }
 
-    public String getFilepath() {
-        return filepath;
+    public String getFilePath() {
+        return filePath;
     }
 
-    public void setFilepath(String filepath) {
-        this.filepath = filepath;
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
-    public String getResourcename() {
-        return resourcename;
+    public String getResourceName() {
+        return resourceName;
     }
 
-    public void setResourcename(String resourcename) {
-        this.resourcename = resourcename;
+    public void setResourceName(String resourceName) {
+        this.resourceName = resourceName;
     }
 
     public Isbn getIsbn() {

@@ -16,10 +16,10 @@
                         <p:inputText id="id" value="#{historyController.selected.id}" title="#{bundle.CreateHistoryTitle_id}" required="true" requiredMessage="#{bundle.CreateHistoryRequiredMessage_id}"/>
                         <p:outputLabel value="#{bundle.CreateHistoryLabel_phrase}" for="phrase" />
                         <p:inputText id="phrase" value="#{historyController.selected.phrase}" title="#{bundle.CreateHistoryTitle_phrase}" />
-                        <p:outputLabel value="#{bundle.CreateHistoryLabel_resultscount}" for="resultscount" />
-                        <p:inputText id="resultscount" value="#{historyController.selected.resultscount}" title="#{bundle.CreateHistoryTitle_resultscount}" />
-                        <p:outputLabel value="#{bundle.CreateHistoryLabel_searchdate}" for="searchdate" />
-                        <p:calendar id="searchdate" pattern="MM/dd/yyyy HH:mm:ss" value="#{historyController.selected.searchdate}" title="#{bundle.EditHistoryTitle_searchdate}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateHistoryLabel_resultsCount}" for="resultsCount" />
+                        <p:inputText id="resultsCount" value="#{historyController.selected.resultsCount}" title="#{bundle.CreateHistoryTitle_resultsCount}" />
+                        <p:outputLabel value="#{bundle.CreateHistoryLabel_searchDate}" for="searchDate" />
+                        <p:calendar id="searchDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{historyController.selected.searchDate}" title="#{bundle.EditHistoryTitle_searchDate}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateHistoryLabel_person}" for="person" />
                         <p:selectOneMenu id="person" value="#{historyController.selected.person}" >
                             <f:selectItems value="#{personController.itemsAvailableSelectOne}"

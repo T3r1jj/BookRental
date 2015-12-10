@@ -6,6 +6,7 @@ import jsf.util.JsfUtil.PersistAction;
 import jpa.session.IsbnFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -56,6 +57,7 @@ public class IsbnController implements Serializable {
     }
 
     public void create() {
+        selected.setAddDate(new Date());
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/resources/Bundle").getString("IsbnCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.

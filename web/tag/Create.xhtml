@@ -14,8 +14,8 @@
                     <p:panelGrid columns="2" rendered="#{tagController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateTagLabel_id}" for="id" />
                         <p:inputText id="id" value="#{tagController.selected.id}" title="#{bundle.CreateTagTitle_id}" required="true" requiredMessage="#{bundle.CreateTagRequiredMessage_id}"/>
-                        <p:outputLabel value="#{bundle.CreateTagLabel_tagname}" for="tagname" />
-                        <p:inputText id="tagname" value="#{tagController.selected.tagname}" title="#{bundle.CreateTagTitle_tagname}" />
+                        <p:outputLabel value="#{bundle.CreateTagLabel_tagName}" for="tagName" />
+                        <p:inputText id="tagName" value="#{tagController.selected.tagName}" title="#{bundle.CreateTagTitle_tagName}" required="true" requiredMessage="#{bundle.CreateTagRequiredMessage_tagName}"/>
                         <p:outputLabel value="#{bundle.CreateTagLabel_isbn}" for="isbn" />
                         <p:selectOneMenu id="isbn" value="#{tagController.selected.isbn}" >
                             <f:selectItems value="#{isbnController.itemsAvailableSelectOne}"

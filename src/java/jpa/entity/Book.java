@@ -31,11 +31,11 @@ public class Book implements Serializable {
     @Column(name = "ID")
     private Integer id;
     @Column(name = "ISBORROWED")
-    private Short isborrowed;
+    private Short isBorrowed;
     @Column(name = "ISONSHELF")
-    private Short isonshelf;
+    private Short isOnShelf;
     @Column(name = "ISRESERVED")
-    private Short isreserved;
+    private Short isReserved;
     @OneToMany(mappedBy = "book")
     private List<Reservation> reservationList;
     @JoinColumn(name = "ISBN", referencedColumnName = "ISBN")
@@ -59,28 +59,28 @@ public class Book implements Serializable {
         this.id = id;
     }
 
-    public Short getIsborrowed() {
-        return isborrowed;
+    public Short getIsBorrowed() {
+        return isBorrowed;
     }
 
-    public void setIsborrowed(Short isborrowed) {
-        this.isborrowed = isborrowed;
+    public void setIsBorrowed(Short isborrowed) {
+        this.isBorrowed = isborrowed;
     }
 
-    public Short getIsonshelf() {
-        return isonshelf;
+    public Short getIsOnShelf() {
+        return isOnShelf;
     }
 
-    public void setIsonshelf(Short isonshelf) {
-        this.isonshelf = isonshelf;
+    public void setIsOnShelf(Short isOnShelf) {
+        this.isOnShelf = isOnShelf;
     }
 
-    public Short getIsreserved() {
-        return isreserved;
+    public Short getIsReserved() {
+        return isReserved;
     }
 
-    public void setIsreserved(Short isreserved) {
-        this.isreserved = isreserved;
+    public void setIsReserved(Short isReserved) {
+        this.isReserved = isReserved;
     }
 
     public List<Reservation> getReservationList() {

@@ -14,16 +14,16 @@
                     <p:panelGrid columns="2" rendered="#{borrowController.selected != null}">
                         <h:outputText value="#{bundle.ViewBorrowLabel_id}"/>
                         <h:outputText value="#{borrowController.selected.id}" title="#{bundle.ViewBorrowTitle_id}"/>
-                        <h:outputText value="#{bundle.ViewBorrowLabel_borrowdate}"/>
-                        <h:outputText value="#{borrowController.selected.borrowdate}" title="#{bundle.ViewBorrowTitle_borrowdate}">
+                        <h:outputText value="#{bundle.ViewBorrowLabel_borrowDate}"/>
+                        <h:outputText value="#{borrowController.selected.borrowDate}" title="#{bundle.ViewBorrowTitle_borrowDate}">
                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                         </h:outputText>
-                        <h:outputText value="#{bundle.ViewBorrowLabel_returndate}"/>
-                        <h:outputText value="#{borrowController.selected.returndate}" title="#{bundle.ViewBorrowTitle_returndate}">
+                        <h:outputText value="#{bundle.ViewBorrowLabel_returnDate}"/>
+                        <h:outputText value="#{borrowController.selected.returnDate}" title="#{bundle.ViewBorrowTitle_returnDate}">
                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                         </h:outputText>
-                        <h:outputText value="#{bundle.ViewBorrowLabel_returneddate}"/>
-                        <h:outputText value="#{borrowController.selected.returneddate}" title="#{bundle.ViewBorrowTitle_returneddate}">
+                        <h:outputText value="#{bundle.ViewBorrowLabel_returnedDate}"/>
+                        <h:outputText value="#{borrowController.selected.returnedDate}" title="#{bundle.ViewBorrowTitle_returnedDate}">
                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewBorrowLabel_book}"/>

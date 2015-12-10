@@ -14,12 +14,12 @@
                     <p:panelGrid columns="2" rendered="#{bookController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateBookLabel_id}" for="id" />
                         <p:inputText id="id" value="#{bookController.selected.id}" title="#{bundle.CreateBookTitle_id}" required="true" requiredMessage="#{bundle.CreateBookRequiredMessage_id}"/>
-                        <p:outputLabel value="#{bundle.CreateBookLabel_isborrowed}" for="isborrowed" />
-                        <p:inputText id="isborrowed" value="#{bookController.selected.isborrowed}" title="#{bundle.CreateBookTitle_isborrowed}" />
-                        <p:outputLabel value="#{bundle.CreateBookLabel_isonshelf}" for="isonshelf" />
-                        <p:inputText id="isonshelf" value="#{bookController.selected.isonshelf}" title="#{bundle.CreateBookTitle_isonshelf}" />
-                        <p:outputLabel value="#{bundle.CreateBookLabel_isreserved}" for="isreserved" />
-                        <p:inputText id="isreserved" value="#{bookController.selected.isreserved}" title="#{bundle.CreateBookTitle_isreserved}" />
+                        <p:outputLabel value="#{bundle.CreateBookLabel_isBorrowed}" for="isBorrowed" />
+                        <p:inputText id="isBorrowed" value="#{bookController.selected.isBorrowed}" title="#{bundle.CreateBookTitle_isBorrowed}" />
+                        <p:outputLabel value="#{bundle.CreateBookLabel_isOnShelf}" for="isOnShelf" />
+                        <p:inputText id="isOnShelf" value="#{bookController.selected.isOnShelf}" title="#{bundle.CreateBookTitle_isOnShelf}" />
+                        <p:outputLabel value="#{bundle.CreateBookLabel_isReserved}" for="isReserved" />
+                        <p:inputText id="isReserved" value="#{bookController.selected.isReserved}" title="#{bundle.CreateBookTitle_isReserved}" />
                         <p:outputLabel value="#{bundle.CreateBookLabel_isbn}" for="isbn" />
                         <p:selectOneMenu id="isbn" value="#{bookController.selected.isbn}" >
                             <f:selectItems value="#{isbnController.itemsAvailableSelectOne}"

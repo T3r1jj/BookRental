@@ -33,13 +33,13 @@ public class Borrow implements Serializable {
     private Integer id;
     @Column(name = "BORROWDATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date borrowdate;
+    private Date borrowDate;
     @Column(name = "RETURNDATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date returndate;
+    private Date returnDate;
     @Column(name = "RETURNEDDATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date returneddate;
+    private Date returnedDate;
     @JoinColumn(name = "BOOKID", referencedColumnName = "ID")
     @ManyToOne
     private Book book;
@@ -62,28 +62,28 @@ public class Borrow implements Serializable {
         this.id = id;
     }
 
-    public Date getBorrowdate() {
-        return borrowdate;
+    public Date getBorrowDate() {
+        return borrowDate;
     }
 
-    public void setBorrowdate(Date borrowdate) {
-        this.borrowdate = borrowdate;
+    public void setBorrowDate(Date borrowDate) {
+        this.borrowDate = borrowDate;
     }
 
-    public Date getReturndate() {
-        return returndate;
+    public Date getReturnDate() {
+        return returnDate;
     }
 
-    public void setReturndate(Date returndate) {
-        this.returndate = returndate;
+    public void setReturnDate(Date returnDate) {
+        this.returnDate = returnDate;
     }
 
-    public Date getReturneddate() {
-        return returneddate;
+    public Date getReturnedDate() {
+        return returnedDate;
     }
 
-    public void setReturneddate(Date returneddate) {
-        this.returneddate = returneddate;
+    public void setReturnedDate(Date returnedDate) {
+        this.returnedDate = returnedDate;
     }
 
     public Book getBook() {

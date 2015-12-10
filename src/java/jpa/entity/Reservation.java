@@ -33,10 +33,10 @@ public class Reservation implements Serializable {
     private Integer id;
     @Column(name = "EXPIRATIONDATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date expirationdate;
+    private Date expirationDate;
     @Column(name = "RESERVATIONDATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date reservationdate;
+    private Date reservationDate;
     @JoinColumn(name = "BOOKID", referencedColumnName = "ID")
     @ManyToOne
     private Book book;
@@ -62,20 +62,20 @@ public class Reservation implements Serializable {
         this.id = id;
     }
 
-    public Date getExpirationdate() {
-        return expirationdate;
+    public Date getExpirationDate() {
+        return expirationDate;
     }
 
-    public void setExpirationdate(Date expirationdate) {
-        this.expirationdate = expirationdate;
+    public void setExpirationDate(Date expirationDate) {
+        this.expirationDate = expirationDate;
     }
 
-    public Date getReservationdate() {
-        return reservationdate;
+    public Date getReservationDate() {
+        return reservationDate;
     }
 
-    public void setReservationdate(Date reservationdate) {
-        this.reservationdate = reservationdate;
+    public void setReservationDate(Date reservationDate) {
+        this.reservationDate = reservationDate;
     }
 
     public Book getBook() {

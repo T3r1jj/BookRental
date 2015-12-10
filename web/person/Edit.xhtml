@@ -18,12 +18,12 @@
                         <p:inputText id="activated" value="#{personController.selected.activated}" title="#{bundle.EditPersonTitle_activated}" />
                         <p:outputLabel value="#{bundle.EditPersonLabel_banned}" for="banned" />
                         <p:inputText id="banned" value="#{personController.selected.banned}" title="#{bundle.EditPersonTitle_banned}" />
-                        <p:outputLabel value="#{bundle.EditPersonLabel_firstname}" for="firstname" />
-                        <p:inputText id="firstname" value="#{personController.selected.firstname}" title="#{bundle.EditPersonTitle_firstname}" />
-                        <p:outputLabel value="#{bundle.EditPersonLabel_lastname}" for="lastname" />
-                        <p:inputText id="lastname" value="#{personController.selected.lastname}" title="#{bundle.EditPersonTitle_lastname}" />
+                        <p:outputLabel value="#{bundle.EditPersonLabel_firstName}" for="firstName" />
+                        <p:inputText id="firstName" value="#{personController.selected.firstName}" title="#{bundle.EditPersonTitle_firstName}" required="true" requiredMessage="#{bundle.EditPersonRequiredMessage_firstName}"/>
+                        <p:outputLabel value="#{bundle.EditPersonLabel_lastName}" for="lastName" />
+                        <p:inputText id="lastName" value="#{personController.selected.lastName}" title="#{bundle.EditPersonTitle_lastName}" required="true" requiredMessage="#{bundle.EditPersonRequiredMessage_lastName}"/>
                         <p:outputLabel value="#{bundle.EditPersonLabel_password}" for="password" />
-                        <p:inputText id="password" value="#{personController.selected.password}" title="#{bundle.EditPersonTitle_password}" />
+                        <p:inputText id="password" value="#{personController.selected.password}" title="#{bundle.EditPersonTitle_password}" required="true" requiredMessage="#{bundle.EditPersonRequiredMessage_password}"/>
                         <p:outputLabel value="#{bundle.EditPersonLabel_penalty}" for="penalty" />
                         <p:inputText id="penalty" value="#{personController.selected.penalty}" title="#{bundle.EditPersonTitle_penalty}" />
                         <p:outputLabel value="#{bundle.EditPersonLabel_permissions}" for="permissions" />

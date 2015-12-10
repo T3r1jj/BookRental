@@ -15,11 +15,11 @@
                         <p:outputLabel value="#{bundle.EditResourceLabel_id}" for="id" />
                         <p:inputText id="id" value="#{resourceController.selected.id}" title="#{bundle.EditResourceTitle_id}" required="true" requiredMessage="#{bundle.EditResourceRequiredMessage_id}"/>
                         <p:outputLabel value="#{bundle.EditResourceLabel_description}" for="description" />
-                        <p:inputText id="description" value="#{resourceController.selected.description}" title="#{bundle.EditResourceTitle_description}" />
-                        <p:outputLabel value="#{bundle.EditResourceLabel_filepath}" for="filepath" />
-                        <p:inputText id="filepath" value="#{resourceController.selected.filepath}" title="#{bundle.EditResourceTitle_filepath}" />
-                        <p:outputLabel value="#{bundle.EditResourceLabel_resourcename}" for="resourcename" />
-                        <p:inputText id="resourcename" value="#{resourceController.selected.resourcename}" title="#{bundle.EditResourceTitle_resourcename}" />
+                        <p:inputText id="description" value="#{resourceController.selected.description}" title="#{bundle.EditResourceTitle_description}" required="true" requiredMessage="#{bundle.EditResourceRequiredMessage_description}"/>
+                        <p:outputLabel value="#{bundle.EditResourceLabel_filePath}" for="filePath" />
+                        <p:inputText id="filePath" value="#{resourceController.selected.filePath}" title="#{bundle.EditResourceTitle_filePath}" required="true" requiredMessage="#{bundle.EditResourceRequiredMessage_filePath}"/>
+                        <p:outputLabel value="#{bundle.EditResourceLabel_resourceName}" for="resourceName" />
+                        <p:inputText id="resourceName" value="#{resourceController.selected.resourceName}" title="#{bundle.EditResourceTitle_resourceName}" required="true" requiredMessage="#{bundle.EditResourceRequiredMessage_resourceName}"/>
                         <p:outputLabel value="#{bundle.EditResourceLabel_isbn}" for="isbn" />
                         <p:selectOneMenu id="isbn" value="#{resourceController.selected.isbn}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>

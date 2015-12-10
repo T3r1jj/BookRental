@@ -31,7 +31,8 @@ public class Tag implements Serializable {
     private Integer id;
     @Size(max = 255)
     @Column(name = "TAGNAME")
-    private String tagname;
+    @Basic(optional = false)
+    private String tagName;
     @JoinColumn(name = "ISBN", referencedColumnName = "ISBN")
     @ManyToOne
     private Isbn isbn;
@@ -51,12 +52,12 @@ public class Tag implements Serializable {
         this.id = id;
     }
 
-    public String getTagname() {
-        return tagname;
+    public String getTagName() {
+        return tagName;
     }
 
-    public void setTagname(String tagname) {
-        this.tagname = tagname;
+    public void setTagName(String tagName) {
+        this.tagName = tagName;
     }
 
     public Isbn getIsbn() {

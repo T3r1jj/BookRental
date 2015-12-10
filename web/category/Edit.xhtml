@@ -14,8 +14,8 @@
                     <p:panelGrid columns="2" rendered="#{categoryController.selected != null}">
                         <p:outputLabel value="#{bundle.EditCategoryLabel_id}" for="id" />
                         <p:inputText id="id" value="#{categoryController.selected.id}" title="#{bundle.EditCategoryTitle_id}" required="true" requiredMessage="#{bundle.EditCategoryRequiredMessage_id}"/>
-                        <p:outputLabel value="#{bundle.EditCategoryLabel_categoryname}" for="categoryname" />
-                        <p:inputText id="categoryname" value="#{categoryController.selected.categoryname}" title="#{bundle.EditCategoryTitle_categoryname}" />
+                        <p:outputLabel value="#{bundle.EditCategoryLabel_categoryName}" for="categoryName" />
+                        <p:inputText id="categoryName" value="#{categoryController.selected.categoryName}" title="#{bundle.EditCategoryTitle_categoryName}" required="true" requiredMessage="#{bundle.EditCategoryRequiredMessage_categoryName}"/>
                         <p:outputLabel value="#{bundle.EditCategoryLabel_category}" for="category" />
                         <p:selectOneMenu id="category" value="#{categoryController.selected.category}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>

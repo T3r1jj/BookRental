@@ -31,15 +31,18 @@ public class News implements Serializable {
     private Integer id;
     @Size(max = 255)
     @Column(name = "AUTHOR")
+    @Basic(optional = false)
     private String author;
     @Size(max = 255)
     @Column(name = "CONTENT")
+    @Basic(optional = false)
     private String content;
     @Column(name = "PUBLISHDATE")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date publishdate;
+    private Date publishDate;
     @Size(max = 255)
     @Column(name = "SUBJECT")
+    @Basic(optional = false)
     private String subject;
 
     public News() {
@@ -73,12 +76,12 @@ public class News implements Serializable {
         this.content = content;
     }
 
-    public Date getPublishdate() {
-        return publishdate;
+    public Date getPublishDate() {
+        return publishDate;
     }
 
-    public void setPublishdate(Date publishdate) {
-        this.publishdate = publishdate;
+    public void setPublishDate(Date publishDate) {
+        this.publishDate = publishDate;
     }
 
     public String getSubject() {
