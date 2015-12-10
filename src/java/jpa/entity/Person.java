@@ -1,6 +1,7 @@
 package jpa.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -46,7 +47,7 @@ public class Person implements Serializable {
     @Basic(optional = false)
     private String password;
     @Column(name = "PENALTY")
-    private Long penalty;
+    private BigDecimal penalty;
     @Size(max = 255)
     @Column(name = "PERMISSIONS")
     private String permissions;
@@ -112,11 +113,11 @@ public class Person implements Serializable {
         this.password = password;
     }
 
-    public Long getPenalty() {
+    public BigDecimal getPenalty() {
         return penalty;
     }
 
-    public void setPenalty(Long penalty) {
+    public void setPenalty(BigDecimal penalty) {
         this.penalty = penalty;
     }
 

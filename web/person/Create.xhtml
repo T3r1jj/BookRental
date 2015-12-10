@@ -14,20 +14,12 @@
                     <p:panelGrid columns="2" rendered="#{personController.selected != null}">
                         <p:outputLabel value="#{bundle.CreatePersonLabel_login}" for="login" />
                         <p:inputText id="login" value="#{personController.selected.login}" title="#{bundle.CreatePersonTitle_login}" required="true" requiredMessage="#{bundle.CreatePersonRequiredMessage_login}"/>
-                        <p:outputLabel value="#{bundle.CreatePersonLabel_activated}" for="activated" />
-                        <p:selectBooleanCheckbox id="activated" value="#{personController.selected.activated}" />
-                        <p:outputLabel value="#{bundle.CreatePersonLabel_banned}" for="banned" />
-                        <p:selectBooleanCheckbox id="banned" value="#{personController.selected.banned}" />
                         <p:outputLabel value="#{bundle.CreatePersonLabel_firstName}" for="firstName" />
                         <p:inputText id="firstName" value="#{personController.selected.firstName}" title="#{bundle.CreatePersonTitle_firstName}" required="true" requiredMessage="#{bundle.CreatePersonRequiredMessage_firstName}"/>
                         <p:outputLabel value="#{bundle.CreatePersonLabel_lastName}" for="lastName" />
                         <p:inputText id="lastName" value="#{personController.selected.lastName}" title="#{bundle.CreatePersonTitle_lastName}" required="true" requiredMessage="#{bundle.CreatePersonRequiredMessage_lastName}"/>
                         <p:outputLabel value="#{bundle.CreatePersonLabel_password}" for="password" />
                         <p:inputText id="password" value="#{personController.selected.password}" title="#{bundle.CreatePersonTitle_password}" required="true" requiredMessage="#{bundle.CreatePersonRequiredMessage_password}"/>
-                        <p:outputLabel value="#{bundle.CreatePersonLabel_penalty}" for="penalty" />
-                        <p:inputText id="penalty" value="#{personController.selected.penalty}" title="#{bundle.CreatePersonTitle_penalty}" />
-                        <p:outputLabel value="#{bundle.CreatePersonLabel_permissions}" for="permissions" />
-                        <p:inputText id="permissions" value="#{personController.selected.permissions}" title="#{bundle.CreatePersonTitle_permissions}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{personController.create}" value="#{bundle.Save}" update="display,:PersonListForm:datalist,:growl" oncomplete="handleSubmit(args,'PersonCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PersonCreateDialog.hide()"/>

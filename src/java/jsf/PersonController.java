@@ -1,11 +1,13 @@
 package jsf;
 
+import java.io.IOException;
 import jpa.entity.Person;
 import jsf.util.JsfUtil;
 import jsf.util.JsfUtil.PersistAction;
 import jpa.session.PersonFacade;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -15,9 +17,12 @@ import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @ManagedBean(name = "personController")
 @SessionScoped
@@ -26,7 +31,7 @@ public class PersonController implements Serializable {
     @EJB
     private jpa.session.PersonFacade ejbFacade;
     private List<Person> items = null;
-    private Person selected;
+    private Person selected = new Person();
 
     public PersonController() {
     }
@@ -55,9 +60,14 @@ public class PersonController implements Serializable {
         return selected;
     }
 
-    public void create() {
+    public void create() throws IOException {
+        selected.setActivated(false);
+        selected.setBanned(false);
+        selected.setPenalty(BigDecimal.ZERO);
+        selected.setPermissions("USER");
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/resources/Bundle").getString("PersonCreated"));
         if (!JsfUtil.isValidationFailed()) {
+            FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handle‌​Navigation(FacesContext.getCurrentInstance(), null, "/WEB-INF/view/successfulRegistration");
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
