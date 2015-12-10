@@ -30,9 +30,9 @@ public class Person implements Serializable {
     @Column(name = "LOGIN")
     private String login;
     @Column(name = "ACTIVATED")
-    private Short activated;
+    private boolean activated;
     @Column(name = "BANNED")
-    private Short banned;
+    private boolean banned;
     @Size(max = 255)
     @Column(name = "FIRSTNAME")
     @Basic(optional = false)
@@ -72,19 +72,19 @@ public class Person implements Serializable {
         this.login = login;
     }
 
-    public Short getActivated() {
+    public boolean getActivated() {
         return activated;
     }
 
-    public void setActivated(Short activated) {
+    public void setActivated(boolean activated) {
         this.activated = activated;
     }
 
-    public Short getBanned() {
+    public boolean getBanned() {
         return banned;
     }
 
-    public void setBanned(Short banned) {
+    public void setBanned(boolean banned) {
         this.banned = banned;
     }
 

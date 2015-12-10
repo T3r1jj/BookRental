@@ -37,13 +37,13 @@
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPersonTitle_activated}"/>
                             </f:facet>
-                            <h:outputText value="#{item.activated}"/>
+                            <p:selectBooleanCheckbox value="#{item.activated}" disabled="true"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListPersonTitle_banned}"/>
                             </f:facet>
-                            <h:outputText value="#{item.banned}"/>
+                            <p:selectBooleanCheckbox value="#{item.banned}" disabled="true"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">

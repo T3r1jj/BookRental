@@ -15,9 +15,9 @@
                         <p:outputLabel value="#{bundle.CreatePersonLabel_login}" for="login" />
                         <p:inputText id="login" value="#{personController.selected.login}" title="#{bundle.CreatePersonTitle_login}" required="true" requiredMessage="#{bundle.CreatePersonRequiredMessage_login}"/>
                         <p:outputLabel value="#{bundle.CreatePersonLabel_activated}" for="activated" />
-                        <p:inputText id="activated" value="#{personController.selected.activated}" title="#{bundle.CreatePersonTitle_activated}" />
+                        <p:selectBooleanCheckbox id="activated" value="#{personController.selected.activated}" />
                         <p:outputLabel value="#{bundle.CreatePersonLabel_banned}" for="banned" />
-                        <p:inputText id="banned" value="#{personController.selected.banned}" title="#{bundle.CreatePersonTitle_banned}" />
+                        <p:selectBooleanCheckbox id="banned" value="#{personController.selected.banned}" />
                         <p:outputLabel value="#{bundle.CreatePersonLabel_firstName}" for="firstName" />
                         <p:inputText id="firstName" value="#{personController.selected.firstName}" title="#{bundle.CreatePersonTitle_firstName}" required="true" requiredMessage="#{bundle.CreatePersonRequiredMessage_firstName}"/>
                         <p:outputLabel value="#{bundle.CreatePersonLabel_lastName}" for="lastName" />

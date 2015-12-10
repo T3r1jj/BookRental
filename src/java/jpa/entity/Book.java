@@ -24,6 +24,7 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "Book.findAll", query = "SELECT b FROM Book b")})
 public class Book implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,11 +32,11 @@ public class Book implements Serializable {
     @Column(name = "ID")
     private Integer id;
     @Column(name = "ISBORROWED")
-    private Short isBorrowed;
+    private boolean isBorrowed;
     @Column(name = "ISONSHELF")
-    private Short isOnShelf;
+    private boolean isOnShelf;
     @Column(name = "ISRESERVED")
-    private Short isReserved;
+    private boolean isReserved;
     @OneToMany(mappedBy = "book")
     private List<Reservation> reservationList;
     @JoinColumn(name = "ISBN", referencedColumnName = "ISBN")
@@ -59,27 +60,27 @@ public class Book implements Serializable {
         this.id = id;
     }
 
-    public Short getIsBorrowed() {
+    public boolean getIsBorrowed() {
         return isBorrowed;
     }
 
-    public void setIsBorrowed(Short isborrowed) {
-        this.isBorrowed = isborrowed;
+    public void setIsBorrowed(boolean isBorrowed) {
+        this.isBorrowed = isBorrowed;
     }
 
-    public Short getIsOnShelf() {
+    public boolean getIsOnShelf() {
         return isOnShelf;
     }
 
-    public void setIsOnShelf(Short isOnShelf) {
+    public void setIsOnShelf(boolean isOnShelf) {
         this.isOnShelf = isOnShelf;
     }
 
-    public Short getIsReserved() {
+    public boolean getIsReserved() {
         return isReserved;
     }
 
-    public void setIsReserved(Short isReserved) {
+    public void setIsReserved(boolean isReserved) {
         this.isReserved = isReserved;
     }
 

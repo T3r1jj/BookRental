@@ -15,11 +15,11 @@
                         <h:outputText value="#{bundle.ViewBookLabel_id}"/>
                         <h:outputText value="#{bookController.selected.id}" title="#{bundle.ViewBookTitle_id}"/>
                         <h:outputText value="#{bundle.ViewBookLabel_isBorrowed}"/>
-                        <h:outputText value="#{bookController.selected.isBorrowed}" title="#{bundle.ViewBookTitle_isBorrowed}"/>
+                        <p:selectBooleanCheckbox value="#{bookController.selected.isBorrowed}" disabled="true"/>
                         <h:outputText value="#{bundle.ViewBookLabel_isOnShelf}"/>
-                        <h:outputText value="#{bookController.selected.isOnShelf}" title="#{bundle.ViewBookTitle_isOnShelf}"/>
+                        <p:selectBooleanCheckbox value="#{bookController.selected.isOnShelf}" disabled="true"/>
                         <h:outputText value="#{bundle.ViewBookLabel_isReserved}"/>
-                        <h:outputText value="#{bookController.selected.isReserved}" title="#{bundle.ViewBookTitle_isReserved}"/>
+                        <p:selectBooleanCheckbox value="#{bookController.selected.isReserved}" disabled="true"/>
                         <h:outputText value="#{bundle.ViewBookLabel_isbn}"/>
                         <h:outputText value="#{bookController.selected.isbn}" title="#{bundle.ViewBookTitle_isbn}"/>
                     </p:panelGrid>

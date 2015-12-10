@@ -18,6 +18,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import jpa.entity.Isbn;
 
 @ManagedBean(name = "bookController")
 @SessionScoped
@@ -27,8 +28,17 @@ public class BookController implements Serializable {
     private jpa.session.BookFacade ejbFacade;
     private List<Book> items = null;
     private Book selected;
+    private int count;
 
     public BookController() {
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
     }
 
     public Book getSelected() {
@@ -56,7 +66,15 @@ public class BookController implements Serializable {
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/resources/Bundle").getString("BookCreated"));
+        Isbn isbn = selected.getIsbn();
+        for (int i = 0; i < count; i++) {
+            selected = new Book();
+            selected.setIsbn(isbn);
+            selected.setIsBorrowed(false);
+            selected.setIsReserved(false);
+            selected.setIsOnShelf(true);
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/resources/Bundle").getString("BookCreated"));
+        }
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
@@ -115,6 +133,11 @@ public class BookController implements Serializable {
 
     public List<Book> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+    
+    public void isBorrowedStatusChange() {
+        selected.setIsOnShelf(false);
+        selected.setIsReserved(false);
     }
 
     @FacesConverter(forClass = Book.class)

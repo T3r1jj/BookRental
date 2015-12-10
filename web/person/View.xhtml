@@ -15,9 +15,9 @@
                         <h:outputText value="#{bundle.ViewPersonLabel_login}"/>
                         <h:outputText value="#{personController.selected.login}" title="#{bundle.ViewPersonTitle_login}"/>
                         <h:outputText value="#{bundle.ViewPersonLabel_activated}"/>
-                        <h:outputText value="#{personController.selected.activated}" title="#{bundle.ViewPersonTitle_activated}"/>
+                        <p:selectBooleanCheckbox value="#{personController.selected.activated}" disabled="true"/>
                         <h:outputText value="#{bundle.ViewPersonLabel_banned}"/>
-                        <h:outputText value="#{personController.selected.banned}" title="#{bundle.ViewPersonTitle_banned}"/>
+                        <p:selectBooleanCheckbox value="#{personController.selected.banned}" disabled="true"/>
                         <h:outputText value="#{bundle.ViewPersonLabel_firstName}"/>
                         <h:outputText value="#{personController.selected.firstName}" title="#{bundle.ViewPersonTitle_firstName}"/>
                         <h:outputText value="#{bundle.ViewPersonLabel_lastName}"/>
