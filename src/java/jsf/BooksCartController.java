@@ -22,7 +22,6 @@ import jpa.entity.Person;
 import jpa.entity.Reservation;
 import jpa.session.BookFacade;
 import jpa.session.BorrowFacade;
-import jpa.session.IsbnFacade;
 import jpa.session.ReservationFacade;
 import jsf.util.JsfUtil;
 

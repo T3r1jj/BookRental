@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -59,6 +60,7 @@ public class Isbn implements Serializable {
     @JoinColumn(name = "CATEGORYID", referencedColumnName = "ID")
     @ManyToOne
     private Category category;
+    @OrderBy("reservationDate DESC")
     @OneToMany(mappedBy = "isbn")
     private List<Reservation> reservationList;
     @OneToMany(mappedBy = "isbn")

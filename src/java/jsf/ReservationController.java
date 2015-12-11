@@ -6,6 +6,7 @@ import jsf.util.JsfUtil.PersistAction;
 import jpa.session.ReservationFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -13,18 +14,24 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import jpa.entity.Isbn;
+import jpa.entity.Person;
 
 @ManagedBean(name = "reservationController")
-@SessionScoped
+@ViewScoped
 public class ReservationController implements Serializable {
 
     @EJB
     private jpa.session.ReservationFacade ejbFacade;
+    @EJB
+    private jpa.session.IsbnFacade isbnFacade;
+    @EJB
+    private jpa.session.PersonFacade personFacade;
     private List<Reservation> items = null;
     private Reservation selected;
 
@@ -79,6 +86,25 @@ public class ReservationController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+
+    public List<Reservation> getUserItems() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Person user = (Person) context.getExternalContext().getSessionMap().get("user");
+        user = personFacade.find(user.getLogin());
+        if (user != null) {
+            user.getReservationList().size();
+            return user.getReservationList();
+        } else {
+            FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handle‌​Navigation(FacesContext.getCurrentInstance(), null, "/login");
+            return new ArrayList<>();
+        }
+    }
+
+    public int getQueuePlace(Reservation reservation) {
+        Isbn isbn = isbnFacade.find(reservation.getIsbn().getIsbn());
+        isbn.getReservationList().size();
+        return isbn.getReservationList().indexOf(reservation);
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
