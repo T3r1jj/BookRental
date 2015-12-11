@@ -9,28 +9,26 @@
     <ui:composition>
 
         <p:dialog id="ResourceCreateDlg" widgetVar="ResourceCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateResourceTitle}">
-            <h:form id="ResourceCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{resourceController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateResourceLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{resourceController.selected.id}" title="#{bundle.CreateResourceTitle_id}" required="true" requiredMessage="#{bundle.CreateResourceRequiredMessage_id}"/>
+            <h:form id="ResourceCreateForm" enctype="multipart/form-data">
+                <h:panelGroup id="display" style="margin: 0 auto;">
+                    <p:fileUpload value="#{resourceController.file}" mode="simple" 
+                                  sizeLimit="100000" fileLimit="1" allowTypes="*" />
+                    <br/>
+                    <p:panelGrid columns="2" rendered="#{resourceController.selected != null}" style="margin: 0 auto;">
                         <p:outputLabel value="#{bundle.CreateResourceLabel_description}" for="description" />
                         <p:inputText id="description" value="#{resourceController.selected.description}" title="#{bundle.CreateResourceTitle_description}" required="true" requiredMessage="#{bundle.CreateResourceRequiredMessage_description}"/>
-                        <p:outputLabel value="#{bundle.CreateResourceLabel_filePath}" for="filePath" />
-                        <p:inputText id="filePath" value="#{resourceController.selected.filePath}" title="#{bundle.CreateResourceTitle_filePath}" required="true" requiredMessage="#{bundle.CreateResourceRequiredMessage_filePath}"/>
-                        <p:outputLabel value="#{bundle.CreateResourceLabel_resourceName}" for="resourceName" />
-                        <p:inputText id="resourceName" value="#{resourceController.selected.resourceName}" title="#{bundle.CreateResourceTitle_resourceName}" required="true" requiredMessage="#{bundle.CreateResourceRequiredMessage_resourceName}"/>
                         <p:outputLabel value="#{bundle.CreateResourceLabel_isbn}" for="isbn" />
-                        <p:selectOneMenu id="isbn" value="#{resourceController.selected.isbn}" >
+                        <p:selectOneMenu id="isbn" value="#{resourceController.selected.isbn}" required="true" requiredMessage="#{bundle.CreateResourceRequiredMessage_isbn}">
                             <f:selectItems value="#{isbnController.itemsAvailableSelectOne}"
                                            var="isbnItem"
                                            itemValue="#{isbnItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{resourceController.create}" value="#{bundle.Save}" update="display,:ResourceListForm:datalist,:growl" oncomplete="handleSubmit(args,'ResourceCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ResourceCreateDialog.hide()"/>
+                    <p:commandButton actionListener="#{resourceController.handleFileUpload()}" value="#{bundle.Save}" ajax="false" update="display,:ResourceListForm:datalist,:growl" oncomplete="handleSubmit(args,'ResourceCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ResourceCreateDialog').hide();" process="@this"/>
                 </h:panelGroup>
             </h:form>
+
         </p:dialog>
 
     </ui:composition>

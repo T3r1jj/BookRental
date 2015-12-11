@@ -1,5 +1,12 @@
 package jsf;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import jpa.entity.Resource;
 import jsf.util.JsfUtil;
 import jsf.util.JsfUtil.PersistAction;
@@ -12,21 +19,28 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+import org.primefaces.model.UploadedFile;
 
 @ManagedBean(name = "resourceController")
-@SessionScoped
+@ViewScoped
 public class ResourceController implements Serializable {
 
     @EJB
     private jpa.session.ResourceFacade ejbFacade;
     private List<Resource> items = null;
     private Resource selected;
+    private UploadedFile file;
 
     public ResourceController() {
     }
@@ -37,6 +51,14 @@ public class ResourceController implements Serializable {
 
     public void setSelected(Resource selected) {
         this.selected = selected;
+    }
+
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
     }
 
     protected void setEmbeddableKeys() {
@@ -53,6 +75,48 @@ public class ResourceController implements Serializable {
         selected = new Resource();
         initializeEmbeddableKey();
         return selected;
+    }
+
+    public void handleFileUpload() {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        String directory = externalContext.getInitParameter("uploadDirectory");
+        String fileName = file.getFileName();
+        String[] tokens = fileName.split("\\.(?=[^\\.]+$)");
+        File destinationFile;
+        try {
+            if (tokens.length < 2) {
+                destinationFile = File.createTempFile(tokens[0] + "-", ".dat", new File(directory));
+            } else {
+                destinationFile = File.createTempFile(tokens[0] + "-", "." + tokens[1], new File(directory));
+            }
+            InputStream input = file.getInputstream();
+            copyFile(destinationFile, input);
+        } catch (IOException ex) {
+            FacesMessage message = new FacesMessage("Unsuccesful", file.getFileName() + " not uploaded.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return;
+        }
+        selected.setFilePath(destinationFile.getAbsolutePath());
+        selected.setResourceName(fileName);
+        FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
+        FacesContext.getCurrentInstance().addMessage(null, message);
+        create();
+    }
+
+    private void copyFile(File destination, InputStream input) throws IOException {
+        try (OutputStream output = new FileOutputStream(destination)) {
+            int read = 0;
+            byte[] bytes = new byte[1024];
+
+            while ((read = input.read(bytes)) != -1) {
+                output.write(bytes, 0, read);
+            }
+            input.close();
+            output.flush();
+            output.close();
+        } catch (IOException e) {
+            throw e;
+        }
     }
 
     public void create() {
@@ -81,6 +145,18 @@ public class ResourceController implements Serializable {
         return items;
     }
 
+    public StreamedContent downloadResource() {
+        try {
+            InputStream stream = new FileInputStream(new File(selected.getFilePath()));
+            String contentType = FacesContext.getCurrentInstance().getExternalContext().getMimeType(selected.getFilePath());
+            return new DefaultStreamedContent(stream, contentType, selected.getResourceName());
+        } catch (FileNotFoundException ex) {
+            JsfUtil.addErrorMessage(selected.getResourceName() + " " + ResourceBundle.getBundle("/resources/Bundle").getString("ResourceNotFound"));
+            Logger.getLogger(IsbnController.class.getName()).severe(selected.getFilePath() + " not found");
+            return null;
+        }
+    }
+
     private void persist(PersistAction persistAction, String successMessage) {
         if (selected != null) {
             setEmbeddableKeys();
@@ -88,7 +164,9 @@ public class ResourceController implements Serializable {
                 if (persistAction != PersistAction.DELETE) {
                     getFacade().edit(selected);
                 } else {
+                    String filePath = selected.getFilePath();
                     getFacade().remove(selected);
+                    new File(filePath).delete();
                 }
                 JsfUtil.addSuccessMessage(successMessage);
             } catch (EJBException ex) {

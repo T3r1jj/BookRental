@@ -12,8 +12,6 @@
             <h:form id="ResourceEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{resourceController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditResourceLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{resourceController.selected.id}" title="#{bundle.EditResourceTitle_id}" required="true" requiredMessage="#{bundle.EditResourceRequiredMessage_id}"/>
                         <p:outputLabel value="#{bundle.EditResourceLabel_description}" for="description" />
                         <p:inputText id="description" value="#{resourceController.selected.description}" title="#{bundle.EditResourceTitle_description}" required="true" requiredMessage="#{bundle.EditResourceRequiredMessage_description}"/>
                         <p:outputLabel value="#{bundle.EditResourceLabel_filePath}" for="filePath" />
@@ -21,7 +19,7 @@
                         <p:outputLabel value="#{bundle.EditResourceLabel_resourceName}" for="resourceName" />
                         <p:inputText id="resourceName" value="#{resourceController.selected.resourceName}" title="#{bundle.EditResourceTitle_resourceName}" required="true" requiredMessage="#{bundle.EditResourceRequiredMessage_resourceName}"/>
                         <p:outputLabel value="#{bundle.EditResourceLabel_isbn}" for="isbn" />
-                        <p:selectOneMenu id="isbn" value="#{resourceController.selected.isbn}" >
+                        <p:selectOneMenu id="isbn" value="#{resourceController.selected.isbn}" required="true" requiredMessage="#{bundle.EditResourceRequiredMessage_isbn}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{isbnController.itemsAvailableSelectOne}"
                                            var="isbnItem"
@@ -29,7 +27,7 @@
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{resourceController.update}" value="#{bundle.Save}" update="display,:ResourceListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ResourceEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ResourceEditDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ResourceEditDialog').hide();" process="@this"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

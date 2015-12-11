@@ -21,9 +21,12 @@
                         <h:outputText value="#{bundle.ViewResourceLabel_resourceName}"/>
                         <h:outputText value="#{resourceController.selected.resourceName}" title="#{bundle.ViewResourceTitle_resourceName}"/>
                         <h:outputText value="#{bundle.ViewResourceLabel_isbn}"/>
-                        <h:outputText value="#{resourceController.selected.isbn}" title="#{bundle.ViewResourceTitle_isbn}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="ResourceViewDialog.hide()"/>
+                    <h:outputText value="#{resourceController.selected.isbn}" title="#{bundle.ViewResourceTitle_isbn}"/>
+                    <p:commandButton value="#{bundle.ViewIsbnLabel_download}" ajax="false" icon="ui-icon-arrowthick-1-s">
+                        <p:fileDownload value="#{resourceController.downloadResource()}" />
+                    </p:commandButton>
+                    <p:commandButton value="#{bundle.Close}" oncomplete="PF('ResourceViewDialog').hide();" process="@this"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

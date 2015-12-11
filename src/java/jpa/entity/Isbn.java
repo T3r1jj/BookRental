@@ -65,7 +65,7 @@ public class Isbn implements Serializable {
     private List<Book> bookList;
     @OneToMany(mappedBy = "isbn", cascade = CascadeType.ALL)
     private List<Tag> tagList;
-    @OneToMany(mappedBy = "isbn")
+    @OneToMany(mappedBy = "isbn", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Resource> resourceList;
 
     public Isbn() {

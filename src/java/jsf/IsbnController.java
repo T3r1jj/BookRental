@@ -1,5 +1,9 @@
 package jsf;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import jpa.entity.Isbn;
 import jsf.util.JsfUtil;
 import jsf.util.JsfUtil.PersistAction;
@@ -20,7 +24,10 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import jpa.entity.Resource;
 import jpa.entity.Tag;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 
 @ManagedBean(name = "isbnController")
 @SessionScoped
@@ -56,6 +63,18 @@ public class IsbnController implements Serializable {
 
     private IsbnFacade getFacade() {
         return isbnFacade;
+    }
+
+    public StreamedContent downloadResource(Resource resource) {
+        try {
+            InputStream stream = new FileInputStream(new File(resource.getFilePath()));
+            String contentType = FacesContext.getCurrentInstance().getExternalContext().getMimeType(resource.getFilePath());
+            return new DefaultStreamedContent(stream, contentType, resource.getResourceName());
+        } catch (FileNotFoundException ex) {
+            JsfUtil.addErrorMessage(resource.getResourceName() + " " + ResourceBundle.getBundle("/resources/Bundle").getString("ResourceNotFound"));
+            Logger.getLogger(IsbnController.class.getName()).severe(resource.getFilePath() + " not found");
+            return null;
+        }
     }
 
     public Isbn prepareCreate() {
@@ -98,6 +117,9 @@ public class IsbnController implements Serializable {
     }
 
     public void destroy() {
+        for (Resource resource : selected.getResourceList()) {
+            new File(resource.getFilePath()).delete();
+        }
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/resources/Bundle").getString("IsbnDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection

@@ -33,6 +33,15 @@
                         <h:outputText value="#{bundle.ViewIsbnLabel_category}"/>
                         <h:outputText value="#{isbnController.selected.category}" title="#{bundle.ViewIsbnTitle_category}"/>
                     </p:panelGrid>
+                    <p:dataList value="#{isbnController.selected.resourceList}" var="file" style="margin: 0 auto;">
+                        <f:facet name="header">
+                            #{bundle.ViewIsbnLabel_download}
+                        </f:facet>
+                        #{file.description} 
+                        <p:commandButton value="#{bundle.ViewIsbnLabel_download}" ajax="true" icon="ui-icon-arrowthick-1-s">
+                            <p:fileDownload value="#{isbnController.downloadResource(file)}" />
+                        </p:commandButton>
+                    </p:dataList>
                     <p:commandButton value="#{bundle.Close}" onclick="IsbnViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
