@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -27,6 +28,7 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Isbn.findAll", query = "SELECT i FROM Isbn i")})
 public class Isbn implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -61,7 +63,7 @@ public class Isbn implements Serializable {
     private List<Reservation> reservationList;
     @OneToMany(mappedBy = "isbn")
     private List<Book> bookList;
-    @OneToMany(mappedBy = "isbn")
+    @OneToMany(mappedBy = "isbn", cascade = CascadeType.ALL)
     private List<Tag> tagList;
     @OneToMany(mappedBy = "isbn")
     private List<Resource> resourceList;
@@ -194,4 +196,15 @@ public class Isbn implements Serializable {
         return "jpa.entity.Isbn[ isbn=" + isbn + " ]";
     }
 
+    public String getTags() {
+        StringBuilder sb = new StringBuilder();
+        for (Tag tag : getTagList()) {
+            sb.append(tag.getTagName());
+            sb.append(",");
+        }
+        if (sb.length() > 0) {
+            sb.deleteCharAt(sb.length() - 1);
+        }
+        return sb.toString();
+    }
 }

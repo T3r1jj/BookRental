@@ -24,6 +24,8 @@
                         <p:inputText id="publishingHouse" value="#{isbnController.selected.publishingHouse}" title="#{bundle.CreateIsbnTitle_publishingHouse}" />
                         <p:outputLabel value="#{bundle.CreateIsbnLabel_release}" for="release" />
                         <p:inputText id="release" value="#{isbnController.selected.release}" title="#{bundle.CreateIsbnTitle_release}" />
+                        <p:outputLabel value="#{bundle.CreateIsbnLabel_tags}" for="tags" />
+                        <p:inputText id="tags" value="#{isbnController.tags}" title="#{bundle.CreateIsbnTitle_tags}" />
                         <p:outputLabel value="#{bundle.CreateIsbnLabel_category}" for="category" />
                         <p:selectOneMenu id="category" value="#{isbnController.selected.category}" >
                             <f:selectItems value="#{categoryController.itemsAvailableSelectOne}"

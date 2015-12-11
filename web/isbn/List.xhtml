@@ -73,6 +73,12 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIsbnTitle_tags}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.tags}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListIsbnTitle_category}"/>
                             </f:facet>
                             <h:outputText value="#{item.category}"/>

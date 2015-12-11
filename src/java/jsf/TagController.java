@@ -13,17 +13,16 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
-import jpa.entity.Category;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
 @ManagedBean(name = "tagController")
-@SessionScoped
+@ViewScoped
 public class TagController implements Serializable {
 
     @EJB
@@ -77,8 +76,8 @@ public class TagController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
-            root = null;
         }
+        root = null;
     }
 
     public List<Tag> getItems() {
@@ -87,7 +86,7 @@ public class TagController implements Serializable {
         }
         return items;
     }
-
+    
     public TreeNode getRoot() {
         if (root == null) {
             if (items == null) {

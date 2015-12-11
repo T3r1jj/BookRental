@@ -81,8 +81,8 @@ public class CategoryController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
-            root = null;
         }
+        root = null;
     }
 
     public List<Category> getItems() {

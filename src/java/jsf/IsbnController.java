@@ -6,6 +6,7 @@ import jsf.util.JsfUtil.PersistAction;
 import jpa.session.IsbnFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -19,15 +20,19 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import jpa.entity.Tag;
 
 @ManagedBean(name = "isbnController")
 @SessionScoped
 public class IsbnController implements Serializable {
 
     @EJB
-    private jpa.session.IsbnFacade ejbFacade;
+    private jpa.session.IsbnFacade isbnFacade;
+    @EJB
+    private jpa.session.TagFacade tagFacade;
     private List<Isbn> items = null;
     private Isbn selected;
+    private String tags = "";
 
     public IsbnController() {
     }
@@ -38,6 +43,9 @@ public class IsbnController implements Serializable {
 
     public void setSelected(Isbn selected) {
         this.selected = selected;
+        if (selected != null) {
+            tags = selected.getTags();
+        }
     }
 
     protected void setEmbeddableKeys() {
@@ -47,7 +55,7 @@ public class IsbnController implements Serializable {
     }
 
     private IsbnFacade getFacade() {
-        return ejbFacade;
+        return isbnFacade;
     }
 
     public Isbn prepareCreate() {
@@ -58,13 +66,34 @@ public class IsbnController implements Serializable {
     }
 
     public void create() {
+        createTags();
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/resources/Bundle").getString("IsbnCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
+    private void removeOldTags() {
+        for (Tag tag : selected.getTagList()) {
+            tagFacade.remove(tag);
+        }
+    }
+
+    private void createTags() {
+        String[] tagStrings = tags.replace(" ", "").toLowerCase().split(",");
+        List<Tag> tagsList = new ArrayList<>();
+        for (String tagString : tagStrings) {
+            Tag tag = new Tag();
+            tag.setIsbn(selected);
+            tag.setTagName(tagString);
+            tagsList.add(tag);
+        }
+        selected.setTagList(tagsList);
+    }
+
     public void update() {
+        removeOldTags();
+        createTags();
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/resources/Bundle").getString("IsbnUpdated"));
     }
 
@@ -81,6 +110,14 @@ public class IsbnController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {
