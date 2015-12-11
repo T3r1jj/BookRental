@@ -15,15 +15,19 @@
                         <p:outputLabel value="#{bundle.EditBookLabel_id}" for="id" />
                         <p:inputText id="id" value="#{bookController.selected.id}" title="#{bundle.EditBookTitle_id}" required="true" requiredMessage="#{bundle.EditBookRequiredMessage_id}"/>
                         <p:outputLabel value="#{bundle.EditBookLabel_isBorrowed}" for="isBorrowed" />
-                        <p:selectBooleanCheckbox id="isBorrowed" value="#{bookController.selected.isBorrowed}">
-                            <p:ajax update="isOnShelf" listener="#{bookController.isBorrowedStatusChange}" />
+                        <p:selectBooleanCheckbox id="isBorrowed" value="#{bookController.selected.isBorrowed}" disabled="#{bookController.selected.isBorrowed}">
+                            <p:ajax listener="#{bookController.isBorrowedStatusChange}" update="isBorrowed,isOnShelf,isReserved"/>
                         </p:selectBooleanCheckbox>
                         <p:outputLabel value="#{bundle.EditBookLabel_isOnShelf}" for="isOnShelf" />
-                        <p:selectBooleanCheckbox id="isOnShelf" value="#{bookController.selected.isOnShelf}"/>
+                        <p:selectBooleanCheckbox id="isOnShelf" value="#{bookController.selected.isOnShelf}" disabled="#{bookController.selected.isOnShelf}">
+                            <p:ajax listener="#{bookController.isOnShelfStatusChange}" update="isBorrowed,isOnShelf,isReserved"/>
+                        </p:selectBooleanCheckbox>
                         <p:outputLabel value="#{bundle.EditBookLabel_isReserved}" for="isReserved" />
-                        <p:selectBooleanCheckbox id="isReserved" value="#{bookController.selected.isReserved}" />
+                        <p:selectBooleanCheckbox id="isReserved" value="#{bookController.selected.isReserved}" disabled="#{bookController.selected.isReserved}">
+                            <p:ajax listener="#{bookController.isReservedStatusChange}" update="isBorrowed,isOnShelf,isReserved"/>
+                        </p:selectBooleanCheckbox>
                         <p:outputLabel value="#{bundle.EditBookLabel_isbn}" for="isbn" />
-                        <p:selectOneMenu id="isbn" value="#{bookController.selected.isbn}" >
+                        <p:selectOneMenu id="isbn" value="#{bookController.selected.isbn}" required="true" requiredMessage="#{bundle.EditBookRequiredMessage_isbn}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{isbnController.itemsAvailableSelectOne}"
                                            var="isbnItem"

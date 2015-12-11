@@ -12,8 +12,6 @@
             <h:form id="ReservationCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{reservationController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateReservationLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{reservationController.selected.id}" title="#{bundle.CreateReservationTitle_id}" required="true" requiredMessage="#{bundle.CreateReservationRequiredMessage_id}"/>
                         <p:outputLabel value="#{bundle.CreateReservationLabel_expirationDate}" for="expirationDate" />
                         <p:calendar id="expirationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{reservationController.selected.expirationDate}" title="#{bundle.EditReservationTitle_expirationDate}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateReservationLabel_reservationDate}" for="reservationDate" />

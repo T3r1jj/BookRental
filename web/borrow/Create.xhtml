@@ -12,8 +12,6 @@
             <h:form id="BorrowCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{borrowController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateBorrowLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{borrowController.selected.id}" title="#{bundle.CreateBorrowTitle_id}" required="true" requiredMessage="#{bundle.CreateBorrowRequiredMessage_id}"/>
                         <p:outputLabel value="#{bundle.CreateBorrowLabel_borrowDate}" for="borrowDate" />
                         <p:calendar id="borrowDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{borrowController.selected.borrowDate}" title="#{bundle.EditBorrowTitle_borrowDate}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateBorrowLabel_returnDate}" for="returnDate" />

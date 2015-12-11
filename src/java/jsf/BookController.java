@@ -28,7 +28,7 @@ public class BookController implements Serializable {
     private jpa.session.BookFacade ejbFacade;
     private List<Book> items = null;
     private Book selected;
-    private int count;
+    private int count = 1;
 
     public BookController() {
     }
@@ -134,10 +134,25 @@ public class BookController implements Serializable {
     public List<Book> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
-    
+
     public void isBorrowedStatusChange() {
-        selected.setIsOnShelf(false);
-        selected.setIsReserved(false);
+        if (selected.getIsBorrowed()) {
+            selected.setIsOnShelf(false);
+            selected.setIsReserved(false);
+        }
+    }
+    
+    public void isOnShelfStatusChange() {
+        if (selected.getIsOnShelf()) {
+            selected.setIsBorrowed(false);
+            selected.setIsReserved(false);
+        }
+    }
+    public void isReservedStatusChange() {
+        if (selected.getIsReserved()) {
+            selected.setIsOnShelf(false);
+            selected.setIsBorrowed(false);
+        }
     }
 
     @FacesConverter(forClass = Book.class)
