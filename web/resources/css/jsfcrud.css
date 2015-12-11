@@ -15,3 +15,7 @@
 .ui-button {
     margin-top: 10px !important;
 }
+
+.editorPosition {
+    position:relative; bottom: 5px;
+}

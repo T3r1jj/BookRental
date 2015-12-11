@@ -21,12 +21,6 @@
                         <p:outputLabel value="#{bundle.EditPersonLabel_penalty}" for="penalty" />
                         <p:inputText id="penalty" value="#{personController.selected.penalty}" title="#{bundle.EditPersonTitle_penalty}" />
                         <p:outputLabel value="#{bundle.EditPersonLabel_permissions}" for="permissions" />
-                        <p:selectOneMenu id="permissions" value="#{personController.selected.permissions}" style="width:125px">
-                            <f:selectItem itemLabel="#{bundle.EditPersonTitle_permissions_user}" itemValue="USER" />
-                            <f:selectItem itemLabel="#{bundle.EditPersonTitle_permissions_worker}" itemValue="WORKER" />
-                            <f:selectItem itemLabel="#{bundle.EditPersonTitle_permissions_admin}" itemValue="ADMIN" />
-                        </p:selectOneMenu>
-
                     </p:panelGrid>
                     <p:commandButton actionListener="#{personController.update}" value="#{bundle.Save}" update="display,:PersonListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PersonEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="PersonEditDialog.hide()"/>

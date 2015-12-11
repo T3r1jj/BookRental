@@ -6,6 +6,7 @@ import jsf.util.JsfUtil.PersistAction;
 import jpa.session.NewsFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -51,6 +52,7 @@ public class NewsController implements Serializable {
 
     public News prepareCreate() {
         selected = new News();
+        selected.setPublishDate(new Date());
         initializeEmbeddableKey();
         return selected;
     }
