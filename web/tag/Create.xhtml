@@ -22,7 +22,7 @@
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{tagController.create}" value="#{bundle.Save}" update="display,:TagListForm:datalist,:TagListForm:tagTree,:growl" oncomplete="handleSubmit(args,'TagCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="TagCreateDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('TagCreateDialog').hide();" process="@this"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

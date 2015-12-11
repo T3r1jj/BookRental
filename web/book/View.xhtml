@@ -14,16 +14,16 @@
                     <p:panelGrid columns="2" rendered="#{bookController.selected != null}">
                         <h:outputText value="#{bundle.ViewBookLabel_id}"/>
                         <h:outputText value="#{bookController.selected.id}" title="#{bundle.ViewBookTitle_id}"/>
+                        <h:outputText value="#{bundle.ViewBookLabel_isInWarehouse}"/>
+                        <p:selectBooleanCheckbox value="#{bookController.selected.isInWarehouse}" disabled="true"/>
                         <h:outputText value="#{bundle.ViewBookLabel_isBorrowed}"/>
                         <p:selectBooleanCheckbox value="#{bookController.selected.isBorrowed}" disabled="true"/>
                         <h:outputText value="#{bundle.ViewBookLabel_isOnShelf}"/>
                         <p:selectBooleanCheckbox value="#{bookController.selected.isOnShelf}" disabled="true"/>
-                        <h:outputText value="#{bundle.ViewBookLabel_isReserved}"/>
-                        <p:selectBooleanCheckbox value="#{bookController.selected.isReserved}" disabled="true"/>
                         <h:outputText value="#{bundle.ViewBookLabel_isbn}"/>
                         <h:outputText value="#{bookController.selected.isbn}" title="#{bundle.ViewBookTitle_isbn}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="BookViewDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Close}" oncomplete="PF('BookViewDialog').hide();" process="@this"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

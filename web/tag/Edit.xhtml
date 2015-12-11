@@ -23,7 +23,7 @@
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{tagController.update}" value="#{bundle.Save}" update="display,:TagListForm:datalist,:TagListForm:tagTree,:growl" oncomplete="handleSubmit(args, 'TagEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="TagEditDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('TagEditDialog').hide();" process="@this"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

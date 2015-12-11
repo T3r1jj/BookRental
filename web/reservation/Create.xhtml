@@ -36,7 +36,7 @@
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{reservationController.create}" value="#{bundle.Save}" update="display,:ReservationListForm:datalist,:growl" oncomplete="handleSubmit(args,'ReservationCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ReservationCreateDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('ReservationCreateDialog').hide();" process="@this"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

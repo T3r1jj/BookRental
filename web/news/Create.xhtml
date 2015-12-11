@@ -22,7 +22,7 @@
                         <p:calendar styleClass="editorPosition" id="publishDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{newsController.selected.publishDate}" title="#{bundle.CreateNewsTitle_publishDate}" required="true" requiredMessage="#{bundle.CreateNewsRequiredMessage_publishDate}"  showOn="button"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{newsController.create}" value="#{bundle.Save}" update="display,:NewsListForm:datalist,:growl" oncomplete="handleSubmit(args,'NewsCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="NewsCreateDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('NewsCreateDialog').hide();" process="@this"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

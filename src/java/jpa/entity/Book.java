@@ -36,9 +36,7 @@ public class Book implements Serializable {
     @Column(name = "ISONSHELF")
     private boolean isOnShelf;
     @Column(name = "ISRESERVED")
-    private boolean isReserved;
-    @OneToMany(mappedBy = "book")
-    private List<Reservation> reservationList;
+    private boolean isInWarehouse;
     @JoinColumn(name = "ISBN", referencedColumnName = "ISBN")
     @ManyToOne
     private Isbn isbn;
@@ -76,20 +74,12 @@ public class Book implements Serializable {
         this.isOnShelf = isOnShelf;
     }
 
-    public boolean getIsReserved() {
-        return isReserved;
+    public boolean getIsInWarehouse() {
+        return isInWarehouse;
     }
 
-    public void setIsReserved(boolean isReserved) {
-        this.isReserved = isReserved;
-    }
-
-    public List<Reservation> getReservationList() {
-        return reservationList;
-    }
-
-    public void setReservationList(List<Reservation> reservationList) {
-        this.reservationList = reservationList;
+    public void setIsInWarehouse(boolean isInWarehouse) {
+        this.isInWarehouse = isInWarehouse;
     }
 
     public Isbn getIsbn() {

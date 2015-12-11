@@ -71,8 +71,8 @@ public class BookController implements Serializable {
             selected = new Book();
             selected.setIsbn(isbn);
             selected.setIsBorrowed(false);
-            selected.setIsReserved(false);
-            selected.setIsOnShelf(true);
+            selected.setIsInWarehouse(true);
+            selected.setIsOnShelf(false);
             persist(PersistAction.CREATE, ResourceBundle.getBundle("/resources/Bundle").getString("BookCreated"));
         }
         if (!JsfUtil.isValidationFailed()) {
@@ -138,18 +138,18 @@ public class BookController implements Serializable {
     public void isBorrowedStatusChange() {
         if (selected.getIsBorrowed()) {
             selected.setIsOnShelf(false);
-            selected.setIsReserved(false);
+            selected.setIsInWarehouse(false);
         }
     }
     
     public void isOnShelfStatusChange() {
         if (selected.getIsOnShelf()) {
             selected.setIsBorrowed(false);
-            selected.setIsReserved(false);
+            selected.setIsInWarehouse(false);
         }
     }
-    public void isReservedStatusChange() {
-        if (selected.getIsReserved()) {
+    public void isInWarehouseStatusChange() {
+        if (selected.getIsInWarehouse()) {
             selected.setIsOnShelf(false);
             selected.setIsBorrowed(false);
         }

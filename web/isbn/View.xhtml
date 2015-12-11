@@ -42,7 +42,7 @@
                             <p:fileDownload value="#{isbnController.downloadResource(file)}" />
                         </p:commandButton>
                     </p:dataList>
-                    <p:commandButton value="#{bundle.Close}" onclick="IsbnViewDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Close}" oncomplete="PF('IsbnViewDialog').hide();" process="@this"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

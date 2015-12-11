@@ -34,7 +34,7 @@
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{isbnController.create}" value="#{bundle.Save}" update="display,:IsbnListForm:datalist,:growl" oncomplete="handleSubmit(args,'IsbnCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="IsbnCreateDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('IsbnCreateDialog').hide();" process="@this"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

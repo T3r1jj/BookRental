@@ -22,7 +22,7 @@
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{bookController.create}" value="#{bundle.Save}" update="display,:BookListForm:datalist,:growl" oncomplete="handleSubmit(args,'BookCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="BookCreateDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('BookCreateDialog').hide();" process="@this"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

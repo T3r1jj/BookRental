@@ -19,7 +19,7 @@
                         <h:outputText value="#{bundle.ViewCategoryLabel_category}"/>
                         <h:outputText value="#{categoryController.selected.parentCategory}" title="#{bundle.ViewCategoryTitle_parentCategory}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="CategoryViewDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Close}" oncomplete="PF('CategoryViewDialog').hide();" process="@this"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

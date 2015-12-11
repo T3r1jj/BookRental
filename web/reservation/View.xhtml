@@ -22,14 +22,12 @@
                         <h:outputText value="#{reservationController.selected.reservationDate}" title="#{bundle.ViewReservationTitle_reservationDate}">
                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
                         </h:outputText>
-                        <h:outputText value="#{bundle.ViewReservationLabel_book}"/>
-                        <h:outputText value="#{reservationController.selected.book}" title="#{bundle.ViewReservationTitle_book}"/>
                         <h:outputText value="#{bundle.ViewReservationLabel_isbn}"/>
                         <h:outputText value="#{reservationController.selected.isbn}" title="#{bundle.ViewReservationTitle_isbn}"/>
                         <h:outputText value="#{bundle.ViewReservationLabel_person}"/>
                         <h:outputText value="#{reservationController.selected.person}" title="#{bundle.ViewReservationTitle_person}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="ReservationViewDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Close}" oncomplete="PF('ReservationViewDialog').hide();" process="@this"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

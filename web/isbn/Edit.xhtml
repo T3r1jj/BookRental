@@ -35,7 +35,7 @@
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{isbnController.update}" value="#{bundle.Save}" update="display,:IsbnListForm:datalist,:growl" oncomplete="handleSubmit(args, 'IsbnEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="IsbnEditDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('IsbnEditDialog').hide();" process="@this"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

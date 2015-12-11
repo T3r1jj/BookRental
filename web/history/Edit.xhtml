@@ -29,7 +29,7 @@
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{historyController.update}" value="#{bundle.Save}" update="display,:HistoryListForm:datalist,:growl" oncomplete="handleSubmit(args, 'HistoryEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="HistoryEditDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('HistoryEditDialog').hide();" process="@this"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

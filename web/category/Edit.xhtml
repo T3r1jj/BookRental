@@ -23,7 +23,7 @@
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{categoryController.update}" value="#{bundle.Save}" update="display,:CategoryListForm:datalist,:CategoryListForm:categoryTree,:growl" oncomplete="handleSubmit(args, 'CategoryEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="CategoryEditDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('CategoryEditDialog').hide();" process="@this"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

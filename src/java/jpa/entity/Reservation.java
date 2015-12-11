@@ -37,9 +37,6 @@ public class Reservation implements Serializable {
     @Column(name = "RESERVATIONDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date reservationDate;
-    @JoinColumn(name = "BOOKID", referencedColumnName = "ID")
-    @ManyToOne
-    private Book book;
     @JoinColumn(name = "ISBN", referencedColumnName = "ISBN")
     @ManyToOne
     private Isbn isbn;
@@ -76,14 +73,6 @@ public class Reservation implements Serializable {
 
     public void setReservationDate(Date reservationDate) {
         this.reservationDate = reservationDate;
-    }
-
-    public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
     }
 
     public Isbn getIsbn() {

@@ -19,7 +19,7 @@
                         <h:outputText value="#{bundle.ViewTagLabel_isbn}"/>
                         <h:outputText value="#{tagController.selected.isbn}" title="#{bundle.ViewTagTitle_isbn}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="TagViewDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Close}" oncomplete="PF('TagViewDialog').hide();" process="@this"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
