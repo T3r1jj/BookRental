@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,11 +38,11 @@ public class Category implements Serializable {
     private String categoryName;
     @OneToMany(mappedBy = "category")
     private List<Isbn> isbnList;
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "parentCategory", fetch = FetchType.EAGER)
     private List<Category> categoryList;
     @JoinColumn(name = "PARENTID", referencedColumnName = "ID")
     @ManyToOne
-    private Category category;
+    private Category parentCategory;
 
     public Category() {
     }
@@ -82,12 +83,12 @@ public class Category implements Serializable {
         this.categoryList = categoryList;
     }
 
-    public Category getCategory() {
-        return category;
+    public Category getParentCategory() {
+        return parentCategory;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setParentCategory(Category parentCategory) {
+        this.parentCategory = parentCategory;
     }
 
     @Override

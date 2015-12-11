@@ -12,12 +12,10 @@
             <h:form id="CategoryCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{categoryController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateCategoryLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{categoryController.selected.id}" title="#{bundle.CreateCategoryTitle_id}" required="true" requiredMessage="#{bundle.CreateCategoryRequiredMessage_id}"/>
                         <p:outputLabel value="#{bundle.CreateCategoryLabel_categoryName}" for="categoryName" />
                         <p:inputText id="categoryName" value="#{categoryController.selected.categoryName}" title="#{bundle.CreateCategoryTitle_categoryName}" required="true" requiredMessage="#{bundle.CreateCategoryRequiredMessage_categoryName}"/>
-                        <p:outputLabel value="#{bundle.CreateCategoryLabel_category}" for="category" />
-                        <p:selectOneMenu id="category" value="#{categoryController.selected.category}" >
+                        <p:outputLabel value="#{bundle.CreateCategoryLabel_parentCategory}" for="category" />
+                        <p:selectOneMenu id="category" value="#{categoryController.selected.parentCategory}" >
                             <f:selectItems value="#{categoryController.itemsAvailableSelectOne}"
                                            var="categoryItem"
                                            itemValue="#{categoryItem}"/>

@@ -18,6 +18,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.TreeNode;
 
 @ManagedBean(name = "categoryController")
 @SessionScoped
@@ -27,6 +29,7 @@ public class CategoryController implements Serializable {
     private jpa.session.CategoryFacade ejbFacade;
     private List<Category> items = null;
     private Category selected;
+    private TreeNode root;
 
     public CategoryController() {
     }
@@ -77,8 +80,34 @@ public class CategoryController implements Serializable {
     public List<Category> getItems() {
         if (items == null) {
             items = getFacade().findAll();
+
         }
         return items;
+    }
+
+    public TreeNode getRoot() {
+        if (root == null) {
+            items = getItems();
+            root = new DefaultTreeNode("Root", null);
+            for (Category category : items) {
+                if (category.getParentCategory() == null) {
+                    TreeNode firstNode = new DefaultTreeNode(category.getCategoryName(), root);
+                    root.getChildren().add(firstNode);
+                    recursivelyAddToTree(firstNode, category);
+                }
+            }
+        }
+        return root;
+    }
+
+    private void recursivelyAddToTree(TreeNode root, Category categoryParent) {
+        if (categoryParent != null) {
+            for (Category sameLevelCategory : categoryParent.getCategoryList()) {
+                TreeNode firstNode = new DefaultTreeNode(sameLevelCategory.getCategoryName(), root);
+                root.getChildren().add(firstNode);
+                recursivelyAddToTree(firstNode, sameLevelCategory);
+            }
+        }
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

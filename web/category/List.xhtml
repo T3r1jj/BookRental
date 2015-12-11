@@ -14,7 +14,17 @@
         </ui:define>
 
         <ui:define name="body">
+
+            
             <h:form id="CategoryListForm">
+                <p:tree value="#{categoryController.root}" var="node" dynamic="true">
+                <p:treeNode>
+                    <h:outputText value="#{node}" />
+                </p:treeNode>
+            </p:tree>
+            <br/>
+            <br/>
+            
                 <p:panel header="#{bundle.ListCategoryTitle}">
                     <p:dataTable id="datalist" value="#{categoryController.items}" var="item"
                                  selectionMode="single" selection="#{categoryController.selected}"
@@ -41,9 +51,9 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListCategoryTitle_category}"/>
+                                <h:outputText value="#{bundle.ListCategoryTitle_parentCategory}"/>
                             </f:facet>
-                            <h:outputText value="#{item.category}"/>
+                            <h:outputText value="#{item.parentCategory}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{categoryController.prepareCreate}" update=":CategoryCreateForm" oncomplete="PF('CategoryCreateDialog').show()"/>

@@ -17,7 +17,7 @@
                         <h:outputText value="#{bundle.ViewCategoryLabel_categoryName}"/>
                         <h:outputText value="#{categoryController.selected.categoryName}" title="#{bundle.ViewCategoryTitle_categoryName}"/>
                         <h:outputText value="#{bundle.ViewCategoryLabel_category}"/>
-                        <h:outputText value="#{categoryController.selected.category}" title="#{bundle.ViewCategoryTitle_category}"/>
+                        <h:outputText value="#{categoryController.selected.parentCategory}" title="#{bundle.ViewCategoryTitle_parentCategory}"/>
                     </p:panelGrid>
                     <p:commandButton value="#{bundle.Close}" onclick="CategoryViewDialog.hide()"/>
                 </h:panelGroup>
