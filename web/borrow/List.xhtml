@@ -24,8 +24,8 @@
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update="registerReturn registerRetrieve createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="registerReturn registerRetrieve createButton viewButton editButton deleteButton"/>
 
                         <p:column>
                             <f:facet name="header">
@@ -70,6 +70,10 @@
                             <h:outputText value="#{item.person}"/>
                         </p:column>
                         <f:facet name="footer">
+                            <p:commandButton id="registerRetrieve" icon="ui-icon-plus" value="#{bundle.RegisterRetrieve}" disabled="#{empty borrowController.selected or not empty borrowController.selected.borrowDate}"
+                                             actionListener="#{borrowController.registerRetrieve}" update=":BorrowCreateForm,:growl,datalist" />
+                            <p:commandButton id="registerReturn" icon="ui-icon-plus" value="#{bundle.RegisterReturn}" disabled="#{empty borrowController.selected or empty borrowController.selected.borrowDate or not empty borrowController.selected.returnedDate}"
+                                             actionListener="#{borrowController.registerReturn}" update=":BorrowPenaltyForm,:growl,datalist" />
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{borrowController.prepareCreate}" update=":BorrowCreateForm" oncomplete="PF('BorrowCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":BorrowViewForm" oncomplete="PF('BorrowViewDialog').show()" disabled="#{empty borrowController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":BorrowEditForm" oncomplete="PF('BorrowEditDialog').show()" disabled="#{empty borrowController.selected}"/>
@@ -79,6 +83,7 @@
                 </p:panel>
             </h:form>
 
+            <ui:include src="Penalty.xhtml"/>
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>

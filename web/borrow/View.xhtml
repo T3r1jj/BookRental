@@ -31,7 +31,7 @@
                         <h:outputText value="#{bundle.ViewBorrowLabel_person}"/>
                         <h:outputText value="#{borrowController.selected.person}" title="#{bundle.ViewBorrowTitle_person}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="BorrowViewDialog.hide()"/>
+                    <p:commandButton value="#{bundle.Close}" oncomplete="PF('BorrowViewDialog').hide();" process="@this"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

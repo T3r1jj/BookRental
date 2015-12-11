@@ -6,6 +6,9 @@ import jsf.util.JsfUtil.PersistAction;
 import jpa.session.BorrowFacade;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -18,6 +21,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import jpa.entity.Person;
+import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "borrowController")
 @SessionScoped
@@ -25,8 +30,12 @@ public class BorrowController implements Serializable {
 
     @EJB
     private jpa.session.BorrowFacade ejbFacade;
+    @EJB
+    private jpa.session.PersonFacade personFacade;
     private List<Borrow> items = null;
     private Borrow selected;
+    private int daysLate;
+    private BigDecimal penalty;
 
     public BorrowController() {
     }
@@ -37,6 +46,22 @@ public class BorrowController implements Serializable {
 
     public void setSelected(Borrow selected) {
         this.selected = selected;
+    }
+
+    public int getDaysLate() {
+        return daysLate;
+    }
+
+    public void setDaysLate(int daysLate) {
+        this.daysLate = daysLate;
+    }
+
+    public BigDecimal getPenalty() {
+        return penalty;
+    }
+
+    public void setPenalty(BigDecimal penalty) {
+        this.penalty = penalty;
     }
 
     protected void setEmbeddableKeys() {
@@ -53,6 +78,41 @@ public class BorrowController implements Serializable {
         selected = new Borrow();
         initializeEmbeddableKey();
         return selected;
+    }
+
+    public void registerRetrieve() {
+        selected.setBorrowDate(new Date());
+        selected.setReturnDate(new Date());
+        update();
+    }
+
+    public void registerReturn() {
+        selected.setReturnedDate(new Date());
+        update();
+//        if (selected.getReturnedDate().before(selected.getReturnDate())) {
+//            daysLate = daysBetween(DateToCalendar(selected.getReturnDate()), DateToCalendar(selected.getReturnedDate()));
+//            penalty = new BigDecimal("1").multiply(new BigDecimal(daysLate));
+//            RequestContext context = RequestContext.getCurrentInstance();
+//            context.execute("PF('BorrowPenaltyDialog').show();");
+//        }
+//        if (selected.getReturnedDate().before(selected.getReturnDate())) {
+        daysLate = 1;
+        penalty = new BigDecimal("1").multiply(new BigDecimal(daysLate));
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.execute("PF('BorrowPenaltyDialog').show();");
+//        }
+    }
+
+    public void savePenalty() {
+        Person user = selected.getPerson();
+        user.setPenalty(penalty.add(user.getPenalty()));
+        if (user.getPenalty().compareTo(BigDecimal.ZERO) == 1) {
+            user.setBanned(true);
+        } else {
+            user.setBanned(false);
+        }
+        personFacade.edit(user);
+        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resources/Bundle").getString("PenaltyUpdated"));
     }
 
     public void create() {
@@ -156,6 +216,39 @@ public class BorrowController implements Serializable {
             }
         }
 
+    }
+
+    private static Calendar DateToCalendar(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal;
+    }
+
+    private static int daysBetween(Calendar day1, Calendar day2) {
+        Calendar dayOne = (Calendar) day1.clone(),
+                dayTwo = (Calendar) day2.clone();
+
+        if (dayOne.get(Calendar.YEAR) == dayTwo.get(Calendar.YEAR)) {
+            return Math.abs(dayOne.get(Calendar.DAY_OF_YEAR) - dayTwo.get(Calendar.DAY_OF_YEAR));
+        } else {
+            if (dayTwo.get(Calendar.YEAR) > dayOne.get(Calendar.YEAR)) {
+                //swap them
+                Calendar temp = dayOne;
+                dayOne = dayTwo;
+                dayTwo = temp;
+            }
+            int extraDays = 0;
+
+            int dayOneOriginalYearDays = dayOne.get(Calendar.DAY_OF_YEAR);
+
+            while (dayOne.get(Calendar.YEAR) > dayTwo.get(Calendar.YEAR)) {
+                dayOne.add(Calendar.YEAR, -1);
+                // getActualMaximum() important for leap years
+                extraDays += dayOne.getActualMaximum(Calendar.DAY_OF_YEAR);
+            }
+
+            return extraDays - dayTwo.get(Calendar.DAY_OF_YEAR) + dayOneOriginalYearDays;
+        }
     }
 
 }
