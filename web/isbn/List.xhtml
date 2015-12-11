@@ -35,6 +35,12 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListIsbnTitle_title}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.title}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListIsbnTitle_addDate}"/>
                             </f:facet>
                             <h:outputText value="#{item.addDate}">
@@ -64,12 +70,6 @@
                                 <h:outputText value="#{bundle.ListIsbnTitle_release}"/>
                             </f:facet>
                             <h:outputText value="#{item.release}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListIsbnTitle_title}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.title}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">

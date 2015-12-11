@@ -33,9 +33,12 @@
                         <h:outputText value="#{bundle.ViewIsbnLabel_category}"/>
                         <h:outputText value="#{isbnController.selected.category}" title="#{bundle.ViewIsbnTitle_category}"/>
                     </p:panelGrid>
+                    <h:commandButton value="#{bundle.AddToCart}" action="#{booksCartController.add(isbnController.selected)}" disabled="#{booksCartController.isInCart(isbnController.selected)}"/>
+                    <br/>
+                    <br/>
                     <p:dataList value="#{isbnController.selected.resourceList}" var="file" style="margin: 0 auto;">
                         <f:facet name="header">
-                            #{bundle.ViewIsbnLabel_download}
+                            #{bundle.ViewIsbnLabel_resources}
                         </f:facet>
                         #{file.description} 
                         <p:commandButton value="#{bundle.ViewIsbnLabel_download}" ajax="true" icon="ui-icon-arrowthick-1-s">
