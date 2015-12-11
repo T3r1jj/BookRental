@@ -41,15 +41,15 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListBookTitle_isBorrowed}"/>
-                            </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.isBorrowed}" disabled="true"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListBookTitle_isOnShelf}"/>
                             </f:facet>
                             <p:selectBooleanCheckbox value="#{item.isOnShelf}" disabled="true"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListBookTitle_isBorrowed}"/>
+                            </f:facet>
+                            <p:selectBooleanCheckbox value="#{item.isBorrowed}" disabled="true"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">

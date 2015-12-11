@@ -24,6 +24,7 @@ public class LoggedUserController implements Serializable {
         if (dbUser != null) {
             if (dbUser.getPassword().equals(user.getPassword())) {
                 FacesContext context = FacesContext.getCurrentInstance();
+                context.getExternalContext().getSessionMap().put("user", user);
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, ResourceBundle.getBundle("/resources/Bundle").getString("PersonLogged"), ResourceBundle.getBundle("/resources/Bundle").getString("PersonLogged")));
                 FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handle‌​Navigation(FacesContext.getCurrentInstance(), null, "/WEB-INF/view/successfulLogin");
                 return;
@@ -32,6 +33,10 @@ public class LoggedUserController implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, ResourceBundle.getBundle("/resources/Bundle").getString("PersonNotLogged"), ResourceBundle.getBundle("/resources/Bundle").getString("PersonNotLogged")));
         user = new Person();
+    }
+    
+    public void logout() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
     }
 
     public Person getUser() {

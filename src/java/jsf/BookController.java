@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -21,7 +21,7 @@ import javax.faces.convert.FacesConverter;
 import jpa.entity.Isbn;
 
 @ManagedBean(name = "bookController")
-@SessionScoped
+@ViewScoped
 public class BookController implements Serializable {
 
     @EJB

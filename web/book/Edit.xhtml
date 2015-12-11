@@ -18,13 +18,13 @@
                         <p:selectBooleanCheckbox id="isReserved" value="#{bookController.selected.isInWarehouse}" disabled="#{bookController.selected.isInWarehouse}">
                             <p:ajax listener="#{bookController.isInWarehouseStatusChange}" update="isBorrowed,isOnShelf,isReserved"/>
                         </p:selectBooleanCheckbox>
-                        <p:outputLabel value="#{bundle.EditBookLabel_isBorrowed}" for="isBorrowed" />
-                        <p:selectBooleanCheckbox id="isBorrowed" value="#{bookController.selected.isBorrowed}" disabled="#{bookController.selected.isBorrowed}">
-                            <p:ajax listener="#{bookController.isBorrowedStatusChange}" update="isBorrowed,isOnShelf,isReserved"/>
-                        </p:selectBooleanCheckbox>
                         <p:outputLabel value="#{bundle.EditBookLabel_isOnShelf}" for="isOnShelf" />
                         <p:selectBooleanCheckbox id="isOnShelf" value="#{bookController.selected.isOnShelf}" disabled="#{bookController.selected.isOnShelf}">
                             <p:ajax listener="#{bookController.isOnShelfStatusChange}" update="isBorrowed,isOnShelf,isReserved"/>
+                        </p:selectBooleanCheckbox>
+                        <p:outputLabel value="#{bundle.EditBookLabel_isBorrowed}" for="isBorrowed" />
+                        <p:selectBooleanCheckbox id="isBorrowed" value="#{bookController.selected.isBorrowed}" disabled="#{bookController.selected.isBorrowed}">
+                            <p:ajax listener="#{bookController.isBorrowedStatusChange}" update="isBorrowed,isOnShelf,isReserved"/>
                         </p:selectBooleanCheckbox>
                         <p:outputLabel value="#{bundle.EditBookLabel_isbn}" for="isbn" />
                         <p:selectOneMenu id="isbn" value="#{bookController.selected.isbn}" required="true" requiredMessage="#{bundle.EditBookRequiredMessage_isbn}">
