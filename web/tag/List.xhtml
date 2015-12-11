@@ -15,6 +15,15 @@
 
         <ui:define name="body">
             <h:form id="TagListForm">
+
+                <p:tree value="#{tagController.root}" var="node" dynamic="true" id="tagTree">
+                    <p:treeNode>
+                        <h:outputText value="#{node}" />
+                    </p:treeNode>
+                </p:tree>
+                <br/>
+                <br/>
+
                 <p:panel header="#{bundle.ListTagTitle}">
                     <p:dataTable id="datalist" value="#{tagController.items}" var="item"
                                  selectionMode="single" selection="#{tagController.selected}"

@@ -3,6 +3,7 @@ package jpa.entity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,6 +27,7 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c")})
 public class Category implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +40,7 @@ public class Category implements Serializable {
     private String categoryName;
     @OneToMany(mappedBy = "category")
     private List<Isbn> isbnList;
-    @OneToMany(mappedBy = "parentCategory", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "parentCategory")
     private List<Category> categoryList;
     @JoinColumn(name = "PARENTID", referencedColumnName = "ID")
     @ManyToOne

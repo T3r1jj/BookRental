@@ -21,7 +21,7 @@
                                            itemValue="#{categoryItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{categoryController.create}" value="#{bundle.Save}" update="display,:CategoryListForm:datalist,:growl" oncomplete="handleSubmit(args,'CategoryCreateDialog');"/>
+                    <p:commandButton actionListener="#{categoryController.create}" value="#{bundle.Save}" update="display,:CategoryListForm:datalist,:CategoryListForm:categoryTree,:growl" oncomplete="handleSubmit(args,'CategoryCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="CategoryCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

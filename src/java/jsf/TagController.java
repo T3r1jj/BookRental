@@ -18,6 +18,9 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import jpa.entity.Category;
+import org.primefaces.model.DefaultTreeNode;
+import org.primefaces.model.TreeNode;
 
 @ManagedBean(name = "tagController")
 @SessionScoped
@@ -27,6 +30,7 @@ public class TagController implements Serializable {
     private jpa.session.TagFacade ejbFacade;
     private List<Tag> items = null;
     private Tag selected;
+    private TreeNode root = null;
 
     public TagController() {
     }
@@ -59,11 +63,13 @@ public class TagController implements Serializable {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/resources/Bundle").getString("TagCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
+            root = null;
         }
     }
 
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/resources/Bundle").getString("TagUpdated"));
+        root = null;
     }
 
     public void destroy() {
@@ -71,6 +77,7 @@ public class TagController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
+            root = null;
         }
     }
 
@@ -79,6 +86,20 @@ public class TagController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+
+    public TreeNode getRoot() {
+        if (root == null) {
+            if (items == null) {
+                items = getItems();
+            }
+            root = new DefaultTreeNode(ResourceBundle.getBundle("/resources/Bundle").getString("TagRoot"), null);
+            for (Tag tag : items) {
+                TreeNode firstNode = new DefaultTreeNode(tag.getTagName(), root);
+                root.getChildren().add(firstNode);
+            }
+        }
+        return root;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

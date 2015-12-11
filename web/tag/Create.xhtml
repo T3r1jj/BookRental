@@ -12,8 +12,6 @@
             <h:form id="TagCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{tagController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateTagLabel_id}" for="id" />
-                        <p:inputText id="id" value="#{tagController.selected.id}" title="#{bundle.CreateTagTitle_id}" required="true" requiredMessage="#{bundle.CreateTagRequiredMessage_id}"/>
                         <p:outputLabel value="#{bundle.CreateTagLabel_tagName}" for="tagName" />
                         <p:inputText id="tagName" value="#{tagController.selected.tagName}" title="#{bundle.CreateTagTitle_tagName}" required="true" requiredMessage="#{bundle.CreateTagRequiredMessage_tagName}"/>
                         <p:outputLabel value="#{bundle.CreateTagLabel_isbn}" for="isbn" />
@@ -23,7 +21,7 @@
                                            itemValue="#{isbnItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{tagController.create}" value="#{bundle.Save}" update="display,:TagListForm:datalist,:growl" oncomplete="handleSubmit(args,'TagCreateDialog');"/>
+                    <p:commandButton actionListener="#{tagController.create}" value="#{bundle.Save}" update="display,:TagListForm:datalist,:TagListForm:tagTree,:growl" oncomplete="handleSubmit(args,'TagCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="TagCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>

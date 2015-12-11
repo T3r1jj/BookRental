@@ -14,17 +14,16 @@
         </ui:define>
 
         <ui:define name="body">
-
-            
             <h:form id="CategoryListForm">
-                <p:tree value="#{categoryController.root}" var="node" dynamic="true">
-                <p:treeNode>
-                    <h:outputText value="#{node}" />
-                </p:treeNode>
-            </p:tree>
-            <br/>
-            <br/>
-            
+
+                <p:tree value="#{categoryController.root}" var="node" dynamic="true" id="categoryTree">
+                    <p:treeNode>
+                        <h:outputText value="#{node}" />
+                    </p:treeNode>
+                </p:tree>
+                <br/>
+                <br/>
+
                 <p:panel header="#{bundle.ListCategoryTitle}">
                     <p:dataTable id="datalist" value="#{categoryController.items}" var="item"
                                  selectionMode="single" selection="#{categoryController.selected}"

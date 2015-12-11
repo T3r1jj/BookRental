@@ -60,13 +60,20 @@ public class CategoryController implements Serializable {
 
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/resources/Bundle").getString("CategoryCreated"));
+        selected.getParentCategory().getCategoryList().add(selected);
+        Category swap = selected;
+        selected = selected.getParentCategory();
+        persist(PersistAction.UPDATE, null);
+        selected = swap;
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
+            root = null;
         }
     }
 
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/resources/Bundle").getString("CategoryUpdated"));
+        root = null;
     }
 
     public void destroy() {
@@ -74,21 +81,24 @@ public class CategoryController implements Serializable {
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
+            root = null;
         }
     }
 
     public List<Category> getItems() {
         if (items == null) {
             items = getFacade().findAll();
-
         }
         return items;
     }
 
     public TreeNode getRoot() {
         if (root == null) {
-            items = getItems();
-            root = new DefaultTreeNode("Root", null);
+            if (items == null) {
+                items = getItems();
+            }
+
+            root = new DefaultTreeNode(ResourceBundle.getBundle("/resources/Bundle").getString("CategoryRoot"), null);
             for (Category category : items) {
                 if (category.getParentCategory() == null) {
                     TreeNode firstNode = new DefaultTreeNode(category.getCategoryName(), root);
@@ -119,7 +129,9 @@ public class CategoryController implements Serializable {
                 } else {
                     getFacade().remove(selected);
                 }
-                JsfUtil.addSuccessMessage(successMessage);
+                if (successMessage != null) {
+                    JsfUtil.addSuccessMessage(successMessage);
+                }
             } catch (EJBException ex) {
                 String msg = "";
                 Throwable cause = ex.getCause();
