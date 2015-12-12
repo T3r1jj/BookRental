@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import util.Password;
 
 /**
  *
@@ -23,6 +24,7 @@ import javax.validation.constraints.Size;
 @NamedQueries({
     @NamedQuery(name = "Person.findAll", query = "SELECT p FROM Person p")})
 public class Person implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -110,7 +112,7 @@ public class Person implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = Password.sha256(password);
     }
 
     public BigDecimal getPenalty() {

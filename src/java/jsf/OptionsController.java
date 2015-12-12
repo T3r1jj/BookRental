@@ -9,26 +9,28 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import jpa.entity.Person;
+import jpa.session.PersonFacade;
 import jsf.util.JsfUtil;
 
 /**
  *
  * @author Damian Terlecki
  */
-@ManagedBean
+@ManagedBean(eager = true)
 @ApplicationScoped
 public class OptionsController {
 
+    @EJB
+    private PersonFacade personFacade;  //only for convenience of initializing db with admin
     private int maxBorrowDays;
     private int penaltyDayValue;
     private String propertiesDirectory;
 
-    /**
-     * Creates a new instance of OptionsController
-     */
     public OptionsController() {
         FacesContext context = FacesContext.getCurrentInstance();
         propertiesDirectory = context.getExternalContext().getInitParameter("propertiesDirectory");
@@ -43,6 +45,22 @@ public class OptionsController {
             reader.close();
         } catch (IOException ex) {
             Logger.getLogger(OptionsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // only for convenience
+        if (personFacade.findAll().isEmpty()) {
+            Person admin = new Person();
+            admin.setActivated(true);
+            admin.setBanned(false);
+            admin.setPassword("admin");
+            admin.setFirstName("admin");
+            admin.setLastName("admin");
+            admin.setPermissions("ADMIN");
+            try {
+                personFacade.create(admin);
+            } catch (Exception ex) {
+                Logger.getLogger(OptionsController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
