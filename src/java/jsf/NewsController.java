@@ -58,6 +58,7 @@ public class NewsController implements Serializable {
     }
 
     public void create() {
+        System.out.println(selected.getContent().length());
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/resources/Bundle").getString("NewsCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.

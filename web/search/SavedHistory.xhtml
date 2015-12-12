@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SavedHistoryDlg" widgetVar="SavedHistoryDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewIsbnTitle}">
+            <h:form id="SavedHistoryForm">
+                <p:panel id="SavedHistoryPanel" header="#{bundle.ListHistoryTitle}" >
+                    <p:dataTable id="historyDatalist" value="#{searchController.savedHistory}" var="item"
+                                 selectionMode="single" selection="#{searchController.selectedHistory}"
+                                 paginator="true"
+                                 rowKey="#{item.id}-#{item.phrase}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="clearSavedHistory clearSingleSavedHistory"/>
+                        <p:ajax event="rowUnselect" update="clearSavedHistory clearSingleSavedHistory"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHistoryTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHistoryTitle_phrase}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.phrase}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHistoryTitle_resultsCount}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.resultsCount}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHistoryTitle_searchDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.searchDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHistoryTitle_person}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.person}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="clearSingleSavedHistory" icon="ui-icon-search" action="#{searchController.clearSingleSavedHistory()}" value="#{bundle.ClearSingleHistory}" update=":SavedHistoryForm" disabled="#{empty searchController.selectedHistory}"/>
+                            <p:commandButton id="clearSavedHistory" icon="ui-icon-search" action="#{searchController.clearSavedHistory()}" value="#{bundle.ClearHistory}" update=":SavedHistoryForm" disabled="#{empty searchController.historyList}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

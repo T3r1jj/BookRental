@@ -23,8 +23,21 @@
     </welcome-file-list>
     
     <context-param>
+        <description>Directory to store file uploads</description>
         <param-name>uploadDirectory</param-name>
         <param-value>C:/Library/uploads</param-value>
+    </context-param>
+    <context-param>
+        <description>Directory to store library properties</description>
+        <param-name>propertiesDirectory</param-name>
+        <param-value>
+            c:\Library\
+        </param-value>
+    </context-param>
+    
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>#{themeSwitcherBean.pickedTheme}</param-value>
     </context-param>
     
 </web-app>

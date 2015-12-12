@@ -16,7 +16,8 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -25,13 +26,17 @@ import jpa.entity.Person;
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "borrowController")
-@SessionScoped
+@ViewScoped
 public class BorrowController implements Serializable {
 
     @EJB
     private jpa.session.BorrowFacade ejbFacade;
     @EJB
     private jpa.session.PersonFacade personFacade;
+    @ManagedProperty(value = "#{optionsController.maxBorrowDays}")
+    private int maxBorrowDays;
+    @ManagedProperty(value = "#{optionsController.penaltyDayValue}")
+    private int penaltyDayValue;
     private List<Borrow> items = null;
     private Borrow selected;
     private int daysLate;
@@ -64,6 +69,22 @@ public class BorrowController implements Serializable {
         this.penalty = penalty;
     }
 
+    public int getMaxBorrowDays() {
+        return maxBorrowDays;
+    }
+
+    public void setMaxBorrowDays(int maxBorrowDays) {
+        this.maxBorrowDays = maxBorrowDays;
+    }
+
+    public int getPenaltyDayValue() {
+        return penaltyDayValue;
+    }
+
+    public void setPenaltyDayValue(int penaltyDayValue) {
+        this.penaltyDayValue = penaltyDayValue;
+    }
+
     protected void setEmbeddableKeys() {
     }
 
@@ -81,26 +102,24 @@ public class BorrowController implements Serializable {
     }
 
     public void registerRetrieve() {
-        selected.setBorrowDate(new Date());
-        selected.setReturnDate(new Date());
+        Date date = new Date();
+        selected.setBorrowDate(date);
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.DATE, maxBorrowDays);
+        selected.setReturnDate(c.getTime());
         update();
     }
 
     public void registerReturn() {
         selected.setReturnedDate(new Date());
         update();
-//        if (selected.getReturnedDate().before(selected.getReturnDate())) {
-//            daysLate = daysBetween(DateToCalendar(selected.getReturnDate()), DateToCalendar(selected.getReturnedDate()));
-//            penalty = new BigDecimal("1").multiply(new BigDecimal(daysLate));
-//            RequestContext context = RequestContext.getCurrentInstance();
-//            context.execute("PF('BorrowPenaltyDialog').show();");
-//        }
-//        if (selected.getReturnedDate().before(selected.getReturnDate())) {
-        daysLate = 1;
-        penalty = new BigDecimal("1").multiply(new BigDecimal(daysLate));
-        RequestContext context = RequestContext.getCurrentInstance();
-        context.execute("PF('BorrowPenaltyDialog').show();");
-//        }
+        if (selected.getReturnedDate().before(selected.getReturnDate())) {
+            daysLate = daysBetween(DateToCalendar(selected.getReturnDate()), DateToCalendar(selected.getReturnedDate()));
+            penalty = new BigDecimal(penaltyDayValue).multiply(new BigDecimal(daysLate));
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.execute("PF('BorrowPenaltyDialog').show();");
+        }
     }
 
     public void savePenalty() {

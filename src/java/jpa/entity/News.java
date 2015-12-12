@@ -8,12 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
@@ -28,23 +28,19 @@ public class News implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
+    @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
     @Size(max = 255)
     @Column(name = "AUTHOR")
-    @Basic(optional = false)
     private String author;
-    @Size(max = 255)
-    @Column(name = "CONTENT")
-    @Basic(optional = false)
+    @Lob
     private String content;
     @Column(name = "PUBLISHDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date publishDate;
     @Size(max = 255)
     @Column(name = "SUBJECT")
-    @Basic(optional = false)
     private String subject;
 
     public News() {

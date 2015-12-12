@@ -77,6 +77,10 @@ public class IsbnController implements Serializable {
         }
     }
 
+    public List<Isbn> getNewestIsbns() {
+        return getFacade().findRange(new int[]{0, 5});
+    }
+
     public Isbn prepareCreate() {
         selected = new Isbn();
         selected.setAddDate(new Date());

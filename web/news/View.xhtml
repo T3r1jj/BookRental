@@ -17,7 +17,7 @@
                         <h:outputText value="#{bundle.ViewNewsLabel_author}"/>
                         <h:outputText value="#{newsController.selected.author}" title="#{bundle.ViewNewsTitle_author}"/>
                         <h:outputText value="#{bundle.ViewNewsLabel_content}"/>
-                        <h:outputText value="#{newsController.selected.content}" title="#{bundle.ViewNewsTitle_content}"/>
+                        <h:outputText value="#{newsController.selected.content}" title="#{bundle.ViewNewsTitle_content}" escape="false"/>
                         <h:outputText value="#{bundle.ViewNewsLabel_publishDate}"/>
                         <h:outputText value="#{newsController.selected.publishDate}" title="#{bundle.ViewNewsTitle_publishDate}">
                             <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
