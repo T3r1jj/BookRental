@@ -7,6 +7,7 @@ import jpa.session.BorrowFacade;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -158,6 +159,19 @@ public class BorrowController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+    
+    public List<Borrow> getUserItems() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Person user = (Person) context.getExternalContext().getSessionMap().get("user");
+        if (user != null) {
+            user = personFacade.find(user.getLogin());
+            user.getReservationList().size();
+            return user.getBorrowList();
+        } else {
+            FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handle‌​Navigation(FacesContext.getCurrentInstance(), null, "/login");
+            return new ArrayList<>();
+        }
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

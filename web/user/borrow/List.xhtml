@@ -15,7 +15,7 @@
     <ui:define name="body">
         <h:form id="BorrowListForm">
             <p:panel header="#{bundle.ListBorrowTitle}">
-                <p:dataTable id="datalist" value="#{borrowController.items}" var="item"
+                <p:dataTable id="datalist" value="#{borrowController.userItems}" var="item"
                              selectionMode="single" selection="#{borrowController.selected}"
                              paginator="true"
                              rowKey="#{item.id}"
