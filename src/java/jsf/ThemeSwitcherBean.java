@@ -20,13 +20,13 @@ public class ThemeSwitcherBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        themes = AvailableThemes.instance().getThemes();
+        themes = AvailableThemes.getInstance().getThemes();
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         Map<String, Object> cookies = externalContext.getRequestCookieMap();
         String theme = (String) cookies.get("theme");
         if (theme != null) {
             System.out.println("+++COOKIE READ: " + theme);
-            pickedTheme = AvailableThemes.instance().getTheme(theme);
+            pickedTheme = AvailableThemes.getInstance().getTheme(theme);
         }
         if (pickedTheme == null) {
             pickedTheme = themes.get(7);

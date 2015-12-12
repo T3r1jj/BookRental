@@ -10,7 +10,7 @@ public class AvailableThemes implements Serializable {
 
     private static AvailableThemes INSTANCE = null;
 
-    public static AvailableThemes instance() {
+    public static AvailableThemes getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new AvailableThemes();
         }
@@ -60,9 +60,9 @@ public class AvailableThemes implements Serializable {
         themes.add(new Theme(35, "UI-Darkness", "ui-darkness"));
         themes.add(new Theme(36, "UI-Lightness", "ui-lightness"));
         themes.add(new Theme(37, "Vader", "vader"));
-        for (Theme theme : themes) {
+        themes.stream().forEach((theme) -> {
             themesAsMap.put(theme.getName(), theme);
-        }
+        });
     }
 
     public final List<Theme> getThemes() {

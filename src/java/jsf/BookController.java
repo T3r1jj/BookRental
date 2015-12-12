@@ -141,13 +141,14 @@ public class BookController implements Serializable {
             selected.setIsInWarehouse(false);
         }
     }
-    
+
     public void isOnShelfStatusChange() {
         if (selected.getIsOnShelf()) {
             selected.setIsBorrowed(false);
             selected.setIsInWarehouse(false);
         }
     }
+
     public void isInWarehouseStatusChange() {
         if (selected.getIsInWarehouse()) {
             selected.setIsOnShelf(false);

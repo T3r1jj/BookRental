@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/template.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">
+        title
+    </ui:define>
+
+    <ui:define name="body">
+        <h:form id="IsbnListForm">
+            <p:panel header="#{bundle.ListIsbnTitle}">
+                <p:dataTable id="datalist" value="#{booksCartController.items}" var="item"
+                             selectionMode="single" selection="#{booksCartController.selected}"
+                             paginator="true"
+                             rowKey="#{item.isbn}"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             >
+
+                    <p:ajax event="rowSelect"   update="borrowButton borrowAllButton viewButton deleteButton"/>
+                    <p:ajax event="rowUnselect" update="borrowButton borrowAllButton viewButton deleteButton"/>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListIsbnTitle_isbn}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.isbn}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListIsbnTitle_title}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.title}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListIsbnTitle_author}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.author}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListIsbnTitle_publishingHouse}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.publishingHouse}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListIsbnTitle_release}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.release}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListIsbnTitle_category}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.category}"/>
+                    </p:column>
+                    <f:facet name="footer">
+                        <p:selectBooleanCheckbox id="queueCheckbox" value="#{booksCartController.queue}" style="display:inline-block; vertical-align:middle;"/>
+                        <p:outputLabel value=" #{bundle.ListIsbnTitle_queue} " for="queueCheckbox"/>
+                        <p:commandButton id="borrowButton"   icon="ui-icon-search" value="#{bundle.Borrow}" update=":IsbnViewForm,:growl,datalist" 
+                                         disabled="#{empty booksCartController.selected}" action="#{booksCartController.borrow()}"/>
+                        <p:commandButton id="borrowAllButton" icon="ui-icon-search" value="#{bundle.BorrowAll}" update=":IsbnViewForm,:growl,datalist"
+                                         disabled="#{empty booksCartController.items}" action="#{booksCartController.borrowAll()}"/>
+                        <p:commandButton id="viewButton" icon="ui-icon-search" value="#{bundle.View}" update=":IsbnViewForm" oncomplete="PF('IsbnViewDialog').show()" disabled="#{empty booksCartController.selected}"/>
+                        <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Remove}" actionListener="#{booksCartController.remove}" update=":growl,datalist" disabled="#{empty booksCartController.selected}"/>
+                    </f:facet>
+                </p:dataTable>
+            </p:panel>
+        </h:form>
+
+        <ui:include src="View.xhtml"/>
+
+    </ui:define>
+
+</ui:composition>

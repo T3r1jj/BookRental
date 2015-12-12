@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/view/templates/adminTemplate.xhtml">
+
+
+    <ui:define name="title">
+        <h:outputText value="#{bundle.ListPersonTitle}"></h:outputText>
+    </ui:define>
+
+    <ui:define name="body">
+        <h:form id="PersonListForm">
+            <p:panel header="#{bundle.ListPersonTitle}">
+                <p:dataTable id="datalist" value="#{personController.items}" var="item"
+                             selectionMode="single" selection="#{personController.selected}"
+                             paginator="true"
+                             rowKey="#{item.login}"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             >
+
+                    <p:ajax event="rowSelect"   update="viewButton editButton"/>
+                    <p:ajax event="rowUnselect" update="viewButton editButton"/>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPersonTitle_login}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.login}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPersonTitle_activated}"/>
+                        </f:facet>
+                        <p:selectBooleanCheckbox value="#{item.activated}" disabled="true"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPersonTitle_banned}"/>
+                        </f:facet>
+                        <p:selectBooleanCheckbox value="#{item.banned}" disabled="true"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPersonTitle_firstName}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.firstName}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPersonTitle_lastName}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.lastName}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPersonTitle_password}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.password}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPersonTitle_penalty}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.penalty}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListPersonTitle_permissions}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.permissions}"/>
+                    </p:column>
+                    <f:facet name="footer">
+                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":PersonViewForm" oncomplete="PF('PersonViewDialog').show()" disabled="#{empty personController.selected}"/>
+                        <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":PersonEditForm" oncomplete="PF('PersonEditDialog').show()" disabled="#{empty personController.selected}"/>
+                    </f:facet>
+                </p:dataTable>
+            </p:panel>
+        </h:form>
+
+        <ui:include src="/WEB-INF/view/management/person/Create.xhtml"/>
+        <ui:include src="/WEB-INF/view/management/person/Edit.xhtml"/>
+        <ui:include src="/WEB-INF/view/management/person/View.xhtml"/>
+    </ui:define>
+</ui:composition>

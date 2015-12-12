@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/view/templates/adminTemplate.xhtml">
+
+
+    <ui:define name="body">
+
+        <h:form id="OptionsForm">
+            <h:panelGroup id="display">
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="#{bundle.MaxBorrowTimeDays}" for="maxBorrowTimeDays" />
+                    <p:spinner min="1" size="4" max="9999" stepFactor="1" suffix=" d" id="maxBorrowTimeDays" value="#{optionsController.maxBorrowDays}" title="#{bundle.MaxBorrowTimeDaysTitle}" required="true" requiredMessage="#{bundle.MaxBorrowTimeDaysRequired}"/>
+                    <p:outputLabel value="#{bundle.PenaltyDayValue}" for="penaltyDayValue" />
+                    <p:spinner min="1" size="4" max="999" suffix=" zł" id="penaltyDayValue" value="#{optionsController.penaltyDayValue}" title="#{bundle.PenaltyDayValueTitle}" required="true" requiredMessage="#{bundle.PenaltyDayValueRequired}"/>
+                </p:panelGrid>
+                <p:commandButton actionListener="#{optionsController.save}" value="#{bundle.Save}" update="display,:growl"/>
+            </h:panelGroup>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

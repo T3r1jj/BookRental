@@ -13,7 +13,8 @@ public class ThemeConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        return AvailableThemes.instance().getTheme(value);
+
+        return AvailableThemes.getInstance().getTheme(value);
     }
 
     @Override

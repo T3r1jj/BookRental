@@ -25,10 +25,6 @@ import jpa.session.BorrowFacade;
 import jpa.session.ReservationFacade;
 import jsf.util.JsfUtil;
 
-/**
- *
- * @author Damian Terlecki
- */
 @ManagedBean
 @SessionScoped
 public class BooksCartController implements Serializable {

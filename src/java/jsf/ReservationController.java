@@ -91,8 +91,8 @@ public class ReservationController implements Serializable {
     public List<Reservation> getUserItems() {
         FacesContext context = FacesContext.getCurrentInstance();
         Person user = (Person) context.getExternalContext().getSessionMap().get("user");
-        user = personFacade.find(user.getLogin());
         if (user != null) {
+            user = personFacade.find(user.getLogin());
             user.getReservationList().size();
             return user.getReservationList();
         } else {

@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/view/templates/guestTemplate.xhtml">
+
+    <ui:define name="body">
+        <h:form id="SearchForm">
+            <p:inputText id="searchPhrase" value="#{searchController.query}">
+                <p:ajax event="keyup"/>
+            </p:inputText>
+            <p:commandButton value="#{bundle.Search}" actionListener="#{searchController.runQuery()}" ajax="false" />
+            <br/>
+            <p:commandButton value="ISBN" actionListener="#{searchController.addToQuery('isbn')}" update="searchPhrase" process="@this" />
+            <p:commandButton value="#{bundle.Title}" actionListener="#{searchController.addToQuery('title')}" update="searchPhrase" process="@this" />
+            <p:commandButton value="#{bundle.Author}" actionListener="#{searchController.addToQuery('author')}" update="searchPhrase" process="@this" />
+            <br/>
+            <p:selectBooleanCheckbox id="OR" value="#{searchController.orChosen}" disabled="#{searchController.orChosen}" >
+                <p:ajax update="OR, AND" listener="#{searchController.orEvent}"/>
+            </p:selectBooleanCheckbox>
+            <p:outputLabel for="OR" value="OR"/><br/>
+            <p:selectBooleanCheckbox id="AND" value="#{searchController.andChosen}" disabled="#{searchController.andChosen}" >
+                <p:ajax update="OR, AND" listener="#{searchController.andEvent}"/>
+            </p:selectBooleanCheckbox>
+            <p:outputLabel for="AND" value="AND"/><br/>
+            <p:selectBooleanCheckbox id="NOT" value="NOT" />
+            <p:outputLabel for="NOT" value="NOT"/>
+            <br/>
+            <br/>
+            <p:commandButton id="currentHistoryButton" icon="ui-icon-plus"   value="#{bundle.CurrentHistory}" update=":CurrentHistoryForm" oncomplete="PF('CurrentHistoryDialog').show()"/>
+            <p:commandButton id="savedHistoryButton" icon="ui-icon-plus" actionListener="#{searchController.prepareSavedHistoryView()}"  value="#{bundle.SavedHistory}" update=":SavedHistoryForm" oncomplete="PF('SavedHistoryDialog').show()"/>
+
+
+
+
+            <p:panel id="Results" header="#{bundle.ListIsbnTitle}" rendered="#{not empty searchController.foundIsbns}">
+                <p:dataTable id="resultsDatalist" value="#{searchController.foundIsbns}" var="item"
+                             selectionMode="single" selection="#{searchController.selectedIsbn}"
+                             paginator="true"
+                             rowKey="#{item.isbn}"
+                             rows="10"
+                             rowsPerPageTemplate="10,20,30,40,50"
+                             >
+
+                    <p:ajax event="rowSelect"   update="viewButton"/>
+                    <p:ajax event="rowUnselect" update="viewButton"/>
+
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListIsbnTitle_isbn}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.isbn}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListIsbnTitle_title}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.title}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListIsbnTitle_addDate}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.addDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                        </h:outputText>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListIsbnTitle_author}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.author}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListIsbnTitle_description}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.description}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListIsbnTitle_publishingHouse}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.publishingHouse}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListIsbnTitle_release}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.release}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListIsbnTitle_tags}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.tags}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.ListIsbnTitle_category}"/>
+                        </f:facet>
+                        <h:outputText value="#{item.category}"/>
+                    </p:column>
+                    <f:facet name="footer">
+                        <p:commandButton id="viewButton" icon="ui-icon-search" value="#{bundle.View}" update=":IsbnViewForm" oncomplete="PF('IsbnViewDialog').show()" disabled="#{empty isbnController.selected}"/>
+                    </f:facet>
+                </p:dataTable>
+            </p:panel>
+
+
+        </h:form>
+        <ui:include src="/search/CurrentHistory.xhtml"/>
+        <ui:include src="/search/SavedHistory.xhtml"/>
+        <ui:include src="/search/View.xhtml"/>
+    </ui:define>
+
+</ui:composition>
