@@ -6,6 +6,7 @@ import jsf.util.JsfUtil.PersistAction;
 import jpa.session.NewsFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -82,6 +83,17 @@ public class NewsController implements Serializable {
             items = getFacade().findAll();
         }
         return items;
+    }
+    
+    public List<News> getDatedItems() {
+        if (items == null) {
+            items = getFacade().findAll();
+        }
+        List<News> datedNews = new ArrayList<>();
+        items.stream().filter((item) -> (item.getPublishDate().before(new Date()))).forEach((item) -> {
+            datedNews.add(item);
+        });
+        return datedNews;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

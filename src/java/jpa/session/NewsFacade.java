@@ -1,8 +1,10 @@
 package jpa.session;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.Root;
 import jpa.entity.News;
 
 /**
@@ -11,6 +13,7 @@ import jpa.entity.News;
  */
 @Stateless
 public class NewsFacade extends AbstractFacade<News> {
+
     @PersistenceContext(unitName = "BookRentalPU")
     private EntityManager em;
 
@@ -21,6 +24,15 @@ public class NewsFacade extends AbstractFacade<News> {
 
     public NewsFacade() {
         super(News.class);
+    }
+
+    @Override
+    public List<News> findAll() {
+        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        Root<News> c = cq.from(entityClass);
+        cq.select(c);
+        cq.orderBy(getEntityManager().getCriteriaBuilder().desc(c.get("publishDate")));
+        return getEntityManager().createQuery(cq).getResultList();
     }
 
 }

@@ -18,7 +18,7 @@
         <p:growl id="growl" life="5000" />
 
         <p:layout fullPage="true">
-            <p:layoutUnit position="north" size="105" header="#{bundle.AppName}">
+            <p:layoutUnit position="north" header="#{bundle.AppName}">
                 <h:form id="menuForm">
                     <p:menubar>
                         <p:menuitem value="#{bundle.Home}" outcome="/index" icon="ui-icon-home"/>
@@ -34,27 +34,35 @@
                             <p:menuitem value="Resource" outcome="/resource/List.xhtml" />
                             <p:menuitem value="Tag" outcome="/tag/List.xhtml" />
                         </p:submenu>
+                        <f:facet name="options">
+                            <p:menuitem value="Language" style="display: table-row;">
+                                <p:outputLabel for="languageSelect" value="Language" style="display: table-cell; vertical-align: middle; padding-right: 3px"/>
+                                <p:selectOneMenu id="languageSelect" value="#{languageSwitcherBean.locale}" onchange="submit()"
+                                                 valueChangeListener="#{languageSwitcherBean.localeChanged}" style="display: table-cell; vertical-align: middle;">
+                                    <f:selectItems value="#{languageSwitcherBean.countries}" /> 
+                                </p:selectOneMenu> 
+                            </p:menuitem>
 
-                        <p:menuitem value="Theme">
-                            <p:selectOneMenu id="themeSelector"
-                                             value="#{themeSwitcherBean.pickedTheme}"
-                                             var="theme" effect="drop"
-                                             onchange="$('#menuForm').submit()">
-                                <f:converter converterId="jsf.util.ThemeConverter"/>
-                                <f:selectItems var="t"
-                                               value="#{themeSwitcherBean.themes}"
-                                               itemLabel="#{t.name}"
-                                               itemValue="#{t}"/>
-                                <p:column>
-                                    <h:outputText styleClass="ui-theme ui-theme-#{theme.name}" />
-                                </p:column>
-                                <p:column>
-                                    <h:outputText value="#{theme.name}"/>
-                                </p:column>
-                            </p:selectOneMenu>
-                        </p:menuitem>
-
-
+                            <p:menuitem value="Theme" style="display: table-row; ">
+                                <p:outputLabel for="languageSelect" value="Theme" style="display: table-cell; vertical-align: middle; padding-left: 10px; padding-right: 3px"/>
+                                <p:selectOneMenu id="themeSelector" style="display: table-cell; vertical-align: middle;"
+                                                 value="#{themeSwitcherBean.pickedTheme}"
+                                                 var="theme" effect="drop"
+                                                 onchange="$('#menuForm').submit()">
+                                    <f:converter converterId="jsf.util.ThemeConverter"/>
+                                    <f:selectItems var="t"
+                                                   value="#{themeSwitcherBean.themes}"
+                                                   itemLabel="#{t.name}"
+                                                   itemValue="#{t}"/>
+                                    <p:column>
+                                        <h:outputText styleClass="ui-theme ui-theme-#{theme.name}" />
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{theme.name}"/>
+                                    </p:column>
+                                </p:selectOneMenu>
+                            </p:menuitem>
+                        </f:facet>
 
 
 
