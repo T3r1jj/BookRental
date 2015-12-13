@@ -13,11 +13,11 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{borrowController.selected != null}">
                         <p:outputLabel value="#{bundle.EditBorrowLabel_borrowDate}" for="borrowDate" />
-                        <p:calendar id="borrowDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{borrowController.selected.borrowDate}" title="#{bundle.EditBorrowTitle_borrowDate}"  showOn="button"/>
+                        <p:calendar id="borrowDate" pattern="dd/MM/yyyy HH:mm:ss" value="#{borrowController.selected.borrowDate}" title="#{bundle.EditBorrowTitle_borrowDate}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditBorrowLabel_returnDate}" for="returnDate" />
-                        <p:calendar id="returnDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{borrowController.selected.returnDate}" title="#{bundle.EditBorrowTitle_returnDate}"  showOn="button"/>
+                        <p:calendar id="returnDate" pattern="dd/MM/yyyy HH:mm:ss" value="#{borrowController.selected.returnDate}" title="#{bundle.EditBorrowTitle_returnDate}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditBorrowLabel_returnedDate}" for="returnedDate" />
-                        <p:calendar id="returnedDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{borrowController.selected.returnedDate}" title="#{bundle.EditBorrowTitle_returnedDate}"  showOn="button"/>
+                        <p:calendar id="returnedDate" pattern="dd/MM/yyyy HH:mm:ss" value="#{borrowController.selected.returnedDate}" title="#{bundle.EditBorrowTitle_returnedDate}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditBorrowLabel_book}" for="book" />
                         <p:selectOneMenu id="book" value="#{borrowController.selected.book}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>

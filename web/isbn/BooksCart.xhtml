@@ -58,7 +58,7 @@
                         <f:facet name="header">
                             <h:outputText value="#{bundle.ListIsbnTitle_category}"/>
                         </f:facet>
-                        <h:outputText value="#{item.category}"/>
+                        <h:outputText value="#{item.category.categoryName}"/>
                     </p:column>
                     <f:facet name="footer">
                         <p:selectBooleanCheckbox id="queueCheckbox" value="#{booksCartController.queue}" style="display:inline-block; vertical-align:middle;"/>

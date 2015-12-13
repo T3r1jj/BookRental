@@ -36,7 +36,7 @@
                             <h:outputText value="#{bundle.ListBorrowTitle_borrowDate}"/>
                         </f:facet>
                         <h:outputText value="#{item.borrowDate}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                         </h:outputText>
                     </p:column>
                     <p:column>
@@ -44,7 +44,7 @@
                             <h:outputText value="#{bundle.ListBorrowTitle_returnDate}"/>
                         </f:facet>
                         <h:outputText value="#{item.returnDate}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                         </h:outputText>
                     </p:column>
                     <p:column>
@@ -52,7 +52,7 @@
                             <h:outputText value="#{bundle.ListBorrowTitle_returnedDate}"/>
                         </f:facet>
                         <h:outputText value="#{item.returnedDate}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                         </h:outputText>
                     </p:column>
                     <p:column>
@@ -68,9 +68,9 @@
                         <h:outputText value="#{item.person}"/>
                     </p:column>
                     <f:facet name="footer">
-                        <p:commandButton id="registerRetrieve" icon="ui-icon-plus" value="#{bundle.RegisterRetrieve}" disabled="#{empty borrowController.selected or not empty borrowController.selected.borrowDate}"
+                        <p:commandButton id="registerRetrieve" icon="ui-icon-arrowreturnthick-1-n" value="#{bundle.RegisterRetrieve}" disabled="#{empty borrowController.selected or not empty borrowController.selected.borrowDate}"
                                          actionListener="#{borrowController.registerRetrieve}" update=":BorrowCreateForm,:growl,datalist" />
-                        <p:commandButton id="registerReturn" icon="ui-icon-plus" value="#{bundle.RegisterReturn}" disabled="#{empty borrowController.selected or empty borrowController.selected.borrowDate or not empty borrowController.selected.returnedDate}"
+                        <p:commandButton id="registerReturn" icon="ui-icon-arrowreturnthick-1-s" value="#{bundle.RegisterReturn}" disabled="#{empty borrowController.selected or empty borrowController.selected.borrowDate or not empty borrowController.selected.returnedDate}"
                                          actionListener="#{borrowController.registerReturn}" update=":BorrowPenaltyForm,:growl,datalist" />
                         <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{borrowController.prepareCreate}" update=":BorrowCreateForm" oncomplete="PF('BorrowCreateDialog').show()"/>
                         <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":BorrowViewForm" oncomplete="PF('BorrowViewDialog').show()" disabled="#{empty borrowController.selected}"/>

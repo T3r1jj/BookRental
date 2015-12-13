@@ -19,7 +19,7 @@
                         <p:outputLabel value="#{bundle.CreateHistoryLabel_resultsCount}" for="resultsCount" />
                         <p:inputText id="resultsCount" value="#{historyController.selected.resultsCount}" title="#{bundle.CreateHistoryTitle_resultsCount}" />
                         <p:outputLabel value="#{bundle.CreateHistoryLabel_searchDate}" for="searchDate" />
-                        <p:calendar id="searchDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{historyController.selected.searchDate}" title="#{bundle.EditHistoryTitle_searchDate}"  showOn="button"/>
+                        <p:calendar id="searchDate" pattern="dd/MM/yyyy HH:mm:ss" value="#{historyController.selected.searchDate}" title="#{bundle.EditHistoryTitle_searchDate}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateHistoryLabel_person}" for="person" />
                         <p:selectOneMenu id="person" value="#{historyController.selected.person}" >
                             <f:selectItems value="#{personController.itemsAvailableSelectOne}"

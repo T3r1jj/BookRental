@@ -13,9 +13,9 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{reservationController.selected != null}">
                         <p:outputLabel value="#{bundle.EditReservationLabel_expirationDate}" for="expirationDate" />
-                        <p:calendar id="expirationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{reservationController.selected.expirationDate}" title="#{bundle.EditReservationTitle_expirationDate}"  showOn="button"/>
+                        <p:calendar id="expirationDate" pattern="dd/MM/yyyy HH:mm:ss" value="#{reservationController.selected.expirationDate}" title="#{bundle.EditReservationTitle_expirationDate}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditReservationLabel_reservationDate}" for="reservationDate" />
-                        <p:calendar id="reservationDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{reservationController.selected.reservationDate}" title="#{bundle.EditReservationTitle_reservationDate}"  showOn="button"/>
+                        <p:calendar id="reservationDate" pattern="dd/MM/yyyy HH:mm:ss" value="#{reservationController.selected.reservationDate}" title="#{bundle.EditReservationTitle_reservationDate}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditReservationLabel_book}" for="book" />
                         <p:selectOneMenu id="book" value="#{reservationController.selected.book}" >
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>

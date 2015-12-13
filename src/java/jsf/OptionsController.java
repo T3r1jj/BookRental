@@ -52,7 +52,7 @@ public class OptionsController {
             Logger.getLogger(OptionsController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        // only for convenience
+        // only for convenience, if error - restart server
         if (personFacade.findAll().isEmpty()) {
             Person admin = new Person();
             admin.setActivated(true);
@@ -68,7 +68,7 @@ public class OptionsController {
             }
         }
     }
-
+    
     public void save() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(propertiesDirectory + "library.properties", false))) {
             writer.write("max_borrow_time_days");

@@ -27,7 +27,7 @@ public class LoggedUserController implements Serializable {
                 context.getExternalContext().getSessionMap().put("user", dbUser);
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, ResourceBundle.getBundle("/resources/Bundle").getString("PersonLogged"), ResourceBundle.getBundle("/resources/Bundle").getString("PersonLogged")));
                 FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handle‌​Navigation(FacesContext.getCurrentInstance(), null, "/WEB-INF/view/successfulLogin");
-                user = null;
+                user = new Person();
                 return;
             }
         }

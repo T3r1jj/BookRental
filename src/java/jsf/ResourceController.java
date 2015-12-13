@@ -150,7 +150,7 @@ public class ResourceController implements Serializable {
             return new DefaultStreamedContent(stream, contentType, selected.getResourceName());
         } catch (FileNotFoundException ex) {
             JsfUtil.addErrorMessage(selected.getResourceName() + " " + ResourceBundle.getBundle("/resources/Bundle").getString("ResourceNotFound"));
-            Logger.getLogger(IsbnController.class.getName()).severe(selected.getFilePath() + " not found");
+            Logger.getLogger(IsbnController.class.getName()).log(Level.SEVERE, "{0} not found", selected.getFilePath());
             return null;
         }
     }

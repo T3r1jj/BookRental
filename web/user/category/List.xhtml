@@ -17,49 +17,28 @@
 
             <p:tree value="#{categoryController.root}" var="node" dynamic="true" id="categoryTree">
                 <p:treeNode>
-                    <h:outputText value="#{node}" />
+                    <h:outputText value="#{node.categoryName}" rendered="#{!categoryController.isList(node)}"/>
+
+                    <p:dataList value="#{node}" var="isbn" rendered="#{categoryController.isList(node)}" type="none" paginator="false" >
+                        <table style="padding:0; margin:0; border:0;border-collapse: collapse; border-spacing: 0;">
+                            <tr style="padding:0; margin:0; border:0;border-collapse: collapse; border-spacing: 0;">
+                                <td style="padding:0; margin:0; border:0;border-collapse: collapse; border-spacing: 0;">
+                                    <p:commandLink update=":IsbnViewForm" oncomplete="PF('IsbnViewDialog').show()" title="#{bundle.ViewDetail}" styleClass="ui-icon ui-icon-search" style="display:inline-block" value="#{isbn.title}">
+                                        <h:outputText value="#{isbn.title}" />
+                                        <f:setPropertyActionListener value="#{isbn}" target="#{isbnController.selected}" />
+                                    </p:commandLink>
+                                    <h:outputText value="#{isbn.title}" style="display:inline-block"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </p:dataList>
+
                 </p:treeNode>
             </p:tree>
-            <br/>
-            <br/>
-
-            <p:panel header="#{bundle.ListCategoryTitle}">
-                <p:dataTable id="datalist" value="#{categoryController.items}" var="item"
-                             selectionMode="single" selection="#{categoryController.selected}"
-                             paginator="true"
-                             rowKey="#{item.id}"
-                             rows="10"
-                             rowsPerPageTemplate="10,20,30,40,50"
-                             >
-
-                    <p:ajax event="rowSelect"   update="viewButton"/>
-                    <p:ajax event="rowUnselect" update="viewButton"/>
-
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListCategoryTitle_id}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.id}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListCategoryTitle_categoryName}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.categoryName}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
-                            <h:outputText value="#{bundle.ListCategoryTitle_parentCategory}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.parentCategory}"/>
-                    </p:column>
-                    <f:facet name="footer">
-                        <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":CategoryViewForm" oncomplete="PF('CategoryViewDialog').show()" disabled="#{empty categoryController.selected}"/>
-                    </f:facet>
-                </p:dataTable>
-            </p:panel>
+ 
         </h:form>
+        
+        <ui:include src="/WEB-INF/view/management/isbn/View.xhtml"/>
 
-        <ui:include src="/WEB-INF/view/management/category/View.xhtml"/>
     </ui:define>
 </ui:composition>

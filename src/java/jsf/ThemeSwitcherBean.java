@@ -1,6 +1,7 @@
 package jsf;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
@@ -45,9 +46,11 @@ public class ThemeSwitcherBean implements Serializable {
     public void setPickedTheme(Theme pickedTheme) {
         this.pickedTheme = pickedTheme;
         if (pickedTheme != null) {
+            Map<String, Object> properties = new HashMap<>();
+            properties.put("maxAge", new Integer(365));
             FacesContext.getCurrentInstance()
                     .getExternalContext()
-                    .addResponseCookie("theme", pickedTheme.getName(), null);
+                    .addResponseCookie("theme", pickedTheme.getName(), properties);
         }
     }
 

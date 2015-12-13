@@ -72,7 +72,7 @@ public class IsbnController implements Serializable {
             return new DefaultStreamedContent(stream, contentType, resource.getResourceName());
         } catch (FileNotFoundException ex) {
             JsfUtil.addErrorMessage(resource.getResourceName() + " " + ResourceBundle.getBundle("/resources/Bundle").getString("ResourceNotFound"));
-            Logger.getLogger(IsbnController.class.getName()).severe(resource.getFilePath() + " not found");
+            Logger.getLogger(IsbnController.class.getName()).log(Level.SEVERE, "{0} not found", resource.getFilePath());
             return null;
         }
     }
@@ -106,10 +106,12 @@ public class IsbnController implements Serializable {
         String[] tagStrings = tags.replace(" ", "").toLowerCase().split(",");
         List<Tag> tagsList = new ArrayList<>();
         for (String tagString : tagStrings) {
-            Tag tag = new Tag();
-            tag.setIsbn(selected);
-            tag.setTagName(tagString);
-            tagsList.add(tag);
+            if (!tagString.isEmpty()) {
+                Tag tag = new Tag();
+                tag.setIsbn(selected);
+                tag.setTagName(tagString);
+                tagsList.add(tag);
+            }
         }
         selected.setTagList(tagsList);
     }

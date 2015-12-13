@@ -57,12 +57,6 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
-                            <h:outputText value="#{bundle.ListPersonTitle_password}"/>
-                        </f:facet>
-                        <h:outputText value="#{item.password}"/>
-                    </p:column>
-                    <p:column>
-                        <f:facet name="header">
                             <h:outputText value="#{bundle.ListPersonTitle_penalty}"/>
                         </f:facet>
                         <h:outputText value="#{item.penalty}"/>
@@ -82,7 +76,7 @@
         </h:form>
 
         <ui:include src="/WEB-INF/view/management/person/Create.xhtml"/>
-        <ui:include src="/WEB-INF/view/management/person/Edit.xhtml"/>
+        <ui:include src="/WEB-INF/view/management/person/WorkerEdit.xhtml"/>
         <ui:include src="/WEB-INF/view/management/person/View.xhtml"/>
     </ui:define>
 </ui:composition>

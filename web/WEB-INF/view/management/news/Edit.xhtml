@@ -21,7 +21,7 @@
                         <p:outputLabel value="#{bundle.EditNewsLabel_content}" for="content" />
                         <p:editor id="content" value="#{newsController.selected.content}" required="true" requiredMessage="#{bundle.EditNewsRequiredMessage_content}" widgetVar="editorWidget" width="600" />
                         <p:outputLabel value="#{bundle.EditNewsLabel_publishDate}" for="publishDate" />
-                        <p:calendar styleClass="editorPosition" id="publishDate" pattern="MM/dd/yyyy HH:mm:ss" value="#{newsController.selected.publishDate}" title="#{bundle.EditNewsTitle_publishDate}" required="true" requiredMessage="#{bundle.EditNewsRequiredMessage_publishDate}"  showOn="button"/>
+                        <p:calendar styleClass="editorPosition" id="publishDate" pattern="dd/MM/yyyy HH:mm:ss" value="#{newsController.selected.publishDate}" title="#{bundle.EditNewsTitle_publishDate}" required="true" requiredMessage="#{bundle.EditNewsRequiredMessage_publishDate}"  showOn="button"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{newsController.update}" value="#{bundle.Save}" update="display,:NewsListForm:datalist,:growl" oncomplete="handleSubmit(args, 'NewsEditDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" oncomplete="PF('NewsEditDialog').hide();" process="@this"/>

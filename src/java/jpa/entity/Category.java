@@ -115,7 +115,7 @@ public class Category implements Serializable {
 
     @Override
     public String toString() {
-        return "jpa.entity.Category[ id=" + id + " ]";
+        return categoryName;
     }
 
 }

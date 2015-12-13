@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -22,7 +22,7 @@ import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
 
 @ManagedBean(name = "categoryController")
-@SessionScoped
+@ViewScoped
 public class CategoryController implements Serializable {
 
     @EJB
@@ -59,16 +59,21 @@ public class CategoryController implements Serializable {
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/resources/Bundle").getString("CategoryCreated"));
-        selected.getParentCategory().getCategoryList().add(selected);
-        Category swap = selected;
-        selected = selected.getParentCategory();
-        persist(PersistAction.UPDATE, null);
-        selected = swap;
+        if (selected.getParentCategory() != null) {
+            Category swap = selected;
+            selected = selected.getParentCategory();
+            selected.getCategoryList().add(swap);
+            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/resources/Bundle").getString("CategoryCreated"));
+            selected = swap;
+        } else {
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/resources/Bundle").getString("CategoryCreated"));
+        }
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
             root = null;
         }
+        items = null;
+        root = null;
     }
 
     public void update() {
@@ -97,11 +102,13 @@ public class CategoryController implements Serializable {
             if (items == null) {
                 items = getItems();
             }
-
             root = new DefaultTreeNode(ResourceBundle.getBundle("/resources/Bundle").getString("CategoryRoot"), null);
             for (Category category : items) {
                 if (category.getParentCategory() == null) {
-                    TreeNode firstNode = new DefaultTreeNode(category.getCategoryName(), root);
+                    TreeNode firstNode = new DefaultTreeNode(category, root);
+                    category.getIsbnList().size();
+                    TreeNode secondNode = new DefaultTreeNode(category.getIsbnList(), firstNode);
+                    firstNode.getChildren().add(secondNode);
                     root.getChildren().add(firstNode);
                     recursivelyAddToTree(firstNode, category);
                 }
@@ -110,10 +117,17 @@ public class CategoryController implements Serializable {
         return root;
     }
 
+    public boolean isList(Object o) {
+        return o instanceof List;
+    }
+
     private void recursivelyAddToTree(TreeNode root, Category categoryParent) {
         if (categoryParent != null) {
             for (Category sameLevelCategory : categoryParent.getCategoryList()) {
-                TreeNode firstNode = new DefaultTreeNode(sameLevelCategory.getCategoryName(), root);
+                TreeNode firstNode = new DefaultTreeNode(sameLevelCategory, root);
+                sameLevelCategory.getIsbnList().size();
+                TreeNode secondNode = new DefaultTreeNode(sameLevelCategory.getIsbnList(), firstNode);
+                firstNode.getChildren().add(secondNode);
                 root.getChildren().add(firstNode);
                 recursivelyAddToTree(firstNode, sameLevelCategory);
             }

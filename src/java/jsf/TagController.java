@@ -6,7 +6,11 @@ import jsf.util.JsfUtil.PersistAction;
 import jpa.session.TagFacade;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,8 +22,10 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import jpa.entity.Isbn;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
+import util.IsbnsTitleComparator;
 
 @ManagedBean(name = "tagController")
 @ViewScoped
@@ -86,17 +92,34 @@ public class TagController implements Serializable {
         }
         return items;
     }
-    
+
     public TreeNode getRoot() {
         if (root == null) {
             if (items == null) {
                 items = getItems();
             }
+            Map<String, List<Isbn>> tagsIsbns = new HashMap<>();
+            items.stream().forEach((tag) -> {
+                if (tagsIsbns.containsKey(tag.getTagName())) {
+                    tagsIsbns.get(tag.getTagName()).add(tag.getIsbn());
+                } else {
+                    List<Isbn> isbns = new ArrayList<>();
+                    isbns.add(tag.getIsbn());
+                    tagsIsbns.put(tag.getTagName(), isbns);
+                }
+            });
+            tagsIsbns.values().stream().forEach((isbns) -> {
+                Collections.sort(isbns, new IsbnsTitleComparator());
+            });
             root = new DefaultTreeNode(ResourceBundle.getBundle("/resources/Bundle").getString("TagRoot"), null);
-            for (Tag tag : items) {
-                TreeNode firstNode = new DefaultTreeNode(tag.getTagName(), root);
+            tagsIsbns.entrySet().stream().map((entry) -> {
+                TreeNode firstNode = new DefaultTreeNode(new Object[]{entry.getKey(), null}, root);
+                TreeNode secondNode = new DefaultTreeNode(new Object[]{entry.getValue(), entry.getKey()}, firstNode);
+                firstNode.getChildren().add(secondNode);
+                return firstNode;
+            }).forEach((firstNode) -> {
                 root.getChildren().add(firstNode);
-            }
+            });
         }
         return root;
     }

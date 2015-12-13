@@ -15,7 +15,7 @@
                     <p:outputLabel value="#{bundle.CreatePersonLabel_password}" for="password" />
                     <p:inputText id="password" value="#{loggedUserController.user.password}" title="#{bundle.CreatePersonTitle_password}" required="true" requiredMessage="#{bundle.CreatePersonRequiredMessage_password}"/>
                 </p:panelGrid>
-                <p:commandButton actionListener="#{loggedUserController.login()}" value="#{bundle.Login}"/>
+                <p:commandButton action="#{loggedUserController.login()}" ajax="false" value="#{bundle.Login}"/>
             </h:panelGroup>
         </h:form>
     </ui:define>

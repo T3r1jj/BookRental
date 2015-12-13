@@ -31,12 +31,12 @@ public class Book implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @Column(name = "ISBORROWED")
-    private boolean isBorrowed;
+    @Column(name = "ISINWAREHOUSE")
+    private boolean isInWarehouse;
     @Column(name = "ISONSHELF")
     private boolean isOnShelf;
-    @Column(name = "ISRESERVED")
-    private boolean isInWarehouse;
+    @Column(name = "ISBORROWED")
+    private boolean isBorrowed;
     @JoinColumn(name = "ISBN", referencedColumnName = "ISBN")
     @ManyToOne
     private Isbn isbn;

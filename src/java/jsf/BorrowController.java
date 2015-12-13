@@ -23,6 +23,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import jpa.entity.Book;
 import jpa.entity.Person;
 import org.primefaces.context.RequestContext;
 
@@ -34,6 +35,8 @@ public class BorrowController implements Serializable {
     private jpa.session.BorrowFacade ejbFacade;
     @EJB
     private jpa.session.PersonFacade personFacade;
+    @EJB
+    private jpa.session.BookFacade bookFacade;
     @ManagedProperty(value = "#{optionsController.maxBorrowDays}")
     private int maxBorrowDays;
     @ManagedProperty(value = "#{optionsController.penaltyDayValue}")
@@ -110,17 +113,37 @@ public class BorrowController implements Serializable {
         c.add(Calendar.DATE, maxBorrowDays);
         selected.setReturnDate(c.getTime());
         update();
+        Book book = selected.getBook();
+        book.setIsBorrowed(true);
+        book.setIsOnShelf(false);
+        book.setIsInWarehouse(false);
+        bookFacade.edit(book);
     }
 
     public void registerReturn() {
         selected.setReturnedDate(new Date());
         update();
-        if (selected.getReturnedDate().before(selected.getReturnDate())) {
+        if (selected.getReturnedDate().after(selected.getReturnDate())) {
             daysLate = daysBetween(DateToCalendar(selected.getReturnDate()), DateToCalendar(selected.getReturnedDate()));
             penalty = new BigDecimal(penaltyDayValue).multiply(new BigDecimal(daysLate));
             RequestContext context = RequestContext.getCurrentInstance();
             context.execute("PF('BorrowPenaltyDialog').show();");
         }
+        Book book = selected.getBook();
+        book.getIsbn().getReservationList().size();
+        if (book.getIsbn().getReservationList().isEmpty()) {
+            book.setIsOnShelf(false);
+            book.setIsInWarehouse(true);
+        } else {
+            book.setIsOnShelf(true);
+            book.setIsInWarehouse(false);
+            selected = new Borrow();
+            selected.setBook(book);
+            selected.setPerson(book.getIsbn().getReservationList().get(0).getPerson());
+            create();
+        }
+        book.setIsBorrowed(false);
+        bookFacade.edit(book);
     }
 
     public void savePenalty() {
@@ -147,8 +170,13 @@ public class BorrowController implements Serializable {
     }
 
     public void destroy() {
+        Book book = selected.getBook();
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/resources/Bundle").getString("BorrowDeleted"));
         if (!JsfUtil.isValidationFailed()) {
+            book.setIsOnShelf(false);
+            book.setIsInWarehouse(true);
+            book.setIsBorrowed(false);
+            bookFacade.edit(book);
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
@@ -160,7 +188,7 @@ public class BorrowController implements Serializable {
         }
         return items;
     }
-    
+
     public List<Borrow> getUserItems() {
         FacesContext context = FacesContext.getCurrentInstance();
         Person user = (Person) context.getExternalContext().getSessionMap().get("user");

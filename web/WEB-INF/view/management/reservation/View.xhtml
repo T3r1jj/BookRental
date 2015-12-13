@@ -16,11 +16,11 @@
                         <h:outputText value="#{reservationController.selected.id}" title="#{bundle.ViewReservationTitle_id}"/>
                         <h:outputText value="#{bundle.ViewReservationLabel_expirationDate}"/>
                         <h:outputText value="#{reservationController.selected.expirationDate}" title="#{bundle.ViewReservationTitle_expirationDate}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewReservationLabel_reservationDate}"/>
                         <h:outputText value="#{reservationController.selected.reservationDate}" title="#{bundle.ViewReservationTitle_reservationDate}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewReservationLabel_isbn}"/>
                         <h:outputText value="#{reservationController.selected.isbn}" title="#{bundle.ViewReservationTitle_isbn}"/>

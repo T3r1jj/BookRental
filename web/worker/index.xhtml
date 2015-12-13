@@ -10,16 +10,22 @@
 
     <ui:define name="body">
         <p:layout style="min-width:400px;min-height:200px;">
-            <p:layoutUnit position="east" resizable="true" size="200" minSize="120" maxSize="250">
+            <p:layoutUnit position="east" resizable="true" size="200" minSize="120" maxSize="250" style="text-align: center">
                 <h:form> 
                     <p:dataList value="#{isbnController.newestIsbns}" var="isbn" type="unordered" itemType="none" paginator="false" rows="5" styleClass="paginated">
                         <f:facet name="header">
                             #{bundle.NewBooks}
                         </f:facet>
-                        <p:commandLink update=":IsbnViewForm" oncomplete="PF('IsbnViewDialog').show()" title="View Detail" styleClass="ui-icon ui-icon-search" style="float:left;margin-right:10px">
-                            <f:setPropertyActionListener value="#{isbn}" target="#{isbnController.selected}" />
-                        </p:commandLink>
-                        <h:outputText value="#{isbn.title}" style="display:inline-block"/>
+                        <table style="padding:0; margin:0; border:0;border-collapse: collapse; border-spacing: 0;">
+                            <tr style="padding:0; margin:0; border:0;border-collapse: collapse; border-spacing: 0;">
+                                <td style="padding:0; margin:0; border:0;border-collapse: collapse; border-spacing: 0;">
+                                    <p:commandLink update=":IsbnViewForm" oncomplete="PF('IsbnViewDialog').show()" title="View Detail" style="display:inline-block" styleClass="ui-icon ui-icon-search" >
+                                        <f:setPropertyActionListener value="#{isbn}" target="#{isbnController.selected}" />
+                                    </p:commandLink>
+                                    <h:outputText value="#{isbn.title}" style="display:inline-block"/>
+                                </td>
+                            </tr>
+                        </table>
                     </p:dataList>
 
 
@@ -43,9 +49,9 @@
                             </h:panelGrid>
                             <f:facet name="footer">
                                 <p:outputLabel value="#{bundle.Author}: " for="author"/>
-                                <p:outputLabel value="#{newsController.selected.author}" id="author"/>
-                                <h:outputText value="#{newsController.selected.publishDate}" title="#{bundle.ViewNewsTitle_publishDate}" style="float: right">
-                                    <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                                <p:outputLabel value="#{item.author}" id="author"/>
+                                <h:outputText value="#{item.publishDate}" title="#{bundle.ViewNewsTitle_publishDate}" style="float: right">
+                                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                                 </h:outputText>
                                 <h:outputText value="#{bundle.ViewNewsLabel_publishDate}" style="float: right"/>
 

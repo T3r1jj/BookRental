@@ -195,7 +195,7 @@ public class Isbn implements Serializable {
 
     @Override
     public String toString() {
-        return "jpa.entity.Isbn[ isbn=" + isbn + " ]";
+        return isbn + " " + title;
     }
 
     public String getTags() {

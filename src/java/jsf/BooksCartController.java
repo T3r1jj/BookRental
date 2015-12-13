@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jsf;
 
 import java.io.Serializable;
@@ -11,7 +6,10 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -39,9 +37,6 @@ public class BooksCartController implements Serializable {
     private Isbn selected;
     private boolean queue;
 
-    /**
-     * Creates a new instance of BookCartController
-     */
     public BooksCartController() {
     }
 
@@ -89,30 +84,13 @@ public class BooksCartController implements Serializable {
             selected.getBookList().size();
             for (Book book : selected.getBookList()) {
                 book = bookFacade.find(book.getId());
-                if (book.getIsInWarehouse()) {
-                    book.setIsInWarehouse(false);
-                    book.setIsOnShelf(true);
-                    book.setIsBorrowed(false);
-                    Borrow borrow = new Borrow();
-                    borrow.setBook(book);
-                    borrow.setPerson(user);
-                    borrowFacade.create(borrow);
-                    bookFacade.edit(book);
-                    JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resources/Bundle").getString("RentalSuccessful") + " (" + selected.getTitle() + ")");
-                    items.remove(selected);
-                    selected = null;
+                if (book != null && book.getIsInWarehouse()) {
+                    makeRental(book, user);
                     return;
                 }
             }
             if (queue) {
-                Reservation reservation = new Reservation();
-                reservation.setReservationDate(new Date());
-                reservation.setIsbn(selected);
-                reservation.setPerson(user);
-                reservationFacade.create(reservation);
-                JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resources/Bundle").getString("ReservationSuccessful") + " (" + selected.getTitle() + ")");
-                items.remove(selected);
-                selected = null;
+                makeReservation(user);
                 return;
             }
             JsfUtil.addErrorMessage(ResourceBundle.getBundle("/resources/Bundle").getString("RentalUnsuccessful") + " (" + selected.getTitle() + ")");
@@ -131,31 +109,14 @@ public class BooksCartController implements Serializable {
                 boolean rented = false;
                 for (Book book : isbn.getBookList()) {
                     book = bookFacade.find(book.getId());
-                    if (book.getIsInWarehouse()) {
-                        book.setIsInWarehouse(false);
-                        book.setIsOnShelf(true);
-                        book.setIsBorrowed(false);
-                        Borrow borrow = new Borrow();
-                        borrow.setBook(book);
-                        borrow.setPerson(user);
-                        borrowFacade.create(borrow);
-                        bookFacade.edit(book);
-                        JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resources/Bundle").getString("RentalSuccessful") + " (" + isbn.getTitle() + ")");
-                        it.remove();
-                        rented = true;
+                    if (book != null && book.getIsInWarehouse()) {
+                        rented = makeRental(book, user, isbn, it);
                         break;
                     }
                 }
                 boolean reserved = false;
                 if (queue && !rented) {
-                    Reservation reservation = new Reservation();
-                    reservation.setReservationDate(new Date());
-                    reservation.setIsbn(isbn);
-                    reservation.setPerson(user);
-                    reservationFacade.create(reservation);
-                    JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resources/Bundle").getString("ReservationSuccessful") + " (" + isbn.getTitle() + ")");
-                    it.remove();
-                    reserved = true;
+                    reserved = makeReservation(isbn, user, it);
                 }
                 if (!rented && !reserved) {
                     JsfUtil.addErrorMessage(ResourceBundle.getBundle("/resources/Bundle").getString("RentalUnsuccessful") + " (" + isbn.getTitle() + ")");
@@ -163,6 +124,126 @@ public class BooksCartController implements Serializable {
             }
         } else {
             FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handle‌​Navigation(FacesContext.getCurrentInstance(), null, "/login");
+        }
+    }
+
+    private boolean makeReservation(Isbn isbn, Person user, Iterator<Isbn> it) {
+        try {
+            boolean reserved;
+            Reservation reservation = new Reservation();
+            reservation.setReservationDate(new Date());
+            reservation.setIsbn(isbn);
+            reservation.setPerson(user);
+            reservationFacade.create(reservation);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resources/Bundle").getString("ReservationSuccessful") + " (" + isbn.getTitle() + ")");
+            it.remove();
+            reserved = true;
+            return reserved;
+        } catch (EJBException ex) {
+            String msg = "";
+            Throwable cause = ex.getCause();
+            if (cause != null) {
+                msg = cause.getLocalizedMessage();
+            }
+            if (msg.length() > 0) {
+                JsfUtil.addErrorMessage(msg);
+            } else {
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/resources/Bundle").getString("PersistenceErrorOccured"));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/resources/Bundle").getString("PersistenceErrorOccured"));
+        }
+        return false;
+    }
+
+    private boolean makeRental(Book book, Person user, Isbn isbn, Iterator<Isbn> it) {
+        try {
+            boolean rented;
+            book.setIsInWarehouse(false);
+            book.setIsOnShelf(true);
+            book.setIsBorrowed(false);
+            Borrow borrow = new Borrow();
+            borrow.setBook(book);
+            borrow.setPerson(user);
+            borrowFacade.create(borrow);
+            bookFacade.edit(book);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resources/Bundle").getString("RentalSuccessful") + " (" + isbn.getTitle() + ")");
+            it.remove();
+            rented = true;
+            return rented;
+        } catch (EJBException ex) {
+            String msg = "";
+            Throwable cause = ex.getCause();
+            if (cause != null) {
+                msg = cause.getLocalizedMessage();
+            }
+            if (msg.length() > 0) {
+                JsfUtil.addErrorMessage(msg);
+            } else {
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/resources/Bundle").getString("PersistenceErrorOccured"));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/resources/Bundle").getString("PersistenceErrorOccured"));
+        }
+        return false;
+    }
+
+    private void makeRental(Book book, Person user) {
+        try {
+            book.setIsInWarehouse(false);
+            book.setIsOnShelf(true);
+            book.setIsBorrowed(false);
+            Borrow borrow = new Borrow();
+            borrow.setBook(book);
+            borrow.setPerson(user);
+            borrowFacade.create(borrow);
+            bookFacade.edit(book);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resources/Bundle").getString("RentalSuccessful") + " (" + selected.getTitle() + ")");
+            items.remove(selected);
+            selected = null;
+        } catch (EJBException ex) {
+            String msg = "";
+            Throwable cause = ex.getCause();
+            if (cause != null) {
+                msg = cause.getLocalizedMessage();
+            }
+            if (msg.length() > 0) {
+                JsfUtil.addErrorMessage(msg);
+            } else {
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/resources/Bundle").getString("PersistenceErrorOccured"));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/resources/Bundle").getString("PersistenceErrorOccured"));
+        }
+    }
+
+    private void makeReservation(Person user) {
+        try {
+            Reservation reservation = new Reservation();
+            reservation.setReservationDate(new Date());
+            reservation.setIsbn(selected);
+            reservation.setPerson(user);
+            reservationFacade.create(reservation);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resources/Bundle").getString("ReservationSuccessful") + " (" + selected.getTitle() + ")");
+            items.remove(selected);
+            selected = null;
+        } catch (EJBException ex) {
+            String msg = "";
+            Throwable cause = ex.getCause();
+            if (cause != null) {
+                msg = cause.getLocalizedMessage();
+            }
+            if (msg.length() > 0) {
+                JsfUtil.addErrorMessage(msg);
+            } else {
+                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/resources/Bundle").getString("PersistenceErrorOccured"));
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+            JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/resources/Bundle").getString("PersistenceErrorOccured"));
         }
     }
 

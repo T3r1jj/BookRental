@@ -39,5 +39,5 @@
         <param-name>primefaces.THEME</param-name>
         <param-value>#{themeSwitcherBean.pickedTheme}</param-value>
     </context-param>
-    
+
 </web-app>

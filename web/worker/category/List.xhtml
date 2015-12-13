@@ -16,7 +16,22 @@
 
             <p:tree value="#{categoryController.root}" var="node" dynamic="true" id="categoryTree">
                 <p:treeNode>
-                    <h:outputText value="#{node}" />
+                    <h:outputText value="#{node.categoryName}" rendered="#{!categoryController.isList(node)}"/>
+
+                    <p:dataList value="#{node}" var="isbn" rendered="#{categoryController.isList(node)}" type="none" paginator="false" >
+                        <table style="padding:0; margin:0; border:0;border-collapse: collapse; border-spacing: 0;">
+                            <tr style="padding:0; margin:0; border:0;border-collapse: collapse; border-spacing: 0;">
+                                <td style="padding:0; margin:0; border:0;border-collapse: collapse; border-spacing: 0;">
+                                    <p:commandLink update=":IsbnViewForm" oncomplete="PF('IsbnViewDialog').show()" title="#{bundle.ViewDetail}" styleClass="ui-icon ui-icon-search" style="display:inline-block" value="#{isbn.title}">
+                                        <h:outputText value="#{isbn.title}" />
+                                        <f:setPropertyActionListener value="#{isbn}" target="#{isbnController.selected}" />
+                                    </p:commandLink>
+                                    <h:outputText value="#{isbn.title}" style="display:inline-block"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </p:dataList>
+
                 </p:treeNode>
             </p:tree>
             <br/>
@@ -62,6 +77,7 @@
             </p:panel>
         </h:form>
 
+        <ui:include src="/WEB-INF/view/management/isbn/View.xhtml"/>
         <ui:include src="/WEB-INF/view/management/category/Create.xhtml"/>
         <ui:include src="/WEB-INF/view/management/category/Edit.xhtml"/>
         <ui:include src="/WEB-INF/view/management/category/View.xhtml"/>

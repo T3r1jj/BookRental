@@ -16,7 +16,7 @@
                         <h:outputText value="#{isbnController.selected.isbn}" title="#{bundle.ViewIsbnTitle_isbn}"/>
                         <h:outputText value="#{bundle.ViewIsbnLabel_addDate}"/>
                         <h:outputText value="#{isbnController.selected.addDate}" title="#{bundle.ViewIsbnTitle_addDate}">
-                            <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
                         </h:outputText>
                         <h:outputText value="#{bundle.ViewIsbnLabel_author}"/>
                         <h:outputText value="#{isbnController.selected.author}" title="#{bundle.ViewIsbnTitle_author}"/>
@@ -42,7 +42,7 @@
                             #{bundle.ViewIsbnLabel_resources}
                         </f:facet>
                         #{file.description} 
-                        <p:commandButton value="#{bundle.ViewIsbnLabel_download}" ajax="true" icon="ui-icon-arrowthick-1-s">
+                        <p:commandButton value="#{bundle.ViewIsbnLabel_download}" ajax="false" icon="ui-icon-arrowthick-1-s">
                             <p:fileDownload value="#{isbnController.downloadResource(file)}" />
                         </p:commandButton>
                     </p:dataList>
