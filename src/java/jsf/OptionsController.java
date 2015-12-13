@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -32,6 +33,10 @@ public class OptionsController {
     private String propertiesDirectory;
 
     public OptionsController() {
+    }
+
+    @PostConstruct
+    private void init() {
         FacesContext context = FacesContext.getCurrentInstance();
         propertiesDirectory = context.getExternalContext().getInitParameter("propertiesDirectory");
         File file = new File(propertiesDirectory);

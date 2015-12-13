@@ -28,11 +28,10 @@
                         <p:menuitem value="#{bundle.Borrows}" outcome="/user/borrow/List" icon="ui-icon-home"/>
                         <p:menuitem value="#{bundle.Reservations}" outcome="/user/reservation/List" icon="ui-icon-home"/>
                         <p:menuitem value="#{bundle.Search}" outcome="/user/Search" icon="ui-icon-home"/>
-                        <p:menuitem value="#{bundle.MyAccount}" outcome="/index" icon="ui-icon-home"/>
                         <p:menuitem value="#{bundle.BooksCart}" outcome="/user/isbn/BooksCart" icon="ui-icon-home"/>
 
                         <f:facet name="options">
-                            <p:commandButton value="#{bundle.Logout}" action="#{loggedUserController.logout()}" icon="ui-icon-home" style="float:right; margin-left: 10px; margin-top: 0px !important;"/>
+                            <p:commandButton ajax="false" value="#{bundle.Logout}" action="#{loggedUserController.logout()}" icon="ui-icon-home" style="float:right; margin-left: 10px; margin-top: 0px !important;"/>
                             <p:menuitem value="#{bundle.Language}" style="display: table-row;">
                                 <p:outputLabel for="languageSelector" value="#{bundle.Language}" style="display: table-cell; vertical-align: middle; padding-right: 3px"/>
                                 <p:selectOneMenu id="languageSelector" value="#{languageSwitcherBean.locale}" onchange="submit()"
