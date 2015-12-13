@@ -25,6 +25,7 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import jpa.entity.Book;
 import jpa.entity.Person;
+import jpa.entity.Reservation;
 import org.primefaces.context.RequestContext;
 
 @ManagedBean(name = "borrowController")
@@ -37,6 +38,8 @@ public class BorrowController implements Serializable {
     private jpa.session.PersonFacade personFacade;
     @EJB
     private jpa.session.BookFacade bookFacade;
+    @EJB
+    private jpa.session.ReservationFacade reservationFacade;
     @ManagedProperty(value = "#{optionsController.maxBorrowDays}")
     private int maxBorrowDays;
     @ManagedProperty(value = "#{optionsController.penaltyDayValue}")
@@ -139,8 +142,10 @@ public class BorrowController implements Serializable {
             book.setIsInWarehouse(false);
             selected = new Borrow();
             selected.setBook(book);
-            selected.setPerson(book.getIsbn().getReservationList().get(0).getPerson());
+            Reservation reservation = book.getIsbn().getReservationList().get(0);
+            selected.setPerson(reservation.getPerson());
             create();
+            reservationFacade.remove(reservation);
         }
         book.setIsBorrowed(false);
         bookFacade.edit(book);

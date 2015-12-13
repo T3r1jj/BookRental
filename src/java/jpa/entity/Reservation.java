@@ -31,9 +31,6 @@ public class Reservation implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @Column(name = "EXPIRATIONDATE")
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date expirationDate;
     @Column(name = "RESERVATIONDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date reservationDate;
@@ -57,14 +54,6 @@ public class Reservation implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Date getExpirationDate() {
-        return expirationDate;
-    }
-
-    public void setExpirationDate(Date expirationDate) {
-        this.expirationDate = expirationDate;
     }
 
     public Date getReservationDate() {
@@ -113,7 +102,7 @@ public class Reservation implements Serializable {
 
     @Override
     public String toString() {
-        return "jpa.entity.Reservation[ id=" + id + " ]";
+        return "[id = " + id + " ]";
     }
 
 }
