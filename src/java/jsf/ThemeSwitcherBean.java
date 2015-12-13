@@ -13,7 +13,7 @@ import javax.servlet.http.Cookie;
 import util.AvailableThemes;
 import util.Theme;
 
-@ManagedBean
+@ManagedBean(eager = true)
 @SessionScoped
 public class ThemeSwitcherBean implements Serializable {
 
@@ -47,7 +47,7 @@ public class ThemeSwitcherBean implements Serializable {
         this.pickedTheme = pickedTheme;
         if (pickedTheme != null) {
             Map<String, Object> properties = new HashMap<>();
-            properties.put("maxAge", new Integer(365));
+            properties.put("maxAge", new Integer(30758400));    //365 days
             FacesContext.getCurrentInstance()
                     .getExternalContext()
                     .addResponseCookie("theme", pickedTheme.getName(), properties);

@@ -84,15 +84,17 @@ public class NewsController implements Serializable {
         }
         return items;
     }
-    
+
     public List<News> getDatedItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
         List<News> datedNews = new ArrayList<>();
-        items.stream().filter((item) -> (item.getPublishDate().before(new Date()))).forEach((item) -> {
-            datedNews.add(item);
-        });
+        for (News item : items) {
+            if (item.getPublishDate().before(new Date())) {
+                datedNews.add(item);
+            }
+        }
         return datedNews;
     }
 

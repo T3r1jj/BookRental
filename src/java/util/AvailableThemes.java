@@ -1,6 +1,5 @@
 package util;
 
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,9 +59,9 @@ public class AvailableThemes implements Serializable {
         themes.add(new Theme(35, "UI-Darkness", "ui-darkness"));
         themes.add(new Theme(36, "UI-Lightness", "ui-lightness"));
         themes.add(new Theme(37, "Vader", "vader"));
-        themes.stream().forEach((theme) -> {
+        for (Theme theme : themes) {
             themesAsMap.put(theme.getName(), theme);
-        });
+        }
     }
 
     public final List<Theme> getThemes() {

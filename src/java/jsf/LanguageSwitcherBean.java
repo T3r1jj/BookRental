@@ -1,20 +1,24 @@
 package jsf;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
+import javax.servlet.http.Cookie;
 
 /**
  *
  * @author Damian Terlecki
  */
-@ManagedBean
-@RequestScoped
+@ManagedBean(eager = true)
+@SessionScoped
 public class LanguageSwitcherBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -28,6 +32,23 @@ public class LanguageSwitcherBean implements Serializable {
     }
 
     public LanguageSwitcherBean() {
+        locale = "en";
+    }
+
+    @PostConstruct
+    public void init() {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        Map<String, Object> cookies = externalContext.getRequestCookieMap();
+        Cookie cookie = (Cookie) cookies.get("locale");
+        if (cookie != null) {
+            locale = cookie.getValue();
+        }
+        for (Map.Entry<String, Object> entry : countries.entrySet()) {
+            if (entry.getValue().toString().equals(locale)) {
+                FacesContext.getCurrentInstance()
+                        .getViewRoot().setLocale((Locale) entry.getValue());
+            }
+        }
     }
 
     public Map<String, Object> getCountries() {
@@ -40,13 +61,25 @@ public class LanguageSwitcherBean implements Serializable {
 
     public void setLocale(String locale) {
         this.locale = locale;
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("maxAge", new Integer(30758400));    //365 days
+        FacesContext.getCurrentInstance()
+                .getExternalContext()
+                .addResponseCookie("locale", locale, properties);
     }
 
     public void localeChanged(ValueChangeEvent e) {
         String newLocaleValue = e.getNewValue().toString();
-        countries.entrySet().stream().filter((entry) -> (entry.getValue().toString().equals(newLocaleValue))).forEach((entry) -> {
-            FacesContext.getCurrentInstance()
-                    .getViewRoot().setLocale((Locale) entry.getValue());
-        });
+        for (Map.Entry<String, Object> entry : countries.entrySet()) {
+            if (entry.getValue().toString().equals(newLocaleValue)) {
+                FacesContext.getCurrentInstance()
+                        .getViewRoot().setLocale((Locale) entry.getValue());
+                Map<String, Object> properties = new HashMap<>();
+                properties.put("maxAge", new Integer(30758400));    //365 days
+                FacesContext.getCurrentInstance()
+                        .getExternalContext()
+                        .addResponseCookie("locale", locale, properties);
+            }
+        }
     }
 }

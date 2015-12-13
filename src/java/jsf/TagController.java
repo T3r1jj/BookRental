@@ -99,7 +99,7 @@ public class TagController implements Serializable {
                 items = getItems();
             }
             Map<String, List<Isbn>> tagsIsbns = new HashMap<>();
-            items.stream().forEach((tag) -> {
+            for (Tag tag : items) {
                 if (tagsIsbns.containsKey(tag.getTagName())) {
                     tagsIsbns.get(tag.getTagName()).add(tag.getIsbn());
                 } else {
@@ -107,19 +107,17 @@ public class TagController implements Serializable {
                     isbns.add(tag.getIsbn());
                     tagsIsbns.put(tag.getTagName(), isbns);
                 }
-            });
-            tagsIsbns.values().stream().forEach((isbns) -> {
+            }
+            for (List<Isbn> isbns : tagsIsbns.values()) {
                 Collections.sort(isbns, new IsbnsTitleComparator());
-            });
+            }
             root = new DefaultTreeNode(ResourceBundle.getBundle("/resources/Bundle").getString("TagRoot"), null);
-            tagsIsbns.entrySet().stream().map((entry) -> {
+            for (Map.Entry<String, List<Isbn>> entry : tagsIsbns.entrySet()) {
                 TreeNode firstNode = new DefaultTreeNode(new Object[]{entry.getKey(), null}, root);
                 TreeNode secondNode = new DefaultTreeNode(new Object[]{entry.getValue(), entry.getKey()}, firstNode);
                 firstNode.getChildren().add(secondNode);
-                return firstNode;
-            }).forEach((firstNode) -> {
                 root.getChildren().add(firstNode);
-            });
+            }
         }
         return root;
     }

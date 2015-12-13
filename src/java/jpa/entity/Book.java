@@ -31,7 +31,7 @@ public class Book implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
-    @Column(name = "ISINWAREHOUSE")
+    @Column(name = "ISRESERVED")
     private boolean isInWarehouse;
     @Column(name = "ISONSHELF")
     private boolean isOnShelf;
