@@ -104,7 +104,8 @@ public class ReservationController implements Serializable {
     public int getQueuePlace(Reservation reservation) {
         Isbn isbn = isbnFacade.find(reservation.getIsbn().getIsbn());
         isbn.getReservationList().size();
-        return isbn.getReservationList().indexOf(reservation);
+        int place = isbn.getReservationList().indexOf(reservation);
+        return place == 0 ? 1 : place;
     }
 
     private void persist(PersistAction persistAction, String successMessage) {

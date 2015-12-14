@@ -16,9 +16,14 @@
                     <p:outputLabel value="#{bundle.CreatePersonLabel_lastName}" for="lastName" />
                     <p:inputText id="lastName" value="#{personController.selected.lastName}" title="#{bundle.CreatePersonTitle_lastName}" required="true" requiredMessage="#{bundle.CreatePersonRequiredMessage_lastName}"/>
                     <p:outputLabel value="#{bundle.CreatePersonLabel_password}" for="password" />
-                    <p:inputText id="password" value="#{personController.selected.password}" title="#{bundle.CreatePersonTitle_password}" required="true" requiredMessage="#{bundle.CreatePersonRequiredMessage_password}"/>
+                    <p:password id="password" match="repeatPassword" value="#{personController.selected.password}" 
+                                title="#{bundle.CreatePersonTitle_password}" required="true" requiredMessage="#{bundle.CreatePersonRequiredMessage_password}"/>
+                    <p:outputLabel value="#{bundle.CreatePersonRequiredMessage_repeatPassword}" for="repeatPassword" />
+                    <p:password id="repeatPassword" title="#{bundle.CreatePersonTitle_password}"
+                                required="true" requiredMessage="#{bundle.CreatePersonRequiredMessage_repeatPasswordMsg}"
+                                validatorMessage="#{bundle.CreatePersonRequiredMessage_repeatPasswordMsg}"/>
                 </p:panelGrid>
-                <p:commandButton actionListener="#{personController.create}" value="#{bundle.Register}"  oncomplete="handleSubmit(args,'PersonCreateForm');" />
+                <p:commandButton ajax="false" actionListener="#{personController.create}" value="#{bundle.Register}"  oncomplete="handleSubmit(args,'PersonCreateForm');" />
             </h:panelGroup>
         </h:form>
     </ui:define>

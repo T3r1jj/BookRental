@@ -64,7 +64,6 @@ public class PersonController implements Serializable {
         selected.setPermissions("USER");
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/resources/Bundle").getString("PersonCreated"));
         if (!JsfUtil.isValidationFailed()) {
-            FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handle‌​Navigation(FacesContext.getCurrentInstance(), null, "/WEB-INF/view/successfulRegistration");
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
@@ -94,6 +93,7 @@ public class PersonController implements Serializable {
             try {
                 if (persistAction != PersistAction.DELETE) {
                     getFacade().edit(selected);
+                    FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handle‌​Navigation(FacesContext.getCurrentInstance(), null, "/WEB-INF/view/successfulRegistration");
                 } else {
                     getFacade().remove(selected);
                 }
