@@ -13,9 +13,8 @@
     </ui:define>
 
     <ui:define name="body">
-        <h:form id="CategoryListForm">
-
-            <p:tree value="#{categoryController.root}" var="node" dynamic="true" id="categoryTree">
+        <h:form id="CategoryListForm" >
+            <p:tree value="#{categoryController.root}" var="node" dynamic="true" id="categoryTree" style="text-align: left;">
                 <p:treeNode>
                     <h:outputText value="#{node.categoryName}" rendered="#{!categoryController.isList(node)}"/>
 
