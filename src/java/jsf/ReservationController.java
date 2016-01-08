@@ -4,7 +4,8 @@ import jpa.entity.Reservation;
 import jsf.util.JsfUtil;
 import jsf.util.JsfUtil.PersistAction;
 import jpa.session.ReservationFacade;
-
+import jpa.session.IsbnFacade;
+import jpa.session.PersonFacade;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,16 +23,17 @@ import javax.faces.convert.FacesConverter;
 import jpa.entity.Isbn;
 import jpa.entity.Person;
 
+
 @ManagedBean(name = "reservationController")
 @ViewScoped
 public class ReservationController implements Serializable {
 
     @EJB
-    private jpa.session.ReservationFacade ejbFacade;
+    private ReservationFacade reservationFacade;
     @EJB
-    private jpa.session.IsbnFacade isbnFacade;
+    private IsbnFacade isbnFacade;
     @EJB
-    private jpa.session.PersonFacade personFacade;
+    private PersonFacade personFacade;
     private List<Reservation> items = null;
     private Reservation selected;
 
@@ -53,7 +55,7 @@ public class ReservationController implements Serializable {
     }
 
     private ReservationFacade getFacade() {
-        return ejbFacade;
+        return reservationFacade;
     }
 
     public Reservation prepareCreate() {

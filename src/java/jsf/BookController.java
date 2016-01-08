@@ -25,7 +25,7 @@ import jpa.entity.Isbn;
 public class BookController implements Serializable {
 
     @EJB
-    private jpa.session.BookFacade ejbFacade;
+    private BookFacade bookFacade;
     private List<Book> items = null;
     private Book selected;
     private int count = 1;
@@ -56,7 +56,7 @@ public class BookController implements Serializable {
     }
 
     private BookFacade getFacade() {
-        return ejbFacade;
+        return bookFacade;
     }
 
     public Book prepareCreate() {

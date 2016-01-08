@@ -26,7 +26,7 @@ import javax.faces.convert.FacesConverter;
 public class PersonController implements Serializable {
 
     @EJB
-    private jpa.session.PersonFacade ejbFacade;
+    private PersonFacade personFacade;
     private List<Person> items = null;
     private Person selected = new Person();
 
@@ -48,7 +48,7 @@ public class PersonController implements Serializable {
     }
 
     private PersonFacade getFacade() {
-        return ejbFacade;
+        return personFacade;
     }
 
     public Person prepareCreate() {

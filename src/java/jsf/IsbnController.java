@@ -8,7 +8,7 @@ import jpa.entity.Isbn;
 import jsf.util.JsfUtil;
 import jsf.util.JsfUtil.PersistAction;
 import jpa.session.IsbnFacade;
-
+import jpa.session.TagFacade;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,9 +34,9 @@ import org.primefaces.model.StreamedContent;
 public class IsbnController implements Serializable {
 
     @EJB
-    private jpa.session.IsbnFacade isbnFacade;
+    private IsbnFacade isbnFacade;
     @EJB
-    private jpa.session.TagFacade tagFacade;
+    private TagFacade tagFacade;
     private List<Isbn> items = null;
     private Isbn selected;
     private String tags = "";

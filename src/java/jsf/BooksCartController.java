@@ -166,8 +166,8 @@ public class BooksCartController implements Serializable {
             Borrow borrow = new Borrow();
             borrow.setBook(book);
             borrow.setPerson(user);
-            borrowFacade.create(borrow);
             bookFacade.edit(book);
+            borrowFacade.create(borrow);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resources/Bundle").getString("RentalSuccessful") + " (" + isbn.getTitle() + ")");
             it.remove();
             rented = true;
@@ -198,8 +198,8 @@ public class BooksCartController implements Serializable {
             Borrow borrow = new Borrow();
             borrow.setBook(book);
             borrow.setPerson(user);
-            borrowFacade.create(borrow);
             bookFacade.edit(book);
+            borrowFacade.create(borrow);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/resources/Bundle").getString("RentalSuccessful") + " (" + selected.getTitle() + ")");
             items.remove(selected);
             selected = null;

@@ -4,7 +4,9 @@ import jpa.entity.Borrow;
 import jsf.util.JsfUtil;
 import jsf.util.JsfUtil.PersistAction;
 import jpa.session.BorrowFacade;
-
+import jpa.session.BookFacade;
+import jpa.session.PersonFacade;
+import jpa.session.ReservationFacade;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -33,13 +35,13 @@ import org.primefaces.context.RequestContext;
 public class BorrowController implements Serializable {
 
     @EJB
-    private jpa.session.BorrowFacade ejbFacade;
+    private BorrowFacade borrowFacade;
     @EJB
-    private jpa.session.PersonFacade personFacade;
+    private PersonFacade personFacade;
     @EJB
-    private jpa.session.BookFacade bookFacade;
+    private BookFacade bookFacade;
     @EJB
-    private jpa.session.ReservationFacade reservationFacade;
+    private ReservationFacade reservationFacade;
     @ManagedProperty(value = "#{optionsController.maxBorrowDays}")
     private int maxBorrowDays;
     @ManagedProperty(value = "#{optionsController.penaltyDayValue}")
@@ -99,7 +101,7 @@ public class BorrowController implements Serializable {
     }
 
     private BorrowFacade getFacade() {
-        return ejbFacade;
+        return borrowFacade;
     }
 
     public Borrow prepareCreate() {

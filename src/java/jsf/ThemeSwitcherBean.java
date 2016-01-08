@@ -17,8 +17,8 @@ import util.Theme;
 @SessionScoped
 public class ThemeSwitcherBean implements Serializable {
 
-    private List<Theme> themes;
-    private Theme pickedTheme;
+    transient private List<Theme> themes;
+    transient private Theme pickedTheme;
 
     @PostConstruct
     public void init() {
@@ -54,4 +54,10 @@ public class ThemeSwitcherBean implements Serializable {
         }
     }
 
+    private void writeObject(java.io.ObjectOutputStream stream) {
+    }
+
+    private void readObject(java.io.ObjectInputStream stream) {
+        init();
+    }
 }

@@ -32,7 +32,7 @@ import util.IsbnsTitleComparator;
 public class TagController implements Serializable {
 
     @EJB
-    private jpa.session.TagFacade ejbFacade;
+    private TagFacade tagFacade;
     private List<Tag> items = null;
     private Tag selected;
     private TreeNode root = null;
@@ -55,7 +55,7 @@ public class TagController implements Serializable {
     }
 
     private TagFacade getFacade() {
-        return ejbFacade;
+        return tagFacade;
     }
 
     public Tag prepareCreate() {

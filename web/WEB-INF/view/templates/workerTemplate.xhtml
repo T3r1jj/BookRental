@@ -7,6 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
+        <link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/resources/images/favicon.ico"/>
         <title><ui:insert name="title">#{bundle.SiteTitle} - (#{bundle.Worker})</ui:insert></title>
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
         <h:outputScript library="js" name="jsfcrud.js"/>
@@ -14,75 +15,76 @@
     </h:head>
 
     <h:body>
+        <f:view locale="#{languageSwitcherBean.locale}">
 
-        <p:growl id="growl" life="5000" />
+            <p:growl id="growl" life="5000" />
 
-        <p:layout fullPage="false" style="width: 1210px; display: block; margin: 0 auto; height:auto !important;">
+            <p:layout fullPage="false" style="width: 1210px; display: block; margin: 0 auto; height:auto !important;">
 
-            <p:layoutUnit position="north" header="#{bundle.AppName}">
+                <p:layoutUnit position="north" header="#{bundle.AppName}">
 
-                <h:graphicImage value="/resources/images/book-header.jpg" alt="logo" />
+                    <h:graphicImage value="/resources/images/book-header.jpg" alt="logo" />
 
-                <h:form id="menuForm">
-                    <p:menubar>
-                        <p:menuitem value="#{bundle.Home}" outcome="/worker/index" icon="ui-icon-home"/>
-                        <p:menuitem value="#{bundle.Books}" outcome="/worker/book/List" icon="ui-icon-document"/>
-                        <p:menuitem value="#{bundle.Isbn}" outcome="/worker/isbn/List" icon="ui-icon-newwin"/>
-                        <p:menuitem value="#{bundle.Categories}" outcome="/worker/category/List" icon="ui-icon-battery-0"/>
-                        <p:menuitem value="#{bundle.Tags}" outcome="/worker/tag/List" icon="ui-icon-tag"/>
-                        <p:menuitem value="#{bundle.Borrows}" outcome="/worker/borrow/List" icon="ui-icon-suitcase"/>
-                        <p:menuitem value="#{bundle.Reservations}" outcome="/worker/reservation/List" icon="ui-icon-pin-s"/>
-                        <p:menuitem value="#{bundle.Resources}" outcome="/worker/resource/List" icon="ui-icon-folder-open"/>
-                        <p:menuitem value="#{bundle.Users}" outcome="/worker/person/List" icon="ui-icon-person"/>
-                        <f:facet name="options">
-                            <p:commandButton ajax="false" value="#{bundle.Logout}" action="#{loggedUserController.logout()}" icon="ui-icon-extlink" style="float:right; margin-left: 10px; margin-top: 0px !important;"/>
-                            <p:menuitem value="#{bundle.Language}" style="display: table-row;">
-                                <p:outputLabel for="languageSelector" value="#{bundle.Language}" style="display: table-cell; vertical-align: middle; padding-right: 3px"/>
-                                <p:selectOneMenu id="languageSelector" value="#{languageSwitcherBean.locale}" onchange="submit()"
-                                                 valueChangeListener="#{languageSwitcherBean.localeChanged}" style="display: table-cell; vertical-align: middle;">
-                                    <f:selectItems value="#{languageSwitcherBean.countries}" /> 
-                                </p:selectOneMenu> 
-                            </p:menuitem>
+                    <h:form id="menuForm">
+                        <p:menubar>
+                            <p:menuitem value="#{bundle.Home}" outcome="/worker/index" icon="ui-icon-home"/>
+                            <p:menuitem value="#{bundle.Books}" outcome="/worker/book/List" icon="ui-icon-document"/>
+                            <p:menuitem value="#{bundle.Isbn}" outcome="/worker/isbn/List" icon="ui-icon-newwin"/>
+                            <p:menuitem value="#{bundle.Categories}" outcome="/worker/category/List" icon="ui-icon-battery-0"/>
+                            <p:menuitem value="#{bundle.Tags}" outcome="/worker/tag/List" icon="ui-icon-tag"/>
+                            <p:menuitem value="#{bundle.Borrows}" outcome="/worker/borrow/List" icon="ui-icon-suitcase"/>
+                            <p:menuitem value="#{bundle.Reservations}" outcome="/worker/reservation/List" icon="ui-icon-pin-s"/>
+                            <p:menuitem value="#{bundle.Resources}" outcome="/worker/resource/List" icon="ui-icon-folder-open"/>
+                            <p:menuitem value="#{bundle.Users}" outcome="/worker/person/List" icon="ui-icon-person"/>
+                            <f:facet name="options">
+                                <p:commandButton ajax="false" value="#{bundle.Logout}" action="#{loggedUserController.logout()}" icon="ui-icon-extlink" style="float:right; margin-left: 10px; margin-top: 0px !important;"/>
+                                <p:menuitem value="#{bundle.Language}" style="display: table-row;">
+                                    <p:outputLabel for="languageSelector" value="#{bundle.Language}" style="display: table-cell; vertical-align: middle; padding-right: 3px"/>
+                                    <p:selectOneMenu id="languageSelector" value="#{languageSwitcherBean.locale}" onchange="submit()"
+                                                     valueChangeListener="#{languageSwitcherBean.localeChanged}" style="display: table-cell; vertical-align: middle;">
+                                        <f:selectItems value="#{languageSwitcherBean.countries}" /> 
+                                    </p:selectOneMenu> 
+                                </p:menuitem>
 
-                            <p:menuitem value="#{bundle.Theme}" style="display: table-row; ">
-                                <p:outputLabel for="themeSelector" value="#{bundle.Theme}" style="display: table-cell; vertical-align: middle; padding-left: 10px; padding-right: 3px"/>
-                                <p:selectOneMenu id="themeSelector" style="display: table-cell; vertical-align: middle;"
-                                                 value="#{themeSwitcherBean.pickedTheme}"
-                                                 var="theme" effect="drop"
-                                                 onchange="$('#menuForm').submit()">
-                                    <f:converter converterId="jsf.util.ThemeConverter"/>
-                                    <f:selectItems var="t"
-                                                   value="#{themeSwitcherBean.themes}"
-                                                   itemLabel="#{t.name}"
-                                                   itemValue="#{t}"/>
-                                    <p:column>
-                                        <h:outputText styleClass="ui-theme ui-theme-#{theme.name}" />
-                                    </p:column>
-                                    <p:column>
-                                        <h:outputText value="#{theme.name}"/>
-                                    </p:column>
-                                </p:selectOneMenu>
-                            </p:menuitem>
-                        </f:facet>
-
-
-
-                    </p:menubar>
+                                <p:menuitem value="#{bundle.Theme}" style="display: table-row; ">
+                                    <p:outputLabel for="themeSelector" value="#{bundle.Theme}" style="display: table-cell; vertical-align: middle; padding-left: 10px; padding-right: 3px"/>
+                                    <p:selectOneMenu id="themeSelector" style="display: table-cell; vertical-align: middle;"
+                                                     value="#{themeSwitcherBean.pickedTheme}"
+                                                     var="theme" effect="drop"
+                                                     onchange="$('#menuForm').submit()">
+                                        <f:converter converterId="jsf.util.ThemeConverter"/>
+                                        <f:selectItems var="t"
+                                                       value="#{themeSwitcherBean.themes}"
+                                                       itemLabel="#{t.name}"
+                                                       itemValue="#{t}"/>
+                                        <p:column>
+                                            <h:outputText styleClass="ui-theme ui-theme-#{theme.name}" />
+                                        </p:column>
+                                        <p:column>
+                                            <h:outputText value="#{theme.name}"/>
+                                        </p:column>
+                                    </p:selectOneMenu>
+                                </p:menuitem>
+                            </f:facet>
 
 
 
-                </h:form>
-            </p:layoutUnit>
+                        </p:menubar>
 
 
-            <p:layoutUnit position="center">
-                <center>
-                    <ui:insert name="body"/>
-                </center>
-            </p:layoutUnit>
 
-        </p:layout>
+                    </h:form>
+                </p:layoutUnit>
 
+
+                <p:layoutUnit position="center">
+                    <center>
+                        <ui:insert name="body"/>
+                    </center>
+                </p:layoutUnit>
+
+            </p:layout>
+        </f:view>
     </h:body>
 
 </html>

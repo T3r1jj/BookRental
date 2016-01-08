@@ -57,6 +57,7 @@ public class OptionsController {
             Person admin = new Person();
             admin.setActivated(true);
             admin.setBanned(false);
+            admin.setLogin("admin");
             admin.setPassword("admin");
             admin.setFirstName("admin");
             admin.setLastName("admin");

@@ -26,7 +26,7 @@ import javax.faces.convert.FacesConverter;
 public class NewsController implements Serializable {
 
     @EJB
-    private jpa.session.NewsFacade ejbFacade;
+    private NewsFacade newsFacade;
     private List<News> items = null;
     private News selected;
 
@@ -48,7 +48,7 @@ public class NewsController implements Serializable {
     }
 
     private NewsFacade getFacade() {
-        return ejbFacade;
+        return newsFacade;
     }
 
     public News prepareCreate() {

@@ -24,7 +24,7 @@ import javax.faces.convert.FacesConverter;
 public class HistoryController implements Serializable {
 
     @EJB
-    private jpa.session.HistoryFacade ejbFacade;
+    private HistoryFacade historyFacade;
     private List<History> items = null;
     private History selected;
 
@@ -46,7 +46,7 @@ public class HistoryController implements Serializable {
     }
 
     private HistoryFacade getFacade() {
-        return ejbFacade;
+        return historyFacade;
     }
 
     public History prepareCreate() {

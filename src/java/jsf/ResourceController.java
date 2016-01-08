@@ -35,7 +35,7 @@ import org.primefaces.model.UploadedFile;
 public class ResourceController implements Serializable {
 
     @EJB
-    private jpa.session.ResourceFacade ejbFacade;
+    private ResourceFacade resourceFacade;
     private List<Resource> items = null;
     private Resource selected;
     private UploadedFile file;
@@ -66,7 +66,7 @@ public class ResourceController implements Serializable {
     }
 
     private ResourceFacade getFacade() {
-        return ejbFacade;
+        return resourceFacade;
     }
 
     public Resource prepareCreate() {

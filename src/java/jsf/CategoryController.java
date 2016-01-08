@@ -26,7 +26,7 @@ import org.primefaces.model.TreeNode;
 public class CategoryController implements Serializable {
 
     @EJB
-    private jpa.session.CategoryFacade ejbFacade;
+    private CategoryFacade categoryFacade;
     private List<Category> items = null;
     private Category selected;
     private TreeNode root;
@@ -49,7 +49,7 @@ public class CategoryController implements Serializable {
     }
 
     private CategoryFacade getFacade() {
-        return ejbFacade;
+        return categoryFacade;
     }
 
     public Category prepareCreate() {
