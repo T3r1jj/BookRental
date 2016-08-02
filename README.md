@@ -3,11 +3,12 @@ BookRental is one of my first **Java EE** projects based on **JSF/JPA/JDB**. It 
 
 ## Installation
 To install BookRental:
-1. Create JDB (Java DB) with default settings (*jdbc:derby://localhost:1527/library*):
+
+1. Create JDB (Java DB) with default settings (*jdbc:derby://localhost:1527/library*):  
   + db name: *library*,
   + username: *app*,
   + password: *app*.  
-  See glassfish-resources.xml for more details.
+  See glassfish-resources.xml for more details.  
 2. Deploy on server (preferably GlassFish Application Server 3.1 or newer).
 
 ## Gallery [[more]](https://t3r1jj.github.io/BookRental "BookRental project page")
